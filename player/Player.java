@@ -2,6 +2,7 @@ package player;
 
 import text.Colores;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Player {
@@ -13,22 +14,35 @@ public class Player {
     int minDamage;
     int maxDamage;
     String playerWeapon;
+    boolean DEV;
 
     // Setter using scanner to set username.
     public void setUserName() {
+        System.out.println("\n------------------------------------------------------------------");
         System.out.println("Please enter your player name you want to use during the game.");
+        System.out.println("------------------------------------------------------------------\n");
         Scanner name = new Scanner(System.in);
         this.userName = name.nextLine();
+
+        if (Objects.equals(this.userName, "DEV")){
+            this.DEV = true;
+            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("Welcome DEV you now have the power to destroy.");
+            System.out.println("------------------------------------------------------------------\n");
+        }
     }
 
     // Getter for username.
-    public String getUserName() {
-        return this.userName;
-    }
+    public String getUserName(){return this.userName;}
+
+    // Getter for DEV
+    public boolean DEV(){return this.DEV;}
 
     // Setter for user Age.
     public void setUserAge() {
+        System.out.println("\n------------------------------------------------------------------");
         System.out.println("Please enter your legal age.");
+        System.out.println("------------------------------------------------------------------\n");
         Scanner age = new Scanner(System.in);
         this.userAge = age.nextInt();
     }
@@ -40,11 +54,14 @@ public class Player {
 
     // Setter using scanner to set text color.
     public void setTextColor() {
+        System.out.println("\n------------------------------------------------------------------");
         System.out.println("Please enter the color the text should be. You can chose between:");
         System.out.println(Colores.BLUE+ "Blue" +Colores.RESET);
         System.out.println(Colores.CYAN+ "Cyan" +Colores.RESET);
         System.out.println(Colores.PURPLE+ "Purple" +Colores.RESET);
         System.out.println(Colores.YELLOW+ "Yellow" +Colores.RESET);
+        System.out.println(Colores.WHITE+ "White" +Colores.RESET);
+        System.out.println("------------------------------------------------------------------\n");
 
         Scanner color = new Scanner(System.in);
         String input = color.nextLine();

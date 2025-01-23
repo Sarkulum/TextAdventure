@@ -1,7 +1,7 @@
 package gameLogic;
 
 import items.StoryItems;
-import map.Rooms;
+import map.Tutorial;
 import player.Player;
 
 public class Game {
@@ -24,6 +24,6 @@ public class Game {
 
         storyItemsPlayer1.setSilverRing(false);
 
-        Rooms.townGate(player1, storyItemsPlayer1);
+        Tutorial.townGate(player1, storyItemsPlayer1);
     }
 }
