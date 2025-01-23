@@ -1,7 +1,12 @@
 package items;
 
 public class StoryItems {
-    public boolean silverRing() {
-        return false; //TODO make this do something
-    }
+    // Boolean for check if you own the item.
+    public boolean silverRing;
+
+    //Setter for silverRing
+    public void setSilverRing(boolean owned){this.silverRing = owned;}
+
+    // Getter for silverRing
+    public boolean getSilverRing(){return this.silverRing;}
 }

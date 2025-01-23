@@ -4,8 +4,10 @@ Text Adventure
 Version 0.0.1
 */
 
+import gameLogic.Game;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+        Game.StartGame();
     }
 }
