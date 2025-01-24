@@ -8,35 +8,32 @@ public class Enemy {
     public int maxHP;
     public int currentHP;
 
-    // Setter for enemy name.
-    public void setName(String inputName){this.name = inputName;}
-
-    // Getter for enemy name.
-    public String getEnemyName() {
-        return this.name;
+    // Constructor to initialize the enemy
+    public Enemy(String name, int maxDamage, int minDamage, int maxHP) {
+        this.name = name;             // Assign the name
+        this.maxDamage = maxDamage;   // Assign maximum damage
+        this.minDamage = minDamage;   // Assign minimum damage
+        this.maxHP = maxHP;           // Assign maximum HP
+        this.currentHP = maxHP;       // Set current HP to max HP by default
     }
 
-    // Setter for enemy max damage.
-    public void setMaxDamage(int inputMaxDamage){this.maxDamage = inputMaxDamage;}
+    // Getter and Setter for name
+    public void setName(String inputName) { this.name = inputName; }
+    public String getEnemyName() { return this.name; }
 
-    // Getter for Max Damage.
-    public int getMaxDamage(){return this.maxDamage;}
+    // Getter and Setter for max damage
+    public void setMaxDamage(int inputMaxDamage) { this.maxDamage = inputMaxDamage; }
+    public int getMaxDamage() { return this.maxDamage; }
 
-    // Setter for enemy min damage.
-    public void setMinDamage(int inputMinDamage){this.minDamage = inputMinDamage;}
+    // Getter and Setter for min damage
+    public void setMinDamage(int inputMinDamage) { this.minDamage = inputMinDamage; }
+    public int getMinDamage() { return this.minDamage; }
 
-    // Getter for min damage.
-    public int getMinDamage(){return this.minDamage;}
+    // Getter and Setter for max HP
+    public void setMaxHP(int inputHP) { this.maxHP = inputHP; }
+    public int getMaxHP() { return this.maxHP; }
 
-    // Setter for enemy hp.
-    public void setMaxHP(int inputHP){this.maxHP = inputHP;}
-
-    // Getter for hp
-    public int getMaxHP(){return this.maxHP;}
-
-    // Setter for current hp.
-    public void setCurrentHP(int inputHP){this.currentHP = inputHP;}
-
-    // Getter for current hp.
-    public int getCurrentHP(){return this.currentHP;}
+    // Getter and Setter for current HP
+    public void setCurrentHP(int inputHP) { this.currentHP = inputHP; }
+    public int getCurrentHP() { return this.currentHP; }
 }

@@ -1,29 +1,36 @@
 package gameLogic;
 
+import combat.Attack;
 import items.StoryItems;
 import map.Tutorial;
 import player.Player;
+import player.PlayerDecision;
 
 public class Game {
     public static void StartGame() {
-        // Create a UserData instance.
-        Player player1 = new Player();
+        PlayerDecision setParams = new PlayerDecision();
 
-        // Set all params.
-        player1.setUserName();
-        player1.setUserAge();
-        player1.setTextColor();
-        player1.setMaxDamage(5);
-        player1.setMinDamage(1);
-        player1.setCurrentHP(20);
-        player1.setMaxHP(20);
-        player1.setPlayerWeapon("Knife");
+        // Create a UserData instance.
+        Player player1 = Player.createPlayer(
+                "ID1",
+                setParams.setUserName(),
+                setParams.DEV(),
+                setParams.setUserAge(),
+                setParams.setTextColor(),
+                20,
+                5,
+                1,
+                "Knife"
+        );
+
+        // Initialize the Attack singleton with the player
+        Attack.initialize(player1);
 
         // Create story item status for player 1
         StoryItems storyItemsPlayer1 = new StoryItems();
 
         storyItemsPlayer1.setSilverRing(false);
 
-        Tutorial.townGate(player1, storyItemsPlayer1);
+        Tutorial.townGate(storyItemsPlayer1);
     }
 }

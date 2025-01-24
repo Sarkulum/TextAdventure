@@ -2,10 +2,15 @@ package player;
 
 import text.Colores;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Player {
+    private static Map<String, Player> players = new HashMap<>(); // Registry of all players
+
+    public String userID;
     public String userName;
     public int userAge;
     public String userTextColor;
@@ -16,6 +21,35 @@ public class Player {
     String playerWeapon;
     boolean DEV;
 
+    // Constructor (private to encourage using the factory method)
+    private Player(String userID ,String userName, int userAge, String userTextColor, int maxHP, int minDamage, int maxDamage, String playerWeapon, boolean DEV) {
+        this.userID = userID;
+        this.userName = userName;
+        this.userAge = userAge;
+        this.userTextColor = userTextColor;
+        this.maxHP = maxHP;
+        this.currentHP = maxHP;
+        this.minDamage = minDamage;
+        this.maxDamage = maxDamage;
+        this.playerWeapon = playerWeapon;
+        this.DEV = DEV;
+    }
+
+    // Factory method to create or retrieve a player
+    public static Player createPlayer(String userID , String userName, boolean DEV, int userAge, String userTextColor, int maxHP, int minDamage, int maxDamage, String playerWeapon) {
+        if (!players.containsKey(userID)) {
+            Player player = new Player(userID, userName, userAge, userTextColor, maxHP, minDamage, maxDamage, playerWeapon, DEV);
+            players.put(userID, player);
+        }
+        return players.get(userID);
+    }
+
+    // Method to retrieve a player by name
+    public static Player getPlayer(String userID) {
+        return players.get(userID);
+    }
+
+    /*
     // Setter using scanner to set username.
     public void setUserName() {
         System.out.println("\n------------------------------------------------------------------");
@@ -31,6 +65,7 @@ public class Player {
             System.out.println("------------------------------------------------------------------\n");
         }
     }
+     */
 
     // Getter for username.
     public String getUserName(){return this.userName;}
@@ -38,6 +73,7 @@ public class Player {
     // Getter for DEV
     public boolean DEV(){return this.DEV;}
 
+    /*
     // Setter for user Age.
     public void setUserAge() {
         System.out.println("\n------------------------------------------------------------------");
@@ -47,11 +83,14 @@ public class Player {
         this.userAge = age.nextInt();
     }
 
+     */
+
     // Getter for user age.
     public int getUserAge() {
         return this.userAge;
     }
 
+    /*
     // Setter using scanner to set text color.
     public void setTextColor() {
         System.out.println("\n------------------------------------------------------------------");
@@ -76,6 +115,8 @@ public class Player {
             default -> this.userTextColor = "";
         };
     }
+
+     */
 
     // Getter for text color.
     public String getUserTextColor() {
