@@ -60,7 +60,8 @@ public class Player {
         System.out.println(Colores.CYAN+ "Cyan" +Colores.RESET);
         System.out.println(Colores.PURPLE+ "Purple" +Colores.RESET);
         System.out.println(Colores.YELLOW+ "Yellow" +Colores.RESET);
-        System.out.println(Colores.WHITE+ "White" +Colores.RESET);
+        System.out.println(Colores.Gray + "Gray" +Colores.RESET);
+        System.out.println("White");
         System.out.println("------------------------------------------------------------------\n");
 
         Scanner color = new Scanner(System.in);
@@ -71,7 +72,8 @@ public class Player {
             case "Cyan" -> this.userTextColor = Colores.CYAN;
             case "Purple" -> this.userTextColor = Colores.PURPLE;
             case "Yellow" -> this.userTextColor = Colores.YELLOW;
-            default -> this.userTextColor = Colores.WHITE;
+            case "White" -> this.userTextColor = "";
+            default -> this.userTextColor = "";
         };
     }
 
