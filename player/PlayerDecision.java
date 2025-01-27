@@ -1,11 +1,13 @@
 package player;
 
-import text.Colores;
+import text.Colors;
 
 import java.util.Objects;
 import java.util.Scanner;
 
 public class PlayerDecision {
+    public Player player = Player.getPlayer("ID1");
+
     public static int inputWithCheck(int decisionRange) {
         int decisionValue;
         Scanner scanner = new Scanner(System.in);
@@ -61,11 +63,11 @@ public class PlayerDecision {
     public String setTextColor() {
         System.out.println("\n------------------------------------------------------------------");
         System.out.println("Please enter the color the text should be. You can chose between:");
-        System.out.println(Colores.BLUE+ "Blue" +Colores.RESET);
-        System.out.println(Colores.CYAN+ "Cyan" +Colores.RESET);
-        System.out.println(Colores.PURPLE+ "Purple" +Colores.RESET);
-        System.out.println(Colores.YELLOW+ "Yellow" +Colores.RESET);
-        System.out.println(Colores.Gray + "Gray" +Colores.RESET);
+        System.out.println(Colors.BLUE+ "Blue" + Colors.RESET);
+        System.out.println(Colors.CYAN+ "Cyan" + Colors.RESET);
+        System.out.println(Colors.PURPLE+ "Purple" + Colors.RESET);
+        System.out.println(Colors.YELLOW+ "Yellow" + Colors.RESET);
+        System.out.println(Colors.Gray + "Gray" + Colors.RESET);
         System.out.println("White");
         System.out.println("------------------------------------------------------------------\n");
 
@@ -73,10 +75,10 @@ public class PlayerDecision {
         String input = color.nextLine();
 
         return switch (input) { //This looks scary but its basically just a simplified if else statement.
-            case "Blue" -> Colores.BLUE;
-            case "Cyan" -> Colores.CYAN;
-            case "Purple" -> Colores.PURPLE;
-            case "Yellow" -> Colores.YELLOW;
+            case "Blue" -> Colors.BLUE;
+            case "Cyan" -> Colors.CYAN;
+            case "Purple" -> Colors.PURPLE;
+            case "Yellow" -> Colors.YELLOW;
             case "White" -> "";
             default -> "";
         };

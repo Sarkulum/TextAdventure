@@ -1,7 +1,14 @@
 package enemys;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 public class Enemy {
+    private static Map<Integer, Enemy> enemys = new HashMap<>(); // Registry of all players
+
     // Vars for all relevant Enemy stats.
+    public Integer enemyID;
     public String name = "empty";
     public int maxDamage;
     public int minDamage;
@@ -9,13 +16,34 @@ public class Enemy {
     public int currentHP;
 
     // Constructor to initialize the enemy
-    public Enemy(String name, int maxDamage, int minDamage, int maxHP) {
+    private Enemy(Integer enemyID, String name, int maxDamage, int minDamage, int maxHP) {
+        this.enemyID = enemyID;
         this.name = name;             // Assign the name
         this.maxDamage = maxDamage;   // Assign maximum damage
         this.minDamage = minDamage;   // Assign minimum damage
         this.maxHP = maxHP;           // Assign maximum HP
         this.currentHP = maxHP;       // Set current HP to max HP by default
     }
+
+    // Factory method to create or retrieve a player
+    public static Enemy createEnemy(Integer enemyID , String name, int maxHP, int minDamage, int maxDamage) {
+        if (!enemys.containsKey(enemyID)) {
+            Enemy enemy = new Enemy(enemyID, name, maxHP, minDamage, maxDamage);
+            enemys.put(enemyID, enemy);
+        }
+        return enemys.get(enemyID);
+    }
+
+    // Method to retrieve a player by name
+    public static Enemy getEnemy(Integer enemyID) {
+        return enemys.get(enemyID);
+    }
+
+    // Getter for Hash Map
+    public Map<Integer, Enemy> getHashMap() {return enemys;}
+
+    // Getter for id
+    public Integer getEnemyID() {return this.enemyID;}
 
     // Getter and Setter for name
     public void setName(String inputName) { this.name = inputName; }
@@ -36,4 +64,38 @@ public class Enemy {
     // Getter and Setter for current HP
     public void setCurrentHP(int inputHP) { this.currentHP = inputHP; }
     public int getCurrentHP() { return this.currentHP; }
+
+    // Boolean to check if any enemy on the Map still has more than 0 hp
+    public static boolean enemyAlive() {
+        int nummberOfEnemys = enemys.size();
+        for(int i = 0; i < nummberOfEnemys; i++) {
+            Enemy currentEnemy = Enemy.getEnemy(i);
+            int enemyCurrentHP = currentEnemy.getCurrentHP();
+            if ( enemyCurrentHP > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Function to remove enemys from Map after fight
+    public void removeEntrys() {
+        int nummberOfEnemys = enemys.size();
+        for(int i = 0; i < nummberOfEnemys; i++) {
+            Enemy currentEnemy = Enemy.getEnemy(i);
+            enemys.remove(currentEnemy);
+        }
+    }
+
+    // Boolean to see if the id is still available
+    public static boolean isIdFree(Integer id) {
+        for(int i = 0; i < enemys.size(); i++) {
+            Enemy currentEnemy = Enemy.getEnemy(i);
+            Integer currentID = currentEnemy.getEnemyID();
+            if(Objects.equals(currentID, id)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

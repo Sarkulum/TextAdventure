@@ -3,31 +3,42 @@ package map;
 import combat.Attack;
 import enemys.Enemy;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class RandomRooms {
     Random random = new Random();
+    Scanner enterScanner = new Scanner(System.in);
 
     public void setRandomRoom(int maxEnemy, int maxDamage, int minDamage, int maxHP){
-        int enemys = random.nextInt(maxEnemy);
-        boolean enemyAlive = true;
-        List<Enemy> enemies = new ArrayList<>();
+        int enemys = random.nextInt(maxEnemy) + 1;
 
         for (int i = 0; enemys > i; i++){
-            Enemy enemy = new Enemy("Enemy " + (i + 1), random.nextInt(maxDamage), random.nextInt(minDamage), random.nextInt(maxHP));  // Create an enemy with unique name
-            enemies.add(enemy); // Add the enemy to the list
+            Enemy enemy = Enemy.createEnemy(
+                    i,
+                    "Empty",
+                    random.nextInt(maxDamage),
+                    random.nextInt(minDamage),
+                    random.nextInt(maxHP)
+            );  // Create an enemy with unique id
         }
 
         // Access the singleton instance of Attack
         Attack combat = Attack.getInstance();
 
-        while (enemyAlive){
-            for (Enemy enemy : enemies) {
-                combat.setEnemy(enemy);
+        while (Enemy.enemyAlive()){
+            for (int i = 0; i < enemys; i++) {
+                Enemy currentEnemy = Enemy.getEnemy(i);
+                combat.setEnemy(currentEnemy);
                 combat.attackPlayer();
+                enterScanner.nextLine();
             }
+            System.out.println("There are "+enemys+" in front of you. Who do you want to attack?");
+            int target = enterScanner.nextInt();
+
+            Enemy currentEnemy = Enemy.getEnemy(target);
+            combat.setEnemy(currentEnemy);
+            combat.attackEnemy();
         }
     }
 }

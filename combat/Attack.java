@@ -56,8 +56,8 @@ public class Attack {
 
     // Enemy attacks the player
     public void attackPlayer() {
-        if (enemy == null) {
-            System.out.println("No enemy set! Use setEnemy() to specify an enemy.");
+        if (player == null) {
+            System.out.println("No enemy set! Use setPlayer() to specify an player.");
             return;
         }
 

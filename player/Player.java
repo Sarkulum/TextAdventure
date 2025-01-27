@@ -1,11 +1,7 @@
 package player;
 
-import text.Colores;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Scanner;
 
 public class Player {
     private static Map<String, Player> players = new HashMap<>(); // Registry of all players
@@ -36,7 +32,17 @@ public class Player {
     }
 
     // Factory method to create or retrieve a player
-    public static Player createPlayer(String userID , String userName, boolean DEV, int userAge, String userTextColor, int maxHP, int minDamage, int maxDamage, String playerWeapon) {
+    public static Player createPlayer(
+            String userID,
+            String userName,
+            boolean DEV,
+            int userAge,
+            String userTextColor,
+            int maxHP,
+            int minDamage,
+            int maxDamage,
+            String playerWeapon
+    ) {
         if (!players.containsKey(userID)) {
             Player player = new Player(userID, userName, userAge, userTextColor, maxHP, minDamage, maxDamage, playerWeapon, DEV);
             players.put(userID, player);
@@ -70,7 +76,8 @@ public class Player {
     // Getter for username.
     public String getUserName(){return this.userName;}
 
-    // Getter for DEV
+    // Getter and Setter for DEV
+    public void setDEV(boolean inputDEV) {this.DEV = inputDEV;}
     public boolean DEV(){return this.DEV;}
 
     /*
@@ -95,11 +102,11 @@ public class Player {
     public void setTextColor() {
         System.out.println("\n------------------------------------------------------------------");
         System.out.println("Please enter the color the text should be. You can chose between:");
-        System.out.println(Colores.BLUE+ "Blue" +Colores.RESET);
-        System.out.println(Colores.CYAN+ "Cyan" +Colores.RESET);
-        System.out.println(Colores.PURPLE+ "Purple" +Colores.RESET);
-        System.out.println(Colores.YELLOW+ "Yellow" +Colores.RESET);
-        System.out.println(Colores.Gray + "Gray" +Colores.RESET);
+        System.out.println(Colors.BLUE+ "Blue" +Colors.RESET);
+        System.out.println(Colors.CYAN+ "Cyan" +Colors.RESET);
+        System.out.println(Colors.PURPLE+ "Purple" +Colors.RESET);
+        System.out.println(Colors.YELLOW+ "Yellow" +Colors.RESET);
+        System.out.println(Colors.Gray + "Gray" +Colors.RESET);
         System.out.println("White");
         System.out.println("------------------------------------------------------------------\n");
 
@@ -107,10 +114,10 @@ public class Player {
         String input = color.nextLine();
 
         switch (input) { //This looks scary but its basically just a simplified if else statement.
-            case "Blue" -> this.userTextColor = Colores.BLUE;
-            case "Cyan" -> this.userTextColor = Colores.CYAN;
-            case "Purple" -> this.userTextColor = Colores.PURPLE;
-            case "Yellow" -> this.userTextColor = Colores.YELLOW;
+            case "Blue" -> this.userTextColor = Colors.BLUE;
+            case "Cyan" -> this.userTextColor = Colors.CYAN;
+            case "Purple" -> this.userTextColor = Colors.PURPLE;
+            case "Yellow" -> this.userTextColor = Colors.YELLOW;
             case "White" -> this.userTextColor = "";
             default -> this.userTextColor = "";
         };

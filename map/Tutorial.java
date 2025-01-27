@@ -32,13 +32,16 @@ public class Tutorial {
         choice = PlayerDecision.inputWithCheck(3);
 
         if(choice == 1) {
-            if (storyItems.getSilverRing()) {
+            if (storyItems.getSilverRing() || player.DEV()) {
                 System.out.println("\n------------------------------------------------------------------");
                 System.out.println("Guard: Oh! You killed that goblin!?? Great!");
                 System.out.println("It seems you are a trustworthy and sexy guy. Here is my phone number.");
                 System.out.println("Welcome to our Great Village of Laatzen-Ost!");
                 System.out.println("\n\n           THE END                    ");
                 System.out.println("------------------------------------------------------------------\n");
+
+                RandomRooms randomRoom = new RandomRooms();
+                randomRoom.setRandomRoom(10, 10, 1, 10);
             }else {
                 System.out.println("\n------------------------------------------------------------------");
                 System.out.println("Guard: Hello there, stranger. So your name is " + player.getUserName() + "? \nSorry but we cannot let stranger enter our town.");
@@ -167,7 +170,7 @@ public class Tutorial {
 
     public static void fight(StoryItems storyItems){
         Player player = Player.getPlayer("ID1");
-        Enemy goblin = new Enemy("Goblin", 5, 1, 10);
+        Enemy goblin = Enemy.createEnemy(1,"Goblin", 5, 1, 10);
 
         // Access the singleton instance of Attack
         Attack combat = Attack.getInstance();

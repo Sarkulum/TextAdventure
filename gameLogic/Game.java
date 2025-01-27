@@ -14,7 +14,7 @@ public class Game {
         Player player1 = Player.createPlayer(
                 "ID1",
                 setParams.setUserName(),
-                setParams.DEV(),
+                false,
                 setParams.setUserAge(),
                 setParams.setTextColor(),
                 20,
@@ -22,6 +22,7 @@ public class Game {
                 1,
                 "Knife"
         );
+        player1.setDEV(setParams.DEV());
 
         // Initialize the Attack singleton with the player
         Attack.initialize(player1);
