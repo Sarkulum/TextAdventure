@@ -16,9 +16,10 @@ public class Player {
     int maxDamage;
     String playerWeapon;
     boolean DEV;
+    int goldCoins;
 
     // Constructor (private to encourage using the factory method)
-    private Player(String userID ,String userName, int userAge, String userTextColor, int maxHP, int minDamage, int maxDamage, String playerWeapon, boolean DEV) {
+    private Player(String userID ,String userName, int userAge, String userTextColor, int maxHP, int minDamage, int maxDamage, String playerWeapon, boolean DEV, int goldCoins) {
         this.userID = userID;
         this.userName = userName;
         this.userAge = userAge;
@@ -29,6 +30,7 @@ public class Player {
         this.maxDamage = maxDamage;
         this.playerWeapon = playerWeapon;
         this.DEV = DEV;
+        this.goldCoins = goldCoins;
     }
 
     // Factory method to create or retrieve a player
@@ -41,10 +43,11 @@ public class Player {
             int maxHP,
             int minDamage,
             int maxDamage,
-            String playerWeapon
+            String playerWeapon,
+            int goldCoins
     ) {
         if (!players.containsKey(userID)) {
-            Player player = new Player(userID, userName, userAge, userTextColor, maxHP, minDamage, maxDamage, playerWeapon, DEV);
+            Player player = new Player(userID, userName, userAge, userTextColor, maxHP, minDamage, maxDamage, playerWeapon, DEV, goldCoins);
             players.put(userID, player);
         }
         return players.get(userID);
@@ -55,24 +58,6 @@ public class Player {
         return players.get(userID);
     }
 
-    /*
-    // Setter using scanner to set username.
-    public void setUserName() {
-        System.out.println("\n------------------------------------------------------------------");
-        System.out.println("Please enter your player name you want to use during the game.");
-        System.out.println("------------------------------------------------------------------\n");
-        Scanner name = new Scanner(System.in);
-        this.userName = name.nextLine();
-
-        if (Objects.equals(this.userName, "DEV")){
-            this.DEV = true;
-            System.out.println("\n------------------------------------------------------------------");
-            System.out.println("Welcome DEV you now have the power to destroy.");
-            System.out.println("------------------------------------------------------------------\n");
-        }
-    }
-     */
-
     // Getter for username.
     public String getUserName(){return this.userName;}
 
@@ -80,83 +65,45 @@ public class Player {
     public void setDEV(boolean inputDEV) {this.DEV = inputDEV;}
     public boolean DEV(){return this.DEV;}
 
-    /*
-    // Setter for user Age.
-    public void setUserAge() {
-        System.out.println("\n------------------------------------------------------------------");
-        System.out.println("Please enter your legal age.");
-        System.out.println("------------------------------------------------------------------\n");
-        Scanner age = new Scanner(System.in);
-        this.userAge = age.nextInt();
-    }
-
-     */
-
     // Getter for user age.
     public int getUserAge() {
         return this.userAge;
     }
-
-    /*
-    // Setter using scanner to set text color.
-    public void setTextColor() {
-        System.out.println("\n------------------------------------------------------------------");
-        System.out.println("Please enter the color the text should be. You can chose between:");
-        System.out.println(Colors.BLUE+ "Blue" +Colors.RESET);
-        System.out.println(Colors.CYAN+ "Cyan" +Colors.RESET);
-        System.out.println(Colors.PURPLE+ "Purple" +Colors.RESET);
-        System.out.println(Colors.YELLOW+ "Yellow" +Colors.RESET);
-        System.out.println(Colors.Gray + "Gray" +Colors.RESET);
-        System.out.println("White");
-        System.out.println("------------------------------------------------------------------\n");
-
-        Scanner color = new Scanner(System.in);
-        String input = color.nextLine();
-
-        switch (input) { //This looks scary but its basically just a simplified if else statement.
-            case "Blue" -> this.userTextColor = Colors.BLUE;
-            case "Cyan" -> this.userTextColor = Colors.CYAN;
-            case "Purple" -> this.userTextColor = Colors.PURPLE;
-            case "Yellow" -> this.userTextColor = Colors.YELLOW;
-            case "White" -> this.userTextColor = "";
-            default -> this.userTextColor = "";
-        };
-    }
-
-     */
 
     // Getter for text color.
     public String getUserTextColor() {
         return this.userTextColor;
     }
 
-    // Setter for player max damage.
+    // Setter and getter for player max damage.
     public void setMaxDamage(int inputMaxDamage){this.maxDamage = inputMaxDamage;}
-
-    // Getter for Max Damage.
     public int getMaxDamage(){return this.maxDamage;}
 
-    // Setter for player min damage.
+    // Setter and getter for player min damage.
     public void setMinDamage(int inputMinDamage){this.minDamage = inputMinDamage;}
-
-    // Getter for min damage.
     public int getMinDamage(){return this.minDamage;}
 
-    // Setter for player hp.
+    // Setter and getter for player hp.
     public void setMaxHP(int inputHP){this.maxHP = inputHP;}
-
-    // Getter for hp
     public int getMaxHP(){return this.maxHP;}
 
-    // Setter for current hp.
+    // Setter and getter for current hp.
     public void setCurrentHP(int inputHP){this.currentHP = inputHP;}
-
-    // Getter for current hp.
     public int getCurrentHP(){return this.currentHP;}
 
-    // Setter for playerWeapon.
+    // Setter and getter for playerWeapon.
     public void setPlayerWeapon(String input){this.playerWeapon = input;}
-
-    // Getter for playerWeapon.
     public String getPlayerWeapon(){return this.playerWeapon;}
+
+    // Getter and Setter for gold coins
+    public int getGoldCoins(){return this.goldCoins;}
+    public void setGoldCoins(int goldCoins){this.goldCoins = goldCoins;}
+
+    // Get alive status of player
+    public boolean playerAlive(){
+        if(this.currentHP > 0){
+            return true;
+        }
+        return false;
+    }
 }

@@ -200,6 +200,7 @@ public class Tutorial {
         }else{
             storyItems.setSilverRing(true);
             System.out.println("\nYou have killed the Goblin and gained a Silver Ring.");
+            goblin.removeEntrys();
             goblinCave(storyItems);
         }
     }

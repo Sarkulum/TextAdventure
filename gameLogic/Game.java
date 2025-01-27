@@ -20,7 +20,8 @@ public class Game {
                 20,
                 5,
                 1,
-                "Knife"
+                "Knife",
+                0
         );
         player1.setDEV(setParams.DEV());
 
