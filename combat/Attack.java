@@ -61,16 +61,16 @@ public class Attack {
             return;
         }
 
-        int damageEnemy = random.nextInt(enemy.getMaxDamage());
+        int damageEnemy = random.nextInt(enemy.getMaxDamage()+1);
         if (damageEnemy < enemy.getMinDamage()) {
             damageEnemy = enemy.getMinDamage();
         }
         player.setCurrentHP(player.getCurrentHP() - damageEnemy);
 
-        player.playerAlive(this.enemy);
-
         System.out.println("\n------------------------------------------------------------------");
-        System.out.println("You have died to "+enemy.getEnemyName()+". You will now respawn at your latest checkpoint.");
+        System.out.println("You where hit by " + enemy.getEnemyName() + " for " + damageEnemy + " damage!");
         System.out.println("------------------------------------------------------------------\n");
+
+        player.playerAlive(this.enemy);
     }
 }

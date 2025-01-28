@@ -3,9 +3,9 @@ package enemys;
 import java.util.Random;
 
 public class ZombieTypes {
-    Random random = new Random();
-
-    public Integer createZombie(String name) {
+    public static Integer createZombie(String name, Integer finalId) {
+        Random random = new Random();
+        /*
         boolean idFree = false;
         Integer finalId = 0;
 
@@ -16,6 +16,7 @@ public class ZombieTypes {
                 finalId = id;
             }
         }
+         */
 
         switch (name) {
             case "Shambler" -> Enemy.createEnemy(

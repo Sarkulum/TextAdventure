@@ -34,9 +34,13 @@ public class Shop {
 
         int choice = scanner.nextInt();
         goldCheckAndBuy(choice);
+
         System.out.println("\n------------------------------------------------------------------");
-        System.out.println("Thanks for visiting my shop and buying something. You can come back whenever you die and Respawn here.");
+        System.out.println("Thanks for visiting my shop. You can come back whenever you die and Respawn here.");
         System.out.println("------------------------------------------------------------------\n");
+
+        RandomRooms randomRoom = new RandomRooms();
+        randomRoom.setRandomRoom(10);
     }
 
     public static void goldCheckAndBuy(int choice) {

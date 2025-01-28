@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Enemy {
-    private static Map<Integer, Enemy> enemys = new HashMap<>(); // Registry of all players
+    private static Map<Integer, Enemy> enemys = new HashMap<>(); // Registry of all enemys
 
     // Vars for all relevant Enemy stats.
     public Integer enemyID;
@@ -26,15 +26,15 @@ public class Enemy {
     }
 
     // Factory method to create or retrieve a player
-    public static Enemy createEnemy(Integer enemyID , String name, int maxHP, int minDamage, int maxDamage) {
+    public static Enemy createEnemy(Integer enemyID , String name, int maxDamage, int minDamage, int maxHP) {
         if (!enemys.containsKey(enemyID)) {
-            Enemy enemy = new Enemy(enemyID, name, maxHP, minDamage, maxDamage);
+            Enemy enemy = new Enemy(enemyID, name, maxDamage, minDamage, maxHP);
             enemys.put(enemyID, enemy);
         }
         return enemys.get(enemyID);
     }
 
-    // Method to retrieve a player by name
+    // Method to retrieve a enemy by id
     public static Enemy getEnemy(Integer enemyID) {
         return enemys.get(enemyID);
     }

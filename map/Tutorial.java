@@ -39,8 +39,7 @@ public class Tutorial {
                 System.out.println("\n\n           THE END                    ");
                 System.out.println("------------------------------------------------------------------\n");
 
-                RandomRooms randomRoom = new RandomRooms();
-                randomRoom.setRandomRoom(10, 10, 1, 10);
+                Empty1.EmptyRoom();
             }else {
                 System.out.println("\n------------------------------------------------------------------");
                 System.out.println("Guard: Hello there, stranger. So your name is " + player.getUserName() + "? \nSorry but we cannot let stranger enter our town.");
