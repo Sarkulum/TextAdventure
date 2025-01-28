@@ -78,6 +78,19 @@ public class Enemy {
         return false;
     }
 
+    // clean list to remove all dead enemys
+    public static void cleanList() {
+        int nummberOfEnemys = enemys.size();
+        for(int i = 0; i < nummberOfEnemys; i++) {
+            Enemy currentEnemy = Enemy.getEnemy(i);
+            int enemyCurrentHP = currentEnemy.getCurrentHP();
+            if ( enemyCurrentHP <= 0) {
+                enemys.remove(currentEnemy);
+            }
+        }
+
+    }
+
     // Function to remove enemys from Map after fight
     public void removeEntrys() {
         int nummberOfEnemys = enemys.size();

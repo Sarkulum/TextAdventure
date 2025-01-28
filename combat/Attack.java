@@ -52,6 +52,8 @@ public class Attack {
         System.out.println("\n------------------------------------------------------------------");
         System.out.println("You have hit the " + enemy.getEnemyName() + " for " + damagePlayer + " damage!");
         System.out.println("------------------------------------------------------------------\n");
+
+        Enemy.cleanList();
     }
 
     // Enemy attacks the player

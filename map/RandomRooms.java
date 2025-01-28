@@ -21,14 +21,18 @@ public class RandomRooms {
         Attack combat = Attack.getInstance();
 
         while (Enemy.enemyAlive()){
-            System.out.println("There are "+maxEnemy+" in front of you. Who do you want to attack?");
+            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("You have entered a room with "+maxEnemy+" enemy's inside.");
+            System.out.println("------------------------------------------------------------------\n");
             for (int i = 0; i < maxEnemy; i++) {
                 Enemy currentEnemy = Enemy.getEnemy(i);
                 combat.setEnemy(currentEnemy);
                 combat.attackPlayer();
                 enterScanner.nextLine();
             }
+            System.out.println("\n------------------------------------------------------------------");
             System.out.println("There are "+maxEnemy+" in front of you. Who do you want to attack?");
+            System.out.println("------------------------------------------------------------------\n");
             int target = enterScanner.nextInt();
 
             Enemy currentEnemy = Enemy.getEnemy(target);
