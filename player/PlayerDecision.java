@@ -1,13 +1,15 @@
 package player;
 
 import text.Colors;
-
 import java.util.Objects;
 import java.util.Scanner;
 
+// Class for all the print statements that are needed to set up a player
 public class PlayerDecision {
-    public Player player = Player.getPlayer("ID1");
+    public Player player = Player.getPlayer("ID1"); // Get player
 
+
+    // Function to check if player choice is withing the possibility's and also if it is a number
     public static int inputWithCheck(int decisionRange) {
         int decisionValue;
         Scanner scanner = new Scanner(System.in);

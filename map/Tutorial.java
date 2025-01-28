@@ -9,10 +9,8 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Tutorial {
-    // Scanner to check if the player wants to proceed.
-    static Scanner enterScanner = new Scanner(System.in);
-    // Int for player choice.
-    public static int choice;
+    static Scanner enterScanner = new Scanner(System.in); // Scanner to check if the player wants to proceed.
+    public static int choice; // Int for player choice.
 
     // Starting room.
     public static void townGate() {
@@ -38,8 +36,6 @@ public class Tutorial {
                 System.out.println("Welcome to our Great Village of Laatzen-Ost!");
                 System.out.println("\n\n           THE END                    ");
                 System.out.println("------------------------------------------------------------------\n");
-
-                Empty1.EmptyRoom();
             }else {
                 System.out.println("\n------------------------------------------------------------------");
                 System.out.println("Guard: Hello there, stranger. So your name is " + player.getUserName() + "? \nSorry but we cannot let stranger enter our town.");
@@ -168,8 +164,8 @@ public class Tutorial {
     }
 
     public static void fight(){
-        Player player = Player.getPlayer("ID1");
-        Enemy goblin = Enemy.createEnemy(1,"Goblin", 5, 1, 10);
+        Player player = Player.getPlayer("ID1"); // Get player with ID1
+        Enemy goblin = Enemy.createEnemy(1,"Goblin", 5, 1, 10); // Make the goblin enemy
 
         // Access the singleton instance of Attack
         Attack combat = Attack.getInstance();
@@ -199,7 +195,7 @@ public class Tutorial {
         }else{
             player.setSilverRing(true);
             System.out.println("\nYou have killed the Goblin and gained a Silver Ring.");
-            goblin.removeEntrys();
+            goblin.removeAllEntrys();
             goblinCave();
         }
     }

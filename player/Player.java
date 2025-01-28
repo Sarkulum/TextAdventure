@@ -2,7 +2,6 @@ package player;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import enemys.Enemy;
 import map.Shop;
 import map.Tutorial;
@@ -10,20 +9,20 @@ import map.Tutorial;
 public class Player {
     private static Map<String, Player> players = new HashMap<>(); // Registry of all players
 
-    public String userID;
-    public String userName;
-    public int userAge;
-    public String userTextColor;
-    int maxHP;
-    int currentHP;
-    int minDamage;
-    int maxDamage;
-    String playerWeapon;
-    boolean DEV;
-    int goldCoins;
-    boolean tutorialPassed;
-    boolean firstShopVisit;
-    public boolean silverRing;
+    public String userID; // Player identifier
+    public String userName; // Username set by player
+    public int userAge; // User Age
+    public String userTextColor; // Text color the print statements get displayed in
+    int maxHP; // Max possible hp
+    int currentHP; // Current hp to save hp after getting damaged
+    int minDamage; // Min damage the player can deal
+    int maxDamage; // Max damage the player can deal
+    String playerWeapon; // Name of the weapon the player has
+    boolean DEV; // Is user Dev?
+    int goldCoins; // Count for gold coins
+    boolean tutorialPassed; // Has player passed the tutorial?
+    boolean firstShopVisit; // Has the player visited the shop before
+    public boolean silverRing; // Does player one the ring
 
     // Constructor (private to encourage using the factory method)
     private Player(String userID ,String userName, int userAge, String userTextColor, int maxHP, int minDamage, int maxDamage, String playerWeapon, boolean DEV, int goldCoins) {
@@ -106,6 +105,18 @@ public class Player {
     public int getGoldCoins(){return this.goldCoins;}
     public void setGoldCoins(int goldCoins){this.goldCoins = goldCoins;}
 
+    // Getter and Setter for tutorial passed
+    public boolean getTutorialPassed(){return this.tutorialPassed;}
+    public void setTutorialPassed(boolean tutorialPassed){this.tutorialPassed = tutorialPassed;}
+
+    // Getter and setter for first shop visit
+    public boolean getFirstShopVisit(){return this.firstShopVisit;}
+    public void setFirstShopVisit(boolean firstShopVisit){this.firstShopVisit = firstShopVisit;}
+
+    //Setter and getter for silverRing
+    public void setSilverRing(boolean owned){this.silverRing = owned;}
+    public boolean getSilverRing(){return this.silverRing;}
+
     // Get alive status of player
     public void playerAlive(Enemy enemy){
         if(this.currentHP > 0){
@@ -123,16 +134,4 @@ public class Player {
             Tutorial.townGate();
         }
     }
-
-    // Getter and Setter for tutorial passed
-    public boolean getTutorialPassed(){return this.tutorialPassed;}
-    public void setTutorialPassed(boolean tutorialPassed){this.tutorialPassed = tutorialPassed;}
-
-    // Getter and setter for first shop visit
-    public boolean getFirstShopVisit(){return this.firstShopVisit;}
-    public void setFirstShopVisit(boolean firstShopVisit){this.firstShopVisit = firstShopVisit;}
-
-    //Setter and getter for silverRing
-    public void setSilverRing(boolean owned){this.silverRing = owned;}
-    public boolean getSilverRing(){return this.silverRing;}
 }

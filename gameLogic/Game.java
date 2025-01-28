@@ -1,7 +1,7 @@
 package gameLogic;
 
 import combat.Attack;
-import items.StoryItems;
+import map.Empty1;
 import map.Tutorial;
 import player.Player;
 import player.PlayerDecision;
@@ -10,7 +10,7 @@ public class Game {
     public static void StartGame() {
         PlayerDecision setParams = new PlayerDecision();
 
-        // Create a UserData instance.
+        // Create a Player instance.
         Player player1 = Player.createPlayer(
                 "ID1",
                 setParams.setUserName(),
@@ -28,9 +28,7 @@ public class Game {
         // Initialize the Attack singleton with the player
         Attack.initialize(player1);
 
-        // Create story item status for player 1
-        StoryItems storyItemsPlayer1 = new StoryItems();
-
         Tutorial.townGate();
+        Empty1.EmptyRoom();
     }
 }

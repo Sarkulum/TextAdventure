@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Enemy {
-    private static Map<Integer, Enemy> enemys = new HashMap<>(); // Registry of all enemys
+    private static Map<Integer, Enemy> enemys = new HashMap<>(); // Registry of all enemy's
 
     // Vars for all relevant Enemy stats.
     public Integer enemyID;
@@ -17,7 +17,7 @@ public class Enemy {
 
     // Constructor to initialize the enemy
     private Enemy(Integer enemyID, String name, int maxDamage, int minDamage, int maxHP) {
-        this.enemyID = enemyID;
+        this.enemyID = enemyID;       // Assign the ID
         this.name = name;             // Assign the name
         this.maxDamage = maxDamage;   // Assign maximum damage
         this.minDamage = minDamage;   // Assign minimum damage
@@ -25,7 +25,7 @@ public class Enemy {
         this.currentHP = maxHP;       // Set current HP to max HP by default
     }
 
-    // Factory method to create or retrieve a player
+    // Factory method to create or retrieve an enemy
     public static Enemy createEnemy(Integer enemyID , String name, int maxDamage, int minDamage, int maxHP) {
         if (!enemys.containsKey(enemyID)) {
             Enemy enemy = new Enemy(enemyID, name, maxDamage, minDamage, maxHP);
@@ -34,7 +34,7 @@ public class Enemy {
         return enemys.get(enemyID);
     }
 
-    // Method to retrieve a enemy by id
+    // Method to retrieve an enemy by id
     public static Enemy getEnemy(Integer enemyID) {
         return enemys.get(enemyID);
     }
@@ -67,8 +67,8 @@ public class Enemy {
 
     // Boolean to check if any enemy on the Map still has more than 0 hp
     public static boolean enemyAlive() {
-        int nummberOfEnemys = enemys.size();
-        for(int i = 0; i < nummberOfEnemys; i++) {
+        int numberOfEnemy = enemys.size();
+        for(int i = 0; i < numberOfEnemy; i++) {
             Enemy currentEnemy = Enemy.getEnemy(i);
             int enemyCurrentHP = currentEnemy.getCurrentHP();
             if ( enemyCurrentHP > 0) {
@@ -78,10 +78,10 @@ public class Enemy {
         return false;
     }
 
-    // clean list to remove all dead enemys
+    // clean list to remove all dead enemy's
     public static void cleanList() {
-        int nummberOfEnemys = enemys.size();
-        for(int i = 0; i < nummberOfEnemys; i++) {
+        int numberOfEnemy = enemys.size();
+        for(int i = 0; i < numberOfEnemy; i++) {
             Enemy currentEnemy = Enemy.getEnemy(i);
             int enemyCurrentHP = currentEnemy.getCurrentHP();
             if ( enemyCurrentHP <= 0) {
@@ -91,10 +91,10 @@ public class Enemy {
 
     }
 
-    // Function to remove enemys from Map after fight
-    public void removeEntrys() {
-        int nummberOfEnemys = enemys.size();
-        for(int i = 0; i < nummberOfEnemys; i++) {
+    // Function to remove enemy's from Map after fight
+    public void removeAllEntrys() {
+        int numberOfEnemy = enemys.size();
+        for(int i = 0; i < numberOfEnemy; i++) {
             Enemy currentEnemy = Enemy.getEnemy(i);
             enemys.remove(currentEnemy);
         }

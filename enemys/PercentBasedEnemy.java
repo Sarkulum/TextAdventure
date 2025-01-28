@@ -2,9 +2,9 @@ package enemys;
 
 import java.util.Random;
 
-public class PercentBasedEnemys {
-    String[] enemyArray = new String[100]; // Spawen enemys based on percent chance
-    int index = 0; // Index so you dont overwrite a spot
+public class PercentBasedEnemy {
+    String[] enemyArray = new String[100]; // Spawn enemy's based on percent chance
+    int index = 0; // Index so you don't overwrite a spot
     Random random = new Random();
 
     // Setter for 1 enemy and there %

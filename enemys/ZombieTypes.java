@@ -5,18 +5,6 @@ import java.util.Random;
 public class ZombieTypes {
     public static Integer createZombie(String name, Integer finalId) {
         Random random = new Random();
-        /*
-        boolean idFree = false;
-        Integer finalId = 0;
-
-        while (!idFree) {
-            Integer id = random.nextInt(100);
-            if(Enemy.isIdFree(id)) {
-                idFree = true;
-                finalId = id;
-            }
-        }
-         */
 
         switch (name) {
             case "Shambler" -> Enemy.createEnemy(
