@@ -31,8 +31,6 @@ public class Game {
         // Create story item status for player 1
         StoryItems storyItemsPlayer1 = new StoryItems();
 
-        storyItemsPlayer1.setSilverRing(false);
-
-        Tutorial.townGate(storyItemsPlayer1);
+        Tutorial.townGate();
     }
 }

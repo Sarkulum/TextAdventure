@@ -1,7 +1,6 @@
 package map;
 
 import combat.Attack;
-import items.StoryItems;
 import player.Player;
 import player.PlayerDecision;
 import enemys.Enemy;
@@ -16,7 +15,7 @@ public class Tutorial {
     public static int choice;
 
     // Starting room.
-    public static void townGate(StoryItems storyItems) {
+    public static void townGate() {
         Player player = Player.getPlayer("ID1");
         System.out.println(player.userTextColor+ "\n------------------------------------------------------------------");
         System.out.println("You are at the gate of the Great Village of Laatzen-Ost.");
@@ -32,7 +31,7 @@ public class Tutorial {
         choice = PlayerDecision.inputWithCheck(3);
 
         if(choice == 1) {
-            if (storyItems.getSilverRing() || player.DEV()) {
+            if (player.getSilverRing() || player.DEV()) {
                 System.out.println("\n------------------------------------------------------------------");
                 System.out.println("Guard: Oh! You killed that goblin!?? Great!");
                 System.out.println("It seems you are a trustworthy and sexy guy. Here is my phone number.");
@@ -47,7 +46,7 @@ public class Tutorial {
                 System.out.println("Guard: Hello there, stranger. So your name is " + player.getUserName() + "? \nSorry but we cannot let stranger enter our town.");
                 System.out.println("--------------------------->press enter to continue");
                 enterScanner.nextLine();
-                townGate(storyItems);
+                townGate();
             }
         }else if (choice == 2) {
             System.out.println("\n------------------------------------------------------------------");
@@ -55,15 +54,15 @@ public class Tutorial {
             System.out.println("Your HP: " + player.getCurrentHP());
             System.out.println("--------------------------->press enter to continue");
             enterScanner.nextLine();
-            townGate(storyItems);
+            townGate();
         }else if (choice == 3) {
-            crossRoad(storyItems);
+            crossRoad();
         }else if (choice == 0){
-            townGate(storyItems);
+            townGate();
         }
     }
 
-    public static void crossRoad(StoryItems storyItems){
+    public static void crossRoad(){
         System.out.println("\n------------------------------------------------------------------");
         System.out.println("You are at a crossroad. If you go south, you will go back to the town.\n\n");
         System.out.println("1: Go north");
@@ -75,19 +74,19 @@ public class Tutorial {
         choice = PlayerDecision.inputWithCheck(4);
 
         if(choice==1){
-            river(storyItems);
+            river();
         }else if(choice==2){
-            forest(storyItems);
+            forest();
         }else if(choice==3){
-            townGate(storyItems);
+            townGate();
         }else if(choice==4){
-            goblinCave(storyItems);
+            goblinCave();
         }else if(choice == 0){
-            crossRoad(storyItems);
+            crossRoad();
         }
     }
 
-    public static void river(StoryItems storyItems){
+    public static void river(){
         Player player = Player.getPlayer("ID1");
 
         System.out.println("\n------------------------------------------------------------------");
@@ -103,13 +102,13 @@ public class Tutorial {
         choice = PlayerDecision.inputWithCheck(1);
 
         if(choice==1){
-            crossRoad(storyItems);
+            crossRoad();
         }else if(choice == 0) {
-            river(storyItems);
+            river();
         }
     }
 
-    public static void forest(StoryItems storyItems){
+    public static void forest(){
         Player player = Player.getPlayer("ID1");
 
         System.out.println("\n------------------------------------------------------------------");
@@ -129,14 +128,15 @@ public class Tutorial {
         choice = PlayerDecision.inputWithCheck(1);
 
         if(choice==1){
-            crossRoad(storyItems);
+            crossRoad();
         }else if (choice == 0){
-            forest(storyItems);
+            forest();
         }
     }
 
-    public static void goblinCave(StoryItems storyItems){
-        if(!storyItems.silverRing) {
+    public static void goblinCave(){
+        Player player = Player.getPlayer("ID1");
+        if(!player.getSilverRing()) {
             System.out.println("\n------------------------------------------------------------------");
             System.out.println("You are at a cave. You encounter a GOBLIN!\n");
             System.out.println("1: Fight");
@@ -146,11 +146,11 @@ public class Tutorial {
             choice = PlayerDecision.inputWithCheck(2);
 
             if (choice == 1) {
-                fight(storyItems);
+                fight();
             } else if (choice == 2) {
-                crossRoad(storyItems);
+                crossRoad();
             } else if (choice == 0) {
-                goblinCave(storyItems);
+                goblinCave();
             }
         }else{
             System.out.println("\n------------------------------------------------------------------");
@@ -161,14 +161,14 @@ public class Tutorial {
             choice = PlayerDecision.inputWithCheck(1);
 
             if (choice == 1){
-                crossRoad(storyItems);
+                crossRoad();
             }else{
-                goblinCave(storyItems);
+                goblinCave();
             }
         }
     }
 
-    public static void fight(StoryItems storyItems){
+    public static void fight(){
         Player player = Player.getPlayer("ID1");
         Enemy goblin = Enemy.createEnemy(1,"Goblin", 5, 1, 10);
 
@@ -191,17 +191,17 @@ public class Tutorial {
             if (choice == 1) {
                 combat.attackPlayer();
                 combat.attackEnemy();
-                fight(storyItems);
+                fight();
             } else if (choice == 2) {
-                crossRoad(storyItems);
+                crossRoad();
             } else if (choice == 0) {
-                fight(storyItems);
+                fight();
             }
         }else{
-            storyItems.setSilverRing(true);
+            player.setSilverRing(true);
             System.out.println("\nYou have killed the Goblin and gained a Silver Ring.");
             goblin.removeEntrys();
-            goblinCave(storyItems);
+            goblinCave();
         }
     }
 }

@@ -67,14 +67,10 @@ public class Attack {
         }
         player.setCurrentHP(player.getCurrentHP() - damageEnemy);
 
-        if (player.playerAlive()) {
-            System.out.println("\n------------------------------------------------------------------");
-            System.out.println("The " + enemy.getEnemyName() + " hit you for " + damageEnemy + " damage! You now have " + player.getCurrentHP() + " HP.");
-            System.out.println("------------------------------------------------------------------\n");
-        }else{
-            System.out.println("\n------------------------------------------------------------------");
-            System.out.println("You have died to "+enemy.getEnemyName()+". You will now respawn at your latest checkpoint.");
-            System.out.println("------------------------------------------------------------------\n");
-        }
+        player.playerAlive(this.enemy);
+
+        System.out.println("\n------------------------------------------------------------------");
+        System.out.println("You have died to "+enemy.getEnemyName()+". You will now respawn at your latest checkpoint.");
+        System.out.println("------------------------------------------------------------------\n");
     }
 }
