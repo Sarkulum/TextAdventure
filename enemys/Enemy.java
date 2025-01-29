@@ -1,11 +1,16 @@
 package enemys;
 
+import player.Player;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 
 public class Enemy {
     private static Map<Integer, Enemy> enemys = new HashMap<>(); // Registry of all enemy's
+
+    static Random random = new Random();
 
     // Vars for all relevant Enemy stats.
     public Integer enemyID;
@@ -66,8 +71,8 @@ public class Enemy {
     public int getCurrentHP() { return this.currentHP; }
 
     // Boolean to check if any enemy on the Map still has more than 0 hp
-    public static boolean enemyAlive() {
-        int numberOfEnemy = enemys.size();
+    public static boolean anyEnemyAlive() {
+        int numberOfEnemy = enemys.size() -1; // -1 because otherwise you get null pointer exception because of how hash maps work.
         for(int i = 0; i < numberOfEnemy; i++) {
             Enemy currentEnemy = Enemy.getEnemy(i);
             int enemyCurrentHP = currentEnemy.getCurrentHP();
@@ -78,26 +83,29 @@ public class Enemy {
         return false;
     }
 
+    public static boolean specificEnemyAlive(Integer enemyID){
+        Enemy enemy = getEnemy(enemyID);
+        try {
+            if (enemy.getCurrentHP() > 0) {
+                return true;
+            }
+            return false;
+        }catch (NullPointerException e){
+            return false;
+        }
+    }
+
     // clean list to remove all dead enemy's
     public static void cleanList() {
-        int numberOfEnemy = enemys.size();
-        for(int i = 0; i < numberOfEnemy; i++) {
-            Enemy currentEnemy = Enemy.getEnemy(i);
-            int enemyCurrentHP = currentEnemy.getCurrentHP();
-            if ( enemyCurrentHP <= 0) {
-                enemys.remove(currentEnemy);
-            }
-        }
+        // Use an iterator to safely remove elements while iterating
+        enemys.entrySet().removeIf(entry -> entry.getValue().getCurrentHP() <= 0);// Clears all dead enemies in one step because hash maps are fucking stupid
 
     }
 
     // Function to remove enemy's from Map after fight
-    public void removeAllEntrys() {
-        int numberOfEnemy = enemys.size();
-        for(int i = 0; i < numberOfEnemy; i++) {
-            Enemy currentEnemy = Enemy.getEnemy(i);
-            enemys.remove(currentEnemy);
-        }
+    public static void removeAllEntrys() {
+        // Use an iterator to safely remove elements while iterating
+        enemys.clear(); // Clears all enemies in one step because hash maps are fucking stupid
     }
 
     // Boolean to see if the id is still available
@@ -110,5 +118,63 @@ public class Enemy {
             }
         }
         return true;
+    }
+
+    public static void removeEnemyById(int enemyID) {
+        if (enemys.containsKey(enemyID)) {
+            System.out.println("Removing enemy ID " + enemyID);
+            enemys.remove(enemyID); // Remove from map
+        }
+    }
+
+    public static void dropGoldCoins(String name){
+        Player player = Player.getPlayer("ID1");
+
+        switch (name){
+            case "Shambler" -> {
+                player.setGoldCoins(player.getGoldCoins()+ random.nextInt(2,5));
+                player.goldCoinPrint("ID1");
+            }
+            case "Rotter" -> {
+                player.setGoldCoins(player.getGoldCoins()+ random.nextInt(3,8));
+                player.goldCoinPrint("ID1");
+            }
+            case "Crawler" -> {
+                player.setGoldCoins(player.getGoldCoins()+ random.nextInt(2,6));
+                player.goldCoinPrint("ID1");
+            }
+            case "Ghoul", "Burnt Zombie" -> {
+                player.setGoldCoins(player.getGoldCoins()+ random.nextInt(5,10));
+                player.goldCoinPrint("ID1");
+            }
+            case "Bloater" -> {
+                player.setGoldCoins(player.getGoldCoins()+ random.nextInt(8,15));
+                player.goldCoinPrint("ID1");
+            }
+            case "Lurker" -> {
+                player.setGoldCoins(player.getGoldCoins()+ random.nextInt(6,12));
+                player.goldCoinPrint("ID1");
+            }
+            case "Spitter" -> {
+                player.setGoldCoins(player.getGoldCoins()+ random.nextInt(7,12));
+                player.goldCoinPrint("ID1");
+            }
+            case "Brute" -> {
+                player.setGoldCoins(player.getGoldCoins()+ random.nextInt(10,20));
+                player.goldCoinPrint("ID1");
+            }
+            case "Mutant Zombie" -> {
+                player.setGoldCoins(player.getGoldCoins()+ random.nextInt(15,25));
+                player.goldCoinPrint("ID1");
+            }
+            case "Necrofiend" -> {
+                player.setGoldCoins(player.getGoldCoins()+ random.nextInt(20,30));
+                player.goldCoinPrint("ID1");
+            }
+            default -> {
+                player.setGoldCoins(player.getGoldCoins()+1);
+                player.goldCoinPrint("ID1");
+            }
+        }
     }
 }

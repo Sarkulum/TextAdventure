@@ -14,13 +14,15 @@ public class Shop {
             System.out.println("Hello "+player.getUserName()+" welcome to my humble shop.");
             System.out.println("Here you can buy permanent upgrades for all sorts of stats.");
             System.out.println("------------------------------------------------------------------\n");
+            player.setFirstShopVisit(false);
+            scanner.nextLine();
         }
         int hpDif = player.getMaxHP()-player.getCurrentHP();
         System.out.println("\n------------------------------------------------------------------");
         System.out.println("These are your current stats:");
         System.out.println("Your minimum damage is: "+player.getMinDamage());
         System.out.println("Your maximum damage is: "+player.getMaxDamage());
-        System.out.println("Your maximum damage is: "+player.getMaxHP());
+        System.out.println("Your maximum hp are: "+player.getMaxHP());
         System.out.println("Your current hp are: "+player.getCurrentHP());
         System.out.println("------------------------------------------------------------------\n");
         scanner.nextLine();
@@ -36,11 +38,9 @@ public class Shop {
         goldCheckAndBuy(choice);
 
         System.out.println("\n------------------------------------------------------------------");
-        System.out.println("Thanks for visiting my shop. You can come back whenever you die and Respawn here.");
+        System.out.println("Thanks for visiting my shop. \nYou can come back whenever you die and Respawn here.");
         System.out.println("------------------------------------------------------------------\n");
-
-        RandomRooms randomRoom = new RandomRooms();
-        randomRoom.setRandomRoom(10);
+        scanner.nextLine();
     }
 
     public static void goldCheckAndBuy(int choice) {
@@ -53,6 +53,7 @@ public class Shop {
             System.out.println("\n------------------------------------------------------------------");
             System.out.println("You do not have enough gold for choice "+choice+".");
             System.out.println("------------------------------------------------------------------\n");
+            scanner.nextLine();
         }else{
             switch (choice) {
                 case 1 -> player.setMinDamage(player.getMinDamage() + 1);

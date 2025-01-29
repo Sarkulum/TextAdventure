@@ -32,7 +32,7 @@ public class PlayerDecision {
     // Setter using scanner to set username.
     public String setUserName() {
         System.out.println("\n------------------------------------------------------------------");
-        System.out.println("Please enter your player name you want to use during the game.");
+        System.out.println("Please enter the player name you want to use during the game.");
         System.out.println("------------------------------------------------------------------\n");
         Scanner name = new Scanner(System.in);
 

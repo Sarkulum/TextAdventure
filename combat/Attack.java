@@ -4,12 +4,14 @@ import enemys.Enemy;
 import player.Player;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class Attack {
     private static Attack instance; // Singleton instance
     private Player player;          // Fixed Player
     private Enemy enemy;            // Dynamic Enemy
     private static Random random = new Random();
+    Scanner enterScanner = new Scanner(System.in);
 
     // Private constructor to prevent direct instantiation
     private Attack(Player player) {
@@ -40,6 +42,8 @@ public class Attack {
     public void attackEnemy() {
         if (enemy == null) {
             System.out.println("No enemy set! Use setEnemy() to specify an enemy.");
+            enterScanner.nextLine();
+
             return;
         }
 
@@ -49,17 +53,26 @@ public class Attack {
         }
         enemy.setCurrentHP(enemy.getCurrentHP() - damagePlayer);
 
+        String enemyName = enemy.getEnemyName();
+
         System.out.println("\n------------------------------------------------------------------");
-        System.out.println("You have hit the " + enemy.getEnemyName() + " for " + damagePlayer + " damage!");
+        System.out.println("You have hit the " + enemyName + " for " + damagePlayer + " damage!");
         System.out.println("------------------------------------------------------------------\n");
+        enterScanner.nextLine();
 
         Enemy.cleanList();
+
+        // Don't know if this is needed.
+        if(!Enemy.specificEnemyAlive(enemy.getEnemyID())) {
+            Enemy.dropGoldCoins(enemyName);
+        }
     }
 
     // Enemy attacks the player
     public void attackPlayer() {
         if (player == null) {
             System.out.println("No enemy set! Use setPlayer() to specify an player.");
+            enterScanner.nextLine();
             return;
         }
 
@@ -72,6 +85,7 @@ public class Attack {
         System.out.println("\n------------------------------------------------------------------");
         System.out.println("You where hit by " + enemy.getEnemyName() + " for " + damageEnemy + " damage!");
         System.out.println("------------------------------------------------------------------\n");
+        enterScanner.nextLine();
 
         player.playerAlive(this.enemy);
     }

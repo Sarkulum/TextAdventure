@@ -3,9 +3,6 @@ package map;
 import combat.Attack;
 import enemys.Enemy;
 import enemys.ZombieTypes;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -20,16 +17,17 @@ public class RandomRooms {
         // Access the singleton instance of Attack
         Attack combat = Attack.getInstance();
 
-        while (Enemy.enemyAlive()){
-            System.out.println("\n------------------------------------------------------------------");
-            System.out.println("You have entered a room with "+maxEnemy+" enemy's inside.");
-            System.out.println("------------------------------------------------------------------\n");
+        System.out.println("\n------------------------------------------------------------------");
+        System.out.println("You have entered a room with "+maxEnemy+" enemy's inside.");
+        System.out.println("------------------------------------------------------------------\n");
+
+        while (Enemy.anyEnemyAlive()){
             for (int i = 0; i < maxEnemy; i++) {
                 Enemy currentEnemy = Enemy.getEnemy(i);
                 combat.setEnemy(currentEnemy);
                 combat.attackPlayer();
-                enterScanner.nextLine();
             }
+            // Make a for loop so every enemy gets printed by name
             System.out.println("\n------------------------------------------------------------------");
             System.out.println("There are "+maxEnemy+" in front of you. Who do you want to attack?");
             System.out.println("------------------------------------------------------------------\n");
@@ -39,5 +37,10 @@ public class RandomRooms {
             combat.setEnemy(currentEnemy);
             combat.attackEnemy();
         }
+        System.out.println("\n------------------------------------------------------------------");
+        System.out.println("You have cleared this room and will now move to the next one.");
+        System.out.println("------------------------------------------------------------------\n");
+        enterScanner.nextLine();
+        Enemy.removeAllEntrys();
     }
 }

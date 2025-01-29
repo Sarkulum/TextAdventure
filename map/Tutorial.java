@@ -1,6 +1,7 @@
 package map;
 
 import combat.Attack;
+import enemys.ZombieTypes;
 import player.Player;
 import player.PlayerDecision;
 import enemys.Enemy;
@@ -11,6 +12,7 @@ import java.util.Scanner;
 public class Tutorial {
     static Scanner enterScanner = new Scanner(System.in); // Scanner to check if the player wants to proceed.
     public static int choice; // Int for player choice.
+    static Enemy firstEnemy = Enemy.getEnemy(ZombieTypes.createZombie("Shambler", 0)); // Make an enemy
 
     // Starting room.
     public static void townGate() {
@@ -149,7 +151,7 @@ public class Tutorial {
             }
         }else{
             System.out.println("\n------------------------------------------------------------------");
-            System.out.println("You are at a cave. You see the corps of the Goblin you have just killed.\n");
+            System.out.println("You are at a cave. You see the corps of the enemy you have just killed.\n");
             System.out.println("1: Go back to the crossroad");
             System.out.println("------------------------------------------------------------------\n");
 
@@ -165,25 +167,24 @@ public class Tutorial {
 
     public static void fight(){
         Player player = Player.getPlayer("ID1"); // Get player with ID1
-        Enemy goblin = Enemy.createEnemy(1,"Goblin", 5, 1, 10); // Make the goblin enemy
 
         // Access the singleton instance of Attack
         Attack combat = Attack.getInstance();
 
         // Set goblin as enemy
-        combat.setEnemy(goblin);
+        combat.setEnemy(firstEnemy);
 
-        if(goblin.getCurrentHP() > 0) {
+        if(Enemy.specificEnemyAlive(0)) {
             System.out.println("\n------------------------------------------------------------------");
             System.out.println("Your HP: " + player.getCurrentHP());
-            System.out.println("Monster HP: " + goblin.getCurrentHP());
+            System.out.println("Monster HP: " + firstEnemy.getCurrentHP());
             System.out.println("\n1: Attack");
             System.out.println("2: Run");
             System.out.println("------------------------------------------------------------------\n");
 
             choice = PlayerDecision.inputWithCheck(2);
 
-            if (choice == 1) {
+            if (choice == 1 && Enemy.specificEnemyAlive(0)) {
                 combat.attackPlayer();
                 combat.attackEnemy();
                 fight();
@@ -194,8 +195,8 @@ public class Tutorial {
             }
         }else{
             player.setSilverRing(true);
-            System.out.println("\nYou have killed the Goblin and gained a Silver Ring.");
-            goblin.removeAllEntrys();
+            System.out.println("\nYou have killed the enemy and gained a Silver Ring.");
+            //Enemy.dropGoldCoins("Shambler");
             goblinCave();
         }
     }

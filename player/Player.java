@@ -2,12 +2,16 @@ package player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+
 import enemys.Enemy;
 import map.Shop;
 import map.Tutorial;
 
 public class Player {
     private static Map<String, Player> players = new HashMap<>(); // Registry of all players
+
+    Scanner enterScanner = new Scanner(System.in);
 
     public String userID; // Player identifier
     public String userName; // Username set by player
@@ -20,9 +24,9 @@ public class Player {
     String playerWeapon; // Name of the weapon the player has
     boolean DEV; // Is user Dev?
     int goldCoins; // Count for gold coins
-    boolean tutorialPassed; // Has player passed the tutorial?
-    boolean firstShopVisit; // Has the player visited the shop before
-    public boolean silverRing; // Does player one the ring
+    boolean tutorialPassed = false; // Has player passed the tutorial?
+    boolean firstShopVisit = true; // Has the player visited the shop before
+    public boolean silverRing = false; // Does player one the ring
 
     // Constructor (private to encourage using the factory method)
     private Player(String userID ,String userName, int userAge, String userTextColor, int maxHP, int minDamage, int maxDamage, String playerWeapon, boolean DEV, int goldCoins) {
@@ -126,12 +130,22 @@ public class Player {
             System.out.println("\n------------------------------------------------------------------");
             System.out.println("You have died to "+enemy.getEnemyName()+". You will now respawn at the Shop.");
             System.out.println("------------------------------------------------------------------\n");
+            this.currentHP = this.maxHP;
             Shop.buyUpgrades();
         }else{
             System.out.println("\n------------------------------------------------------------------");
-            System.out.println("You have died to "+enemy.getEnemyName()+". You will now respawn at the beginning.");
+            System.out.println("You have died to a "+enemy.getEnemyName()+". You will now respawn at the beginning.");
             System.out.println("------------------------------------------------------------------\n");
+            this.currentHP = this.maxHP;
             Tutorial.townGate();
         }
+    }
+
+    public void goldCoinPrint(String userID){
+        Player player = getPlayer(userID);
+        System.out.println("\n------------------------------------------------------------------");
+        System.out.println("You now have "+player.getGoldCoins()+" Gold coins.");
+        System.out.println("------------------------------------------------------------------\n");
+        enterScanner.nextLine();
     }
 }
