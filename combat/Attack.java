@@ -42,6 +42,7 @@ public class Attack {
     public void attackEnemy() {
         if (enemy == null) {
             System.out.println("No enemy set! Use setEnemy() to specify an enemy.");
+            System.out.println("System: Press enter to continue.");
             enterScanner.nextLine();
 
             return;
@@ -58,6 +59,7 @@ public class Attack {
         System.out.println("\n------------------------------------------------------------------");
         System.out.println("You have hit the " + enemyName + " for " + damagePlayer + " damage!");
         System.out.println("------------------------------------------------------------------\n");
+        System.out.println("System: Press enter to continue.");
         enterScanner.nextLine();
 
         Enemy.cleanList();
@@ -72,6 +74,7 @@ public class Attack {
     public void attackPlayer() {
         if (player == null) {
             System.out.println("No enemy set! Use setPlayer() to specify an player.");
+            System.out.println("System: Press enter to continue.");
             enterScanner.nextLine();
             return;
         }
@@ -85,6 +88,7 @@ public class Attack {
         System.out.println("\n------------------------------------------------------------------");
         System.out.println("You where hit by " + enemy.getEnemyName() + " for " + damageEnemy + " damage!");
         System.out.println("------------------------------------------------------------------\n");
+        System.out.println("System: Press enter to continue.");
         enterScanner.nextLine();
 
         player.playerAlive(this.enemy);

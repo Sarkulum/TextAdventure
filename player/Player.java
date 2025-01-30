@@ -145,7 +145,7 @@ public class Player {
         Player player = getPlayer(userID);
         System.out.println("\n------------------------------------------------------------------");
         System.out.println("You now have "+player.getGoldCoins()+" Gold coins.");
-        System.out.println("------------------------------------------------------------------\n");
+        System.out.println("--------------------------->press enter to continue");
         enterScanner.nextLine();
     }
 }

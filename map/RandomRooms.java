@@ -18,7 +18,7 @@ public class RandomRooms {
         Attack combat = Attack.getInstance();
 
         System.out.println("\n------------------------------------------------------------------");
-        System.out.println("You have entered a room with "+maxEnemy+" enemy's inside.");
+        System.out.println("System: You have entered a room with "+maxEnemy+" enemy's inside.");
         System.out.println("------------------------------------------------------------------\n");
 
         while (Enemy.anyEnemyAlive()){
@@ -29,8 +29,8 @@ public class RandomRooms {
             }
             // Make a for loop so every enemy gets printed by name
             System.out.println("\n------------------------------------------------------------------");
-            System.out.println("There are "+maxEnemy+" in front of you. Who do you want to attack?");
-            System.out.println("------------------------------------------------------------------\n");
+            System.out.println("System: There are "+maxEnemy+" in front of you. Who do you want to attack?");
+            System.out.println("--------------------------->press enter to continue");
             int target = enterScanner.nextInt();
 
             Enemy currentEnemy = Enemy.getEnemy(target);
@@ -38,8 +38,8 @@ public class RandomRooms {
             combat.attackEnemy();
         }
         System.out.println("\n------------------------------------------------------------------");
-        System.out.println("You have cleared this room and will now move to the next one.");
-        System.out.println("------------------------------------------------------------------\n");
+        System.out.println("System: You have cleared this room and will now move to the next one.");
+        System.out.println("--------------------------->press enter to continue");
         enterScanner.nextLine();
         Enemy.removeAllEntrys();
     }

@@ -195,7 +195,9 @@ public class Tutorial {
             }
         }else{
             player.setSilverRing(true);
+            System.out.println("\n------------------------------------------------------------------");
             System.out.println("\nYou have killed the enemy and gained a Silver Ring.");
+            System.out.println("------------------------------------------------------------------\n");
             //Enemy.dropGoldCoins("Shambler");
             goblinCave();
         }

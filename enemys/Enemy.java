@@ -19,6 +19,7 @@ public class Enemy {
     public int minDamage;
     public int maxHP;
     public int currentHP;
+    public static int idIndex = 0; // Index to know witch id I am at.
 
     // Constructor to initialize the enemy
     private Enemy(Integer enemyID, String name, int maxDamage, int minDamage, int maxHP) {
@@ -106,6 +107,7 @@ public class Enemy {
     public static void removeAllEntrys() {
         // Use an iterator to safely remove elements while iterating
         enemys.clear(); // Clears all enemies in one step because hash maps are fucking stupid
+        idIndex = 0;
     }
 
     // Boolean to see if the id is still available
