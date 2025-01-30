@@ -68,7 +68,6 @@ public class PlayerDecision {
         System.out.println(Colors.BLUE+ "Blue" + Colors.RESET);
         System.out.println(Colors.CYAN+ "Cyan" + Colors.RESET);
         System.out.println(Colors.PURPLE+ "Purple" + Colors.RESET);
-        System.out.println(Colors.YELLOW+ "Yellow" + Colors.RESET);
         System.out.println(Colors.Gray + "Gray" + Colors.RESET);
         System.out.println("White");
         System.out.println("------------------------------------------------------------------\n");
@@ -80,9 +79,9 @@ public class PlayerDecision {
             case "Blue" -> Colors.BLUE;
             case "Cyan" -> Colors.CYAN;
             case "Purple" -> Colors.PURPLE;
-            case "Yellow" -> Colors.YELLOW;
-            case "White" -> "";
-            default -> "";
+            case "Gray" -> Colors.Gray;
+            case "White" -> Colors.RESET;
+            default -> Colors.RESET;
         };
     }
 }

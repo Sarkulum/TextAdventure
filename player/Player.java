@@ -7,6 +7,7 @@ import java.util.Scanner;
 import enemys.Enemy;
 import map.Shop;
 import map.Tutorial;
+import text.Colors;
 
 public class Player {
     private static Map<String, Player> players = new HashMap<>(); // Registry of all players
@@ -144,7 +145,7 @@ public class Player {
     public void goldCoinPrint(String userID){
         Player player = getPlayer(userID);
         System.out.println("\n------------------------------------------------------------------");
-        System.out.println("You now have "+player.getGoldCoins()+" Gold coins.");
+        System.out.println("You now have "+ Colors.YELLOW +player.getGoldCoins()+" Gold coins"+player.getUserTextColor()+".");
         System.out.println("--------------------------->press enter to continue");
         enterScanner.nextLine();
     }

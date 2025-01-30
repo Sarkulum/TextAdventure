@@ -2,6 +2,7 @@ package combat;
 
 import enemys.Enemy;
 import player.Player;
+import text.Colors;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -57,9 +58,8 @@ public class Attack {
         String enemyName = enemy.getEnemyName();
 
         System.out.println("\n------------------------------------------------------------------");
-        System.out.println("You have hit the " + enemyName + " for " + damagePlayer + " damage!");
-        System.out.println("------------------------------------------------------------------\n");
-        System.out.println("System: Press enter to continue.");
+        System.out.println("You have hit the " + enemyName + " for " +Colors.RED +damagePlayer+" damage"+player.getUserTextColor()+"!");
+        System.out.println("--------------------------->press enter to continue");
         enterScanner.nextLine();
 
         Enemy.cleanList();
@@ -79,18 +79,19 @@ public class Attack {
             return;
         }
 
-        int damageEnemy = random.nextInt(enemy.getMaxDamage()+1);
-        if (damageEnemy < enemy.getMinDamage()) {
-            damageEnemy = enemy.getMinDamage();
+        if(enemy != null) {
+            int damageEnemy = random.nextInt(enemy.getMaxDamage() + 1);
+            if (damageEnemy < enemy.getMinDamage()) {
+                damageEnemy = enemy.getMinDamage();
+            }
+            player.setCurrentHP(player.getCurrentHP() - damageEnemy);
+
+            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("You where hit by " + enemy.getEnemyName() + " for " + Colors.RED + damageEnemy + " damage" + player.getUserTextColor() + "!");
+            System.out.println("--------------------------->press enter to continue");
+            enterScanner.nextLine();
+
+            player.playerAlive(this.enemy);
         }
-        player.setCurrentHP(player.getCurrentHP() - damageEnemy);
-
-        System.out.println("\n------------------------------------------------------------------");
-        System.out.println("You where hit by " + enemy.getEnemyName() + " for " + damageEnemy + " damage!");
-        System.out.println("------------------------------------------------------------------\n");
-        System.out.println("System: Press enter to continue.");
-        enterScanner.nextLine();
-
-        player.playerAlive(this.enemy);
     }
 }

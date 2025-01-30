@@ -1,6 +1,7 @@
 package map;
 
 import player.Player;
+import text.Colors;
 
 import java.util.Scanner;
 
@@ -20,18 +21,18 @@ public class Shop {
         int hpDif = player.getMaxHP()-player.getCurrentHP();
         System.out.println("\n------------------------------------------------------------------");
         System.out.println("System: These are your current stats:");
-        System.out.println("Your minimum damage is: "+player.getMinDamage());
-        System.out.println("Your maximum damage is: "+player.getMaxDamage());
-        System.out.println("Your maximum hp are: "+player.getMaxHP());
-        System.out.println("Your current hp are: "+player.getCurrentHP());
+        System.out.println("Your "+Colors.RED+"minimum damage"+ player.getUserTextColor()+" is: "+player.getMinDamage());
+        System.out.println("Your "+Colors.RED+"maximum damage"+ player.getUserTextColor()+" is: "+player.getMaxDamage());
+        System.out.println("Your "+Colors.GREEN+"maximum hp"+ player.getUserTextColor()+" are: "+player.getMaxHP());
+        System.out.println("Your "+Colors.GREEN+"current hp"+ player.getUserTextColor()+" are: "+player.getCurrentHP());
         System.out.println("--------------------------->press enter to continue");
         scanner.nextLine();
         System.out.println("\n------------------------------------------------------------------");
         System.out.println("System: You can buy the following:");
-        System.out.println("1. A upgrade to your minimum damage(+1).  Costs: 10 gold.");
-        System.out.println("2. A upgrade to your maximum damage(+1).  Costs: 10 gold.");
-        System.out.println("3. A Upgrade to your maximum hp(+1).      Costs: 30 gold.");
-        System.out.println("4. A heal that heals you to full hp("+hpDif+"). Costs: 15 gold.");
+        System.out.println("1. A upgrade to your "+Colors.RED+"minimum damage"+player.getUserTextColor()+ "(+1).  Costs: "+Colors.YELLOW+"10 gold"+player.getUserTextColor()+".");
+        System.out.println("2. A upgrade to your "+Colors.RED+"maximum damage"+ player.getUserTextColor()+"(+1).  Costs: "+Colors.YELLOW+"10 gold"+player.getUserTextColor()+".");
+        System.out.println("3. A Upgrade to your "+Colors.GREEN+"maximum hp"+ player.getUserTextColor()+"(+1).      Costs: "+Colors.YELLOW+"30 gold"+player.getUserTextColor()+".");
+        System.out.println("4. A heal that " + Colors.GREEN+ "heals " + player.getUserTextColor()+ "you to full hp("+hpDif+").   Costs: "+Colors.YELLOW+"15 gold"+player.getUserTextColor()+".");
         System.out.println("5. Don't buy anything.");
         System.out.println("--------------------------->press enter to continue");
 

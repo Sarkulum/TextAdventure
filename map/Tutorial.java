@@ -5,6 +5,7 @@ import enemys.ZombieTypes;
 import player.Player;
 import player.PlayerDecision;
 import enemys.Enemy;
+import text.Colors;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -47,8 +48,8 @@ public class Tutorial {
             }
         }else if (choice == 2) {
             System.out.println("\n------------------------------------------------------------------");
-            System.out.println("Guard: Hey don't be stupid.\n\nThe guard hit you so hard and you gave up.\n(You receive 1 damage)\n");
-            System.out.println("Your HP: " + player.getCurrentHP());
+            System.out.println("Guard: Hey don't be stupid.\n\nThe guard hit you so hard and you gave up.\n(You receive "+Colors.RED+"1 damage"+ player.getUserTextColor()+")\n");
+            System.out.println("Your"+Colors.GREEN+" HP: " + player.getCurrentHP() + player.getUserTextColor());
             System.out.println("--------------------------->press enter to continue");
             enterScanner.nextLine();
             townGate();
@@ -88,11 +89,11 @@ public class Tutorial {
 
         System.out.println("\n------------------------------------------------------------------");
         System.out.println("There is a river. You drink the water and rest at the riverside.");
-        System.out.println("Your HP is recovered.");
+        System.out.println("Your "+Colors.GREEN+"HP"+player.getUserTextColor()+" have recovered.");
 
         player.setCurrentHP(player.getMaxHP());
 
-        System.out.println("Your HP: " + player.getCurrentHP());
+        System.out.println("Your "+Colors.GREEN+"HP: " + player.getCurrentHP()+player.getUserTextColor());
         System.out.println("\n\n1: Go back to the crossroad");
         System.out.println("------------------------------------------------------------------\n");
 
@@ -176,7 +177,7 @@ public class Tutorial {
 
         if(Enemy.specificEnemyAlive(0)) {
             System.out.println("\n------------------------------------------------------------------");
-            System.out.println("Your HP: " + player.getCurrentHP());
+            System.out.println("Your "+Colors.GREEN+"HP: " + player.getCurrentHP() + player.getUserTextColor());
             System.out.println("Monster HP: " + firstEnemy.getCurrentHP());
             System.out.println("\n1: Attack");
             System.out.println("2: Run");
