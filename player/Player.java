@@ -3,7 +3,6 @@ package player;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
 import enemys.Enemy;
 import map.Shop;
 import map.Tutorial;

@@ -37,7 +37,6 @@ public class Game {
         Tutorial.townGate();
         player1.setTutorialPassed(true);
         Empty1.EmptyRoom();
-        Empty2.EmptyRoom2();
         Shop.buyUpgrades();
 
         RandomRooms randomRoom = new RandomRooms();
@@ -46,5 +45,8 @@ public class Game {
         randomRoom.setRandomRoom(6);
         randomRoom.setRandomRoom(7);
         randomRoom.setRandomRoom(10);
+        Empty2.EmptyRoom2();
+        EmptyPuzzle.puzzle1();
+        EmptyEnd.emptyEnd();
     }
 }
