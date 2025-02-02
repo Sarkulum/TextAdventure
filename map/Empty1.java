@@ -24,10 +24,10 @@ public class Empty1 {
 
         System.out.println("\n------------------------------------------------------------------");
         System.out.println("System:");
-        System.out.println("Broken bicycles and overturned trash cans are scattered across the cobblestones.");
-        System.out.println("The faint hum and flickering  streetlights adds an ominous soundtrack to the stillness.");
-        System.out.println("In the west across the street is the Ernst-August-Galerie – a shopping enter that used to be full of life.");
-        System.out.println("Its glass entrance doors are shattered and inside,the dim glow of emergency lights casts long shadows on the tiled floors.");
+        System.out.println("Broken bicycles and overturned trash cans are scattered across the \ncobblestones.");
+        System.out.println("The faint hum and flickering  streetlights adds an ominous soundtrack\n to the stillness.");
+        System.out.println("In the west across the street is the Ernst-August-Galerie – a shopping\n enter that used to be full of life.");
+        System.out.println("Its glass entrance doors are shattered and inside,the dim glow of \nemergency lights casts long shadows on the tiled floors.");
         System.out.println("--------------------------->press enter to continue");
 
         scanner.nextLine();

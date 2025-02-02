@@ -36,7 +36,7 @@ public class Game {
 
         Tutorial.townGate();
         player1.setTutorialPassed(true);
-        Empty1.EmptyRoom();
+        Empty1.outsideHBF();
         Shop.buyUpgrades();
 
         RandomRooms randomRoom = new RandomRooms();
