@@ -72,21 +72,23 @@ public class Enemy {
     public int getCurrentHP() { return this.currentHP; }
 
     // Boolean to check if any enemy on the Map still has more than 0 hp
-    public static boolean anyEnemyAlive() {
-        int numberOfEnemy = enemys.size() -1; // -1 because otherwise you get null pointer exception because of how hash maps work.
-        for(int i = 0; i < numberOfEnemy; i++) {
+    public static boolean anyEnemyAlive(int index) {
+        // Changed it so that i uses index and not enemys.size also made the for loop start from -1 and check for <= idk why this fixed it but it did.
+        for(int i = -1; i <= index; i++) {
             Enemy currentEnemy = Enemy.getEnemy(i);
-            int enemyCurrentHP = currentEnemy.getCurrentHP();
-            if ( enemyCurrentHP > 0) {
-                return true;
+            if (currentEnemy != null) {
+                int enemyCurrentHP = currentEnemy.getCurrentHP();
+                if (enemyCurrentHP > 0) {
+                    return true;
+                }
             }
         }
         return false;
     }
 
     public static boolean specificEnemyAlive(Integer enemyID){
-        Enemy enemy = getEnemy(enemyID);
         try {
+            Enemy enemy = getEnemy(enemyID);
             if (enemy.getCurrentHP() > 0) {
                 return true;
             }

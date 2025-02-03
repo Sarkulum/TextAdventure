@@ -21,13 +21,11 @@ public class Tutorial {
         System.out.println(player.userTextColor+ "\n------------------------------------------------------------------");
         System.out.println("You are at the gate of the Great Village of Laatzen-Ost.");
         System.out.println("A golden armored guard with a longsword is standing in front of you!");
-        System.out.println("");
-        System.out.println("What do you want to do?");
-        System.out.println("");
-        System.out.println("1: Talk to the guard");
+        System.out.println("\nWhat do you want to do?");
+        System.out.println("\n1: Talk to the guard");
         System.out.println("2: Attack the guard");
         System.out.println("3: Go north to the crossroad");
-        System.out.println("------------------------------------------------------------------\n");
+        System.out.println("--------------------------->enter a number to decide");
 
         choice = PlayerDecision.inputWithCheck(3);
 
@@ -37,7 +35,6 @@ public class Tutorial {
                 System.out.println("Guard: Oh! You killed that goblin!?? Great!");
                 System.out.println("It seems you are a trustworthy and sexy guy. Here is my phone number.");
                 System.out.println("Welcome to our Great Village of Laatzen-Ost!");
-                System.out.println("\n\n           THE END                    ");
                 System.out.println("------------------------------------------------------------------\n");
             }else {
                 System.out.println("\n------------------------------------------------------------------");
@@ -67,7 +64,7 @@ public class Tutorial {
         System.out.println("2: Go east");
         System.out.println("3: Go south");
         System.out.println("4: Go west");
-        System.out.println("------------------------------------------------------------------\n");
+        System.out.println("--------------------------->enter a number to decide");
 
         choice = PlayerDecision.inputWithCheck(4);
 
@@ -95,7 +92,7 @@ public class Tutorial {
 
         System.out.println("Your "+Colors.GREEN+"HP: " + player.getCurrentHP()+player.getUserTextColor());
         System.out.println("\n\n1: Go back to the crossroad");
-        System.out.println("------------------------------------------------------------------\n");
+        System.out.println("--------------------------->enter a number to decide");
 
         choice = PlayerDecision.inputWithCheck(1);
 
@@ -121,7 +118,7 @@ public class Tutorial {
 
         System.out.println("\nYour Weapon: "+ player.getPlayerWeapon());
         System.out.println("\n\n1: Go back to the crossroad");
-        System.out.println("------------------------------------------------------------------\n");
+        System.out.println("--------------------------->enter a number to decide");
 
         choice = PlayerDecision.inputWithCheck(1);
 
@@ -136,10 +133,10 @@ public class Tutorial {
         Player player = Player.getPlayer("ID1");
         if(!player.getSilverRing()) {
             System.out.println("\n------------------------------------------------------------------");
-            System.out.println("You are at a cave. You encounter a GOBLIN!\n");
+            System.out.println("You are at a cave. You encounter a "+firstEnemy.getEnemyName()+ "!\n");
             System.out.println("1: Fight");
             System.out.println("2: Run");
-            System.out.println("------------------------------------------------------------------\n");
+            System.out.println("--------------------------->enter a number to decide");
 
             choice = PlayerDecision.inputWithCheck(2);
 
@@ -154,7 +151,7 @@ public class Tutorial {
             System.out.println("\n------------------------------------------------------------------");
             System.out.println("You are at a cave. You see the corps of the enemy you have just killed.\n");
             System.out.println("1: Go back to the crossroad");
-            System.out.println("------------------------------------------------------------------\n");
+            System.out.println("--------------------------->enter a number to decide");
 
             choice = PlayerDecision.inputWithCheck(1);
 
@@ -181,7 +178,7 @@ public class Tutorial {
             System.out.println("Monster HP: " + firstEnemy.getCurrentHP());
             System.out.println("\n1: Attack");
             System.out.println("2: Run");
-            System.out.println("------------------------------------------------------------------\n");
+            System.out.println("--------------------------->enter a number to decide");
 
             choice = PlayerDecision.inputWithCheck(2);
 

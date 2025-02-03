@@ -73,7 +73,7 @@ public class Attack {
     // Enemy attacks the player
     public void attackPlayer() {
         if (player == null) {
-            System.out.println("No enemy set! Use setPlayer() to specify an player.");
+            System.out.println("No player set! Use setPlayer() to specify a player.");
             System.out.println("System: Press enter to continue.");
             enterScanner.nextLine();
             return;

@@ -34,7 +34,7 @@ public class Shop {
         System.out.println("3. A Upgrade to your "+Colors.GREEN+"maximum hp"+ player.getUserTextColor()+"(+1).      Costs: "+Colors.YELLOW+"30 gold"+player.getUserTextColor()+".");
         System.out.println("4. A heal that " + Colors.GREEN+ "heals " + player.getUserTextColor()+ "you to full hp("+hpDif+").   Costs: "+Colors.YELLOW+"15 gold"+player.getUserTextColor()+".");
         System.out.println("5. Don't buy anything.");
-        System.out.println("--------------------------->press enter to continue");
+        System.out.println("--------------------------->enter a number to decide");
 
         int choice = scanner.nextInt();
         goldCheckAndBuy(choice);
