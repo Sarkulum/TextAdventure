@@ -27,6 +27,7 @@ public class Player {
     boolean tutorialPassed = false; // Has player passed the tutorial?
     boolean firstShopVisit = true; // Has the player visited the shop before
     public boolean silverRing = false; // Does player one the ring
+    boolean key = false;
 
     // Constructor (private to encourage using the factory method)
     private Player(String userID ,String userName, int userAge, String userTextColor, int maxHP, int minDamage, int maxDamage, String playerWeapon, boolean DEV, int goldCoins) {
@@ -148,4 +149,8 @@ public class Player {
         System.out.println("--------------------------->press enter to continue");
         enterScanner.nextLine();
     }
+
+    //Setter and Getter for key
+    public void setKey(boolean key) {this.key = key;}
+    public boolean getKey() {return this.key;}
 }
