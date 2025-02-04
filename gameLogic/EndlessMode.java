@@ -34,7 +34,6 @@ public class EndlessMode {
         System.out.println("If you exit your Score will be saved to score.txt and the program will stop.");
         System.out.println("1. Continue");
         System.out.println("2. Exit");
-        System.out.println("--------------------------->enter a number to decide");
 
         int choice = PlayerDecision.inputWithCheck(2);
 

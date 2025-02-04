@@ -33,6 +33,7 @@ public class StoryGame {
             player1.setMinDamage(100);
             player1.setMaxDamage(200);
             player1.setGoldCoins(100);
+            Score.saveDEV();
         }
 
         // Initialize the Attack singleton with the player
@@ -67,7 +68,8 @@ public class StoryGame {
     }
 
     public static void checkPlayer() {
-        if (!Score.previousPlayer()) {
+        Player player = Player.getPlayer("ID1");
+        if (!Score.previousPlayer(player)) {
             StartGame();
         }else{
             System.out.println("\n------------------------------------------------------------------");
@@ -76,7 +78,6 @@ public class StoryGame {
             System.out.println("In endless mode you only fight and there is no end");
             System.out.println("1. Endless mode");
             System.out.println("2. Story mode");
-            System.out.println("--------------------------->enter a number to decide");
 
             int choice = PlayerDecision.inputWithCheck(2);
 

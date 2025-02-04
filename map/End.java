@@ -64,7 +64,6 @@ public class End {
         System.out.println("You step closer, hesitating as the rumble of the train reverberates through your chest.");
         System.out.println("1. Board the train.");
         System.out.println("2. Stay behind.");
-        System.out.println("--------------------------->enter a number to decide");
 
         choice = PlayerDecision.inputWithCheck(2);
 

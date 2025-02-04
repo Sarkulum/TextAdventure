@@ -6,7 +6,7 @@ public class Score {
     public static final String FILE_NAME_PLAYER = "player.txt";
      public static final String FILE_NAME_SCORE = "scores.txt";
      //public static int score = 0;
-     static Player player = Player.getPlayer("ID1");
+     public static Player player = Player.getPlayer("ID1");
 
 
     public static void ensureFileExists(String fileName) {
@@ -49,7 +49,7 @@ public class Score {
 
     public static void savePlayer() {
         String playerName = player.getUserName();
-        try (FileWriter writer = new FileWriter(FILE_NAME_SCORE, true)) { // 'true' enables appending
+        try (FileWriter writer = new FileWriter(FILE_NAME_PLAYER, true)) { // 'true' enables appending
             writer.write(playerName+ ",");
         } catch (IOException e) {
             System.out.println("An error occurred while saving the score.");
@@ -58,8 +58,8 @@ public class Score {
     }
 
     // Check if player played before
-    public static boolean previousPlayer() {
-        String playerName = player.getUserName();
+    public static boolean previousPlayer(Player player1) {
+        String playerName = player1.getUserName();
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_NAME_PLAYER))) {
             String line = br.readLine(); // Read the first line
             if (line != null) {
@@ -77,5 +77,15 @@ public class Score {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static void saveDEV() {
+        String playerName = "DEV";
+        try (FileWriter writer = new FileWriter(FILE_NAME_PLAYER, true)) { // 'true' enables appending
+            writer.write(playerName+ ",");
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving the score.");
+            e.printStackTrace();
+        }
     }
 }

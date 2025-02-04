@@ -3,6 +3,10 @@ package map;
 import combat.Attack;
 import enemys.Enemy;
 import enemys.ZombieTypes;
+import player.Player;
+import player.PlayerDecision;
+import text.Colors;
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -11,6 +15,7 @@ public class RandomRooms {
     public int attackIndex = -1;
     Random random = new Random();
     Scanner enterScanner = new Scanner(System.in);
+    Player player = Player.getPlayer("ID1");
 
     public void setRandomRoom(int maxEnemy){
         index = maxEnemy;
@@ -45,13 +50,12 @@ public class RandomRooms {
             for (int i = 0; i < maxEnemy; i++) {
                 int j = i + 1;
                 if (Enemy.specificEnemyAlive(i)){
-                    System.out.println("Enemy: " + j + " = Alive");
+                    System.out.println("Enemy: " + j + " = "+Colors.GREEN+"Alive"+player.getUserTextColor());
                 }else {
-                    System.out.println("Enemy: " + j + " = DEAD");
+                    System.out.println("Enemy: " + j + " = "+Colors.RED+"DEAD"+player.getUserTextColor());
                 }
             }
-            System.out.println("--------------------------->enter a number to decide");
-            int target = enterScanner.nextInt() -1;
+            int target = PlayerDecision.inputWithCheck(maxEnemy) -1;
 
             Enemy currentEnemy = Enemy.getEnemy(target);
             combat.setEnemy(currentEnemy);

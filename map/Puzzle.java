@@ -88,9 +88,8 @@ public class Puzzle {
         System.out.println("\nThe train has 8 cars,each with a maximum capacity of 100 passengers.");
         System.out.println("Currently,the train is carrying 650 passengers.\n");
         System.out.println("How many more passengers can safely board the train?");
-        System.out.println("--------------------------->enter a number to decide");
 
-        int answer = scanner.nextInt();
+        int answer = PlayerDecision.inputWithCheck(999);
 
         System.out.println("\n------------------------------------------------------------------");
         if(answer == 800 || answer == 150) {
@@ -123,7 +122,6 @@ public class Puzzle {
         System.out.println("1. Synchronise the display system with the central database.");
         System.out.println("2. Restart the display system.");
         System.out.println("3. Manually update the train times on the display.");
-        System.out.println("--------------------------->enter a number to decide");
 
         int choice = PlayerDecision.inputWithCheck(3);
 

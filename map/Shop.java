@@ -1,6 +1,7 @@
 package map;
 
 import player.Player;
+import player.PlayerDecision;
 import text.Colors;
 
 import java.util.Scanner;
@@ -10,39 +11,74 @@ public class Shop {
     static Scanner scanner = new Scanner(System.in);
 
     public static void buyUpgrades(){
-        if(player.getFirstShopVisit()){
+        int choice;
+
+        if (!player.getKey()) {
+
             System.out.println("\n------------------------------------------------------------------");
-            System.out.println("Shopkeeper: Hello "+player.getUserName()+" welcome to my humble shop.");
-            System.out.println("Here you can buy permanent upgrades for all sorts of stats.");
+
+            if (player.getFirstShopVisit()) {
+                System.out.println("You could talke to the person behind the counter but you don't know them and this is a zombie Apocalypse soooo ...");
+                System.out.println("1. Talk to the stranger.");
+
+            }else{
+                System.out.println("You could talke to the Shopkeeper OR you could go back to the Statue.");
+                System.out.println("Maybe you have missed something.");
+                System.out.println("1. Talk to the Shopkeeper.");
+
+            }
+
+            System.out.println("2. Go back to the Statue.");
+            choice = PlayerDecision.inputWithCheck(2);
+            if (choice == 2) {
+                Room1.eaStatue();
+            }
+
+        }else {
+            if (player.getFirstShopVisit()) {
+                System.out.println("\n------------------------------------------------------------------");
+                System.out.println("Shopkeeper: Hello " + player.getUserName() + " welcome to my humble shop.");
+                System.out.println("Here you can buy permanent upgrades for all sorts of stats.");
+                System.out.println("--------------------------->press enter to continue");
+                player.setFirstShopVisit(false);
+                scanner.nextLine();
+            }
+            int hpDif = player.getMaxHP() - player.getCurrentHP();
+            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("System: These are your current stats:");
+            System.out.println("Your " + Colors.RED + "minimum damage" + player.getUserTextColor() + " is: " + player.getMinDamage());
+            System.out.println("Your " + Colors.RED + "maximum damage" + player.getUserTextColor() + " is: " + player.getMaxDamage());
+            System.out.println("Your " + Colors.GREEN + "maximum hp" + player.getUserTextColor() + " are: " + player.getMaxHP());
+            System.out.println("Your " + Colors.GREEN + "current hp" + player.getUserTextColor() + " are: " + player.getCurrentHP());
             System.out.println("--------------------------->press enter to continue");
-            player.setFirstShopVisit(false);
+            scanner.nextLine();
+            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("System: You can buy the following:");
+            System.out.println("1. A upgrade to your " + Colors.RED + "minimum damage" + player.getUserTextColor() + "(+1).  Costs: " + Colors.YELLOW + "10 gold" + player.getUserTextColor() + ".");
+            System.out.println("2. A upgrade to your " + Colors.RED + "maximum damage" + player.getUserTextColor() + "(+1).  Costs: " + Colors.YELLOW + "10 gold" + player.getUserTextColor() + ".");
+            System.out.println("3. A Upgrade to your " + Colors.GREEN + "maximum hp" + player.getUserTextColor() + "(+1).      Costs: " + Colors.YELLOW + "30 gold" + player.getUserTextColor() + ".");
+            System.out.println("4. A heal that " + Colors.GREEN + "heals " + player.getUserTextColor() + "you to full hp(" + hpDif + ").   Costs: " + Colors.YELLOW + "15 gold" + player.getUserTextColor() + ".");
+            System.out.println("5. Don't buy anything.");
+
+            choice = PlayerDecision.inputWithCheck(5);
+            goldCheckAndBuy(choice);
+
+            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("Do you want to make another purchase?");
+            System.out.println("1. Yes");
+            System.out.println("2. No");
+
+            choice = PlayerDecision.inputWithCheck(2);
+
+            if (choice == 1) {
+                buyUpgrades();
+            }
+
+            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("Shopkeeper: Thanks for visiting my shop. \nYou can come back whenever you die and Respawn here.");
+            System.out.println("--------------------------->press enter to continue");
             scanner.nextLine();
         }
-        int hpDif = player.getMaxHP()-player.getCurrentHP();
-        System.out.println("\n------------------------------------------------------------------");
-        System.out.println("System: These are your current stats:");
-        System.out.println("Your "+Colors.RED+"minimum damage"+ player.getUserTextColor()+" is: "+player.getMinDamage());
-        System.out.println("Your "+Colors.RED+"maximum damage"+ player.getUserTextColor()+" is: "+player.getMaxDamage());
-        System.out.println("Your "+Colors.GREEN+"maximum hp"+ player.getUserTextColor()+" are: "+player.getMaxHP());
-        System.out.println("Your "+Colors.GREEN+"current hp"+ player.getUserTextColor()+" are: "+player.getCurrentHP());
-        System.out.println("--------------------------->press enter to continue");
-        scanner.nextLine();
-        System.out.println("\n------------------------------------------------------------------");
-        System.out.println("System: You can buy the following:");
-        System.out.println("1. A upgrade to your "+Colors.RED+"minimum damage"+player.getUserTextColor()+ "(+1).  Costs: "+Colors.YELLOW+"10 gold"+player.getUserTextColor()+".");
-        System.out.println("2. A upgrade to your "+Colors.RED+"maximum damage"+ player.getUserTextColor()+"(+1).  Costs: "+Colors.YELLOW+"10 gold"+player.getUserTextColor()+".");
-        System.out.println("3. A Upgrade to your "+Colors.GREEN+"maximum hp"+ player.getUserTextColor()+"(+1).      Costs: "+Colors.YELLOW+"30 gold"+player.getUserTextColor()+".");
-        System.out.println("4. A heal that " + Colors.GREEN+ "heals " + player.getUserTextColor()+ "you to full hp("+hpDif+").   Costs: "+Colors.YELLOW+"15 gold"+player.getUserTextColor()+".");
-        System.out.println("5. Don't buy anything.");
-        System.out.println("--------------------------->enter a number to decide");
-
-        int choice = scanner.nextInt();
-        goldCheckAndBuy(choice);
-
-        System.out.println("\n------------------------------------------------------------------");
-        System.out.println("Shopkeeper: Thanks for visiting my shop. \nYou can come back whenever you die and Respawn here.");
-        System.out.println("--------------------------->press enter to continue");
-        scanner.nextLine();
     }
 
     public static void goldCheckAndBuy(int choice) {

@@ -30,21 +30,22 @@ public class Tutorial {
         if (mission) {
             System.out.println("4. Go north to the crossroad");
         }
-        System.out.println("--------------------------->enter a number to decide");
 
         choice = PlayerDecision.inputWithCheck(4);
 
         if(choice == 1) {
             if (player.getSilverRing() || player.DEV()) {
                 System.out.println("\n------------------------------------------------------------------");
-                System.out.println("Person: 'Thanks a lot, mate. Here, now you can go further.'");
+                System.out.println("Person:");
+                System.out.println("'Thanks a lot, mate. Here, now you can go further.'");
                 System.out.println("The person inhales the smoke as if it is nothing, and the smoky wall dissipates.");
                 System.out.println("--------------------------->press enter to continue");
 
                 enterScanner.nextLine();
             }else {
                 System.out.println("\n------------------------------------------------------------------");
-                System.out.println("Person: Welcome, nice to see another survivor.");
+                System.out.println("Person:");
+                System.out.println("'Welcome, nice to see another survivor.'");
                 System.out.println("If you bring me a pack of cigarettes, "+player.getUserName()+", I’ll let you through that smoky wall.");
                 System.out.println("--------------------------->press enter to continue");
 
@@ -58,7 +59,8 @@ public class Tutorial {
             System.out.println("The person bonks you on the head.");
             System.out.println("For some reason, you feel like picking a fight isn’t the best idea.");
             System.out.println("\nSystem:");
-            System.out.println("(You receive "+Colors.RED+"1 damage"+ player.getUserTextColor()+".");
+            System.out.println("You receive "+Colors.RED+"1 damage"+ player.getUserTextColor()+".");
+            player.setCurrentHP(player.getCurrentHP() -1);
             System.out.println("Your"+Colors.GREEN+" HP: " + player.getCurrentHP() + player.getUserTextColor());
             System.out.println("--------------------------->press enter to continue");
 
@@ -90,7 +92,6 @@ public class Tutorial {
         System.out.println("2: Go east (To the old fast-food stand.)");
         System.out.println("3: Go south (To the smoky wall.)");
         System.out.println("4: Go west (To the abandoned kiosk.)");
-        System.out.println("--------------------------->enter a number to decide");
 
         choice = PlayerDecision.inputWithCheck(4);
 
@@ -118,7 +119,6 @@ public class Tutorial {
         System.out.println("1. Look around the pharmacy.");
         System.out.println("2. Leave the pharmacy.");
         System.out.println("3. Check behind the counter.");
-        System.out.println("--------------------------->enter a number to decide");
 
         choice = PlayerDecision.inputWithCheck(3);
 
@@ -175,7 +175,6 @@ public class Tutorial {
         System.out.println("1. Look around the stand.");
         System.out.println("2. Eat the rotten burger.");
         System.out.println("3. Leave the fast-food stand and return to Kröpke.");
-        System.out.println("--------------------------->enter a number to decide");
 
         choice = PlayerDecision.inputWithCheck(3);
 
@@ -239,8 +238,6 @@ public class Tutorial {
             System.out.println("Its head jerks toward you, and with a guttural growl it lunges!");
             System.out.println("1. Fight the kiosk zombie.");
             System.out.println("2. Run away");
-            System.out.println("--------------------------->enter a number to decide");
-
         }else{
             System.out.println("1. Look around the kiosk.");
             System.out.println("2. Leave the kiosk and return to Kröpke.");
@@ -291,7 +288,6 @@ public class Tutorial {
             System.out.println("Monster HP: " + firstEnemy.getCurrentHP());
             System.out.println("1: Attack");
             System.out.println("2: Run");
-            System.out.println("--------------------------->enter a number to decide");
 
             choice = PlayerDecision.inputWithCheck(2);
 

@@ -14,7 +14,7 @@ public class PlayerDecision {
         int decisionValue;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Please enter your decision.");
+        System.out.println("--------------------------->enter a number to decide\n");
 
         try {
             decisionValue = scanner.nextInt();
@@ -26,7 +26,7 @@ public class PlayerDecision {
         } catch (Exception e) {
             System.out.println("Please only enter numbers.");
         }
-        return 0;
+        return 1;
     }
 
     // Setter using scanner to set username.
@@ -42,7 +42,7 @@ public class PlayerDecision {
     public boolean DEV() {
         Player player = Player.getPlayer("ID1");
         if(Objects.equals(player.getUserName(), "DEV")){
-            System.out.println("\n------------------------------------------------------------------");
+            System.out.println(player.getUserTextColor()+"\n------------------------------------------------------------------");
             System.out.println("Welcome DEV you now have the power to destroy.");
             System.out.println("------------------------------------------------------------------\n");
             return true;

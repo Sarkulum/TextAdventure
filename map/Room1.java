@@ -40,7 +40,6 @@ public class Room1 {
         System.out.println("1. Inspect the statue.");
         System.out.println("2. Investigate the bicycles");
         System.out.println("3. Enter Ernst-August-Galerie");
-        System.out.println("--------------------------->enter a number to decide");
         
         int choice = PlayerDecision.inputWithCheck(3);
         
@@ -115,7 +114,6 @@ public class Room1 {
         System.out.println("2. Search the fashion section");
         System.out.println("3. Explore the Food Court");
         System.out.println("4. Return to the plaza outside Hauptbahnhof");
-        System.out.println("--------------------------->enter a number to decide");
 
         int choice = PlayerDecision.inputWithCheck(4);
 
@@ -180,7 +178,7 @@ public class Room1 {
         }
     }
 
-    public void eaStatue() {
+    public static void eaStatue() {
         Player player = Player.getPlayer("ID1");
 
         System.out.println("\n------------------------------------------------------------------");
@@ -200,14 +198,18 @@ public class Room1 {
 
         System.out.println("\n------------------------------------------------------------------");
         System.out.println("System:");
-        System.out.println("1. Open the hidden compartment");
-        System.out.println("2. Inspect the statue again");
-        System.out.println("3. Enter the HBF");
-        System.out.println("--------------------------->enter a number to decide");
+        if (!player.getKey()) {
+            System.out.println("1. Inspect the statue again");
+            System.out.println("2. Open the hidden compartment");
+            System.out.println("3. Enter the HBF");
+        }else{
+            System.out.println("1. Inspect the statue again");
+            System.out.println("2. Enter the HBF");
+        }
 
         int choice = PlayerDecision.inputWithCheck(3);
 
-        if (choice == 1) {
+        if (choice == 2) {
             System.out.println("\n------------------------------------------------------------------");
             System.out.println("Inside the compartment, you find a small key with a tag attached.");
             System.out.println("The tag reads: 'Forgotten Treasures.'");
@@ -217,7 +219,7 @@ public class Room1 {
             player.setKey(true);
             scanner.nextLine();
             eaStatue();
-        } else if (choice == 2) {
+        } else if (choice == 1) {
             System.out.println("\n------------------------------------------------------------------");
             System.out.println("You carefully examine the statue once more.");
             System.out.println("Aside from the strange writing and the hidden compartment, nothing else seems unusual.");
@@ -228,8 +230,9 @@ public class Room1 {
             eaStatue();
         } else if (choice == 3) {
             System.out.println("\n------------------------------------------------------------------");
-            System.out.println("You enter the HBF.");
-            System.out.println("You need to get to the U-Bahn but there are a lot of Enemys in the way.");
+            System.out.println("You enter the HBF and think:");
+            System.out.println("'Maybe you can escape using the U-Bahn...'");
+            System.out.println("Before you can finish your thought you see a Person behind a makeshift counter and go towards them.");
             /*
             System.out.println("You search the plaza and find a narrow, dimly lit staircase leading underground.");
             System.out.println("Above the entrance, faded letters spell out 'Forgotten Treasures.'");

@@ -19,6 +19,41 @@ public class Room2 {
     static boolean zombieCreated = false;
 
     public static void subwaySandwich() {
+        if (player.getKey()) {
+            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("You find yourself standing in front of a old metal door.");
+            System.out.println("On the door you can make out the words:");
+            System.out.println("'Forgotten Treasures.'");
+            System.out.println("You use the Key you found to unlock the door.");
+            System.out.println("--------------------------->press enter to continue");
+
+            scanner.nextLine();
+        }else{
+            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("You find yourself standing in front of a old metal door.");
+            System.out.println("On the door you can make out the words:");
+            System.out.println("'Forgotten Treasures.'");
+            System.out.println("You try to open the door but it does not move.");
+            System.out.println("--------------------------->press enter to continue");
+
+            scanner.nextLine();
+
+            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("Suddenly you hear a roaring behind you.");
+            System.out.println("As you turn around you see a dozen zombies walking towards you.");
+            System.out.println("You get ready to fight ...");
+            System.out.println("all of a sudden you feel something falling on your head as you fall to the ground and your vision fades to black.");
+            System.out.println("--------------------------->press enter to continue");
+
+            scanner.nextLine();
+
+            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("                          You Died !!!                            ");
+            System.out.println("------------------------------------------------------------------\n");
+
+            Shop.buyUpgrades();
+        }
+
         if (firstSandwich) {
             System.out.println("\n------------------------------------------------------------------");
             System.out.println("You step into what used to be a bustling subway tunnel.");
@@ -43,7 +78,6 @@ public class Room2 {
             System.out.println("3. Follow the growl.");
         }
         System.out.println("4. Ignore the noise and move forward.");
-        System.out.println("--------------------------->enter a number to decide");
 
         choice = PlayerDecision.inputWithCheck(4);
 
@@ -108,7 +142,6 @@ public class Room2 {
             System.out.println("Monster HP: " + zombie.getCurrentHP());
             System.out.println("1: Attack");
             System.out.println("2: Run");
-            System.out.println("--------------------------->enter a number to decide");
 
             choice = PlayerDecision.inputWithCheck(2);
 
