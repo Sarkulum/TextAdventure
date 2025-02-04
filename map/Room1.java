@@ -7,7 +7,7 @@ import text.Colors;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Empty1 {
+public class Room1 {
     static Scanner scanner = new Scanner(System.in);
 
     public static void outsideHBF() {

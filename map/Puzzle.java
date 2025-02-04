@@ -4,8 +4,37 @@ import player.PlayerDecision;
 
 import java.util.Scanner;
 
-public class EmptyPuzzle {
+public class Puzzle {
     static Scanner scanner = new Scanner(System.in);
+
+    public static void intro() {
+        System.out.println("\n------------------------------------------------------------------");
+        System.out.println("You’ve carefully navigated the dark, eerie subway tunnel.");
+        System.out.println("The guttural growls and faint echoes still make your heart race, but you’ve made it this far.");
+        System.out.println(" Just as you think you’ve reached the next area, you stumble upon something unexpected.");
+        System.out.println("--------------------------->press enter to continue");
+
+        scanner.nextLine();
+
+        System.out.println("\n------------------------------------------------------------------");
+        System.out.println("A large metal door blocks the way forward.");
+        System.out.println("The door is covered in the same strange markings as the walls of the subway, symbols that seem ancient and ritualistic.");
+        System.out.println("But at its center is something different—a mechanical panel with glowing letters.");
+        System.out.println("As you approach, the panel comes to life, flickering dimly.");
+        System.out.println("--------------------------->press enter to continue");
+
+        scanner.nextLine();
+
+        System.out.println("\n------------------------------------------------------------------");
+        System.out.println("A robotic voice speaks from a nearby speaker:");
+        System.out.println("'Answer my riddle, and the path will open. Fail, and remain trapped in the shadows.'");
+        System.out.println("The screen on the panel lights up, displaying the following.");
+        System.out.println("--------------------------->press enter to continue");
+
+        scanner.nextLine();
+        Puzzle.puzzle1();
+    }
+
     public static void puzzle1() {
         System.out.println("\n------------------------------------------------------------------");
         System.out.println("System:");
@@ -41,7 +70,7 @@ public class EmptyPuzzle {
             System.out.println("--------------------------->press enter to continue");
 
             scanner.nextLine();
-            puzzle1();;
+            puzzle1();
         }else{
             System.out.println("\n------------------------------------------------------------------");
             System.out.println("IDK what you have done but that is not allowed.");
@@ -59,12 +88,12 @@ public class EmptyPuzzle {
         System.out.println("\nThe train has 8 cars,each with a maximum capacity of 100 passengers.");
         System.out.println("Currently,the train is carrying 650 passengers.\n");
         System.out.println("How many more passengers can safely board the train?");
-        System.out.println("------------------------------------------------------------------\n");
+        System.out.println("--------------------------->enter a number to decide");
 
         int answer = scanner.nextInt();
 
+        System.out.println("\n------------------------------------------------------------------");
         if(answer == 800 || answer == 150) {
-            System.out.println("\n------------------------------------------------------------------");
             System.out.println("Good job! That was the right answer.");
             System.out.println("--------------------------->press enter to continue");
 
@@ -72,7 +101,6 @@ public class EmptyPuzzle {
 
             puzzle3();
         }else {
-            System.out.println("\n------------------------------------------------------------------");
             System.out.println("I am sorry but that answer is wrong please try again.");
             System.out.println("--------------------------->press enter to continue");
 
@@ -95,7 +123,7 @@ public class EmptyPuzzle {
         System.out.println("1. Synchronise the display system with the central database.");
         System.out.println("2. Restart the display system.");
         System.out.println("3. Manually update the train times on the display.");
-        System.out.println("------------------------------------------------------------------\n");
+        System.out.println("--------------------------->enter a number to decide");
 
         int choice = PlayerDecision.inputWithCheck(3);
 

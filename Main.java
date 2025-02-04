@@ -5,10 +5,10 @@ Version 0.0.1
 Valerie, Ashley, Anna
 */
 
-import gameLogic.Game;
+import gameLogic.StoryGame;
 
 public class Main {
     public static void main(String[] args) {
-        Game.StartGame();
+        StoryGame.initialSetUp();
     }
 }
