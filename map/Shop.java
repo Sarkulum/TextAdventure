@@ -9,10 +9,9 @@ import java.util.Scanner;
 public class Shop {
     static Player player = Player.getPlayer("ID1");
     static Scanner scanner = new Scanner(System.in);
+    static int choice;
 
     public static void buyUpgrades(){
-        int choice;
-
         if (!player.getKey()) {
 
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");

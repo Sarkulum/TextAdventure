@@ -11,6 +11,7 @@ public class Room1 {
     static Scanner scanner = new Scanner(System.in);
     static boolean firstVisit2 = true;  //boolean to check if bottle was found
     static boolean firstVisit3 = true; //boolean to check if first visit to outsideHBF
+    static int choice;
 
     public static void outsideHBF() {
         Player player = Player.getPlayer("ID1");
@@ -115,7 +116,7 @@ public class Room1 {
         System.out.println("3. Explore the Food Court");
         System.out.println("4. Return to the plaza outside Hauptbahnhof");
 
-        int choice = PlayerDecision.inputWithCheck(4);
+        choice = PlayerDecision.inputWithCheck(4);
 
         if (choice == 1) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
@@ -174,7 +175,7 @@ public class Room1 {
             System.out.println("--------------------------->press enter to continue\n");
 
             scanner.nextLine();
-            outsideHBF();
+            eaStatue();
         }
     }
 
@@ -207,9 +208,9 @@ public class Room1 {
             System.out.println("2. Enter the HBF");
         }
 
-        int choice = PlayerDecision.inputWithCheck(3);
+        choice = PlayerDecision.inputWithCheck(3);
 
-        if (choice == 2) {
+        if (choice == 2 && !player.getKey()) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("Inside the compartment, you find a small key with a tag attached.");
             System.out.println("The tag reads: 'Forgotten Treasures.'");

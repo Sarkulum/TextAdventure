@@ -4,25 +4,27 @@ import java.util.Random;
 
 @SuppressWarnings("unused")
 public class PercentBasedEnemy {
-    String[] enemyArray = new String[100]; // Spawn enemy's based on percent chance
-    int index = 0; // Index so you don't overwrite a spot
-    Random random = new Random();
+    static String[] enemyArray = new String[100]; // Spawn enemy's based on percent chance
+    static int index = 0; // Index so you don't overwrite a spot
+    static Random random = new Random();
+    public static String enemy;
 
     // Setter for 1 enemy and there %
-    public void setEnemyArray(String enemy, int chance) {
+    public static void setEnemyArray(String enemy, int chance) {
         for(int i = 0; chance > i; i++){
             enemyArray[index++] = enemy;
         }
     }
 
     // Spawns 1 enemy.
-    public void spawnEnemy(){
+    public static void spawnEnemy(){
         int randomEnemy = random.nextInt(100);
-        String enemy = enemyArray[randomEnemy];
+       enemy = enemyArray[randomEnemy];
 
-        ZombieTypes.createZombie(enemy, 999);
+        ZombieTypes.createZombie(enemy, Enemy.getIdIndex());
+        Enemy.setIdIndex(1);
     }
 
     // Reset index for new chances
-    public void resetIndex(){index = 0;}
+    public static void resetIndex(){index = 0;}
 }

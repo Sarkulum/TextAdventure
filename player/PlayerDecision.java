@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 // Class for all the print statements that are needed to set up a player
 public class PlayerDecision {
-    public Player player = Player.getPlayer("ID1"); // Get player
     static Scanner scanner = new Scanner(System.in);
 
     // Function to check if player choice is withing the possibility's and also if it is a number
@@ -71,8 +70,7 @@ public class PlayerDecision {
         System.out.println("White");
         System.out.println("--------------------------->enter a word to decide\n");
 
-        Scanner color = new Scanner(System.in);
-        String input = color.nextLine();
+        String input = scanner.nextLine();
 
         return switch (input) { //This looks scary but its basically just a simplified if else statement.
             case "Blue" -> Colors.BLUE;

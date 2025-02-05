@@ -1,6 +1,7 @@
 package gameLogic;
 
 import combat.Attack;
+import enemys.PercentBasedEnemy;
 import map.*;
 import player.Player;
 import player.PlayerDecision;
@@ -51,7 +52,17 @@ public class StoryGame {
 
         // Make random rooms and populate them.
         RandomRooms randomRoom = new RandomRooms();
+        PercentBasedEnemy.setEnemyArray("Shambler", 30);
+        PercentBasedEnemy.setEnemyArray("Rotter", 30);
+        PercentBasedEnemy.setEnemyArray("Crawler", 20);
+        PercentBasedEnemy.setEnemyArray("Ghoul", 20);
         randomRoom.setRandomRoom(3);
+
+        PercentBasedEnemy.resetIndex();
+        PercentBasedEnemy.setEnemyArray("Shambler", 10);
+        PercentBasedEnemy.setEnemyArray("Rotter", 10);
+        PercentBasedEnemy.setEnemyArray("Crawler", 40);
+        PercentBasedEnemy.setEnemyArray("Ghoul", 40);
         randomRoom.setRandomRoom(4);
         randomRoom.setRandomRoom(6);
         randomRoom.setRandomRoom(7);

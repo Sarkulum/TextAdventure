@@ -12,6 +12,7 @@ public class Attack {
     private Player player;          // Fixed Player
     private Enemy enemy;            // Dynamic Enemy
     private static Random random = new Random();
+    private static String enemyName;
     Scanner enterScanner = new Scanner(System.in);
 
     // Private constructor to prevent direct instantiation
@@ -55,7 +56,7 @@ public class Attack {
         }
         enemy.setCurrentHP(enemy.getCurrentHP() - damagePlayer);
 
-        String enemyName = enemy.getEnemyName();
+        enemyName = enemy.getEnemyName();
 
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("You have hit the " + enemyName + " for " +Colors.RED +damagePlayer+" damage"+player.getUserTextColor()+"!");

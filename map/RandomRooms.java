@@ -2,6 +2,7 @@ package map;
 
 import combat.Attack;
 import enemys.Enemy;
+import enemys.PercentBasedEnemy;
 import enemys.ZombieTypes;
 import player.Player;
 import player.PlayerDecision;
@@ -13,11 +14,12 @@ public class RandomRooms {
     public int attackIndex = -1;
     Scanner enterScanner = new Scanner(System.in);
     Player player = Player.getPlayer("ID1");
+    int choice;
 
     public void setRandomRoom(int maxEnemy){
         index = maxEnemy;
         for(int i = 0; maxEnemy > i; i++){
-            ZombieTypes.createZombie("Shambler", i);
+            PercentBasedEnemy.spawnEnemy();
         }
         // Access the singleton instance of Attack
         Attack combat = Attack.getInstance();
@@ -54,9 +56,9 @@ public class RandomRooms {
                     System.out.println("Enemy: " + j + " = "+Colors.RED+"DEAD"+player.getUserTextColor());
                 }
             }
-            int target = PlayerDecision.inputWithCheck(maxEnemy) -1;
+            choice = PlayerDecision.inputWithCheck(maxEnemy) -1;
 
-            Enemy currentEnemy = Enemy.getEnemy(target);
+            Enemy currentEnemy = Enemy.getEnemy(choice);
             combat.setEnemy(currentEnemy);
             combat.attackEnemy();
         }

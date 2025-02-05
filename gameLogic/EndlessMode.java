@@ -21,7 +21,6 @@ public class EndlessMode {
         }
         Shop.buyUpgrades();
 
-
         while (player.getCurrentHP() > 0) {
             randomRooms.setRandomRoom(waveIndex);
             waveIndex++;

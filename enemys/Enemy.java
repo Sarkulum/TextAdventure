@@ -179,4 +179,8 @@ public class Enemy {
             }
         }
     }
+
+    // Setter and getter for idIndex
+    public static void setIdIndex(int id) {idIndex = idIndex + id;}
+    public static int getIdIndex() {return idIndex;}
 }

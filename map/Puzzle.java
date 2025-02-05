@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Puzzle {
     static Scanner scanner = new Scanner(System.in);
+    static int choice;
 
     public static void intro() {
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
@@ -48,7 +49,7 @@ public class Puzzle {
         System.out.println("2.Reboot the entire ticket machine.");
         System.out.println("------------------------------------------------------------------\n");
 
-        int choice = PlayerDecision.inputWithCheck(2);
+        choice = PlayerDecision.inputWithCheck(2);
 
         if(choice == 1) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
@@ -85,10 +86,10 @@ public class Puzzle {
         System.out.println("Currently,the train is carrying 650 passengers.\n");
         System.out.println("How many more passengers can safely board the train?");
 
-        int answer = PlayerDecision.inputWithCheck(999);
+        choice = PlayerDecision.inputWithCheck(999);
 
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-        if(answer == 800 || answer == 150) {
+        if(choice == 800 || choice == 150) {
             System.out.println("Good job! That was the right answer.");
             System.out.println("--------------------------->press enter to continue\n");
 
@@ -117,7 +118,7 @@ public class Puzzle {
         System.out.println("2. Restart the display system.");
         System.out.println("3. Manually update the train times on the display.");
 
-        int choice = PlayerDecision.inputWithCheck(3);
+        choice = PlayerDecision.inputWithCheck(3);
 
         if(choice == 1){
             System.out.println("\n------------------------------------------------------------------");
