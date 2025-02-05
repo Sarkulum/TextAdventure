@@ -9,14 +9,14 @@ import java.util.Scanner;
 
 public class Room1 {
     static Scanner scanner = new Scanner(System.in);
+    static boolean firstVisit2 = true;  //boolean to check if bottle was found
+    static boolean firstVisit3 = true; //boolean to check if first visit to outsideHBF
 
     public static void outsideHBF() {
-        boolean firstVisit2 = true;
         Player player = Player.getPlayer("ID1");
 
-        if(firstVisit2) {
+        if(firstVisit3) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.println("System:");
             System.out.println("The cold night air hits me as I step outside into the eerie silence.");
             System.out.println("The once bastling plaza in front of the station is now lifeless.");
             System.out.println("Ernst August Statue looms in the center,its bronze surface darkened with something that look like ... dried blood.");
@@ -25,7 +25,6 @@ public class Room1 {
             scanner.nextLine();
 
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.println("System:");
             System.out.println("Broken bicycles and overturned trash cans are scattered across the cobblestones.");
             System.out.println("The faint hum and flickering  streetlights adds an ominous soundtrack to the stillness.");
             System.out.println("In the west across the street is the Ernst-August-Galerie – a shopping enter that used to be full of life.");
@@ -33,6 +32,7 @@ public class Room1 {
             System.out.println("--------------------------->press enter to continue\n");
 
             scanner.nextLine();
+            firstVisit3 = false;
         }
 
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
