@@ -15,7 +15,7 @@ public class Shop {
 
         if (!player.getKey()) {
 
-            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
 
             if (player.getFirstShopVisit()) {
                 System.out.println("You could talke to the person behind the counter but you don't know them and this is a zombie Apocalypse soooo ...");
@@ -36,23 +36,23 @@ public class Shop {
 
         }else {
             if (player.getFirstShopVisit()) {
-                System.out.println("\n------------------------------------------------------------------");
+                System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
                 System.out.println("Shopkeeper: Hello " + player.getUserName() + " welcome to my humble shop.");
                 System.out.println("Here you can buy permanent upgrades for all sorts of stats.");
-                System.out.println("--------------------------->press enter to continue");
+                System.out.println("--------------------------->press enter to continue\n");
                 player.setFirstShopVisit(false);
                 scanner.nextLine();
             }
             int hpDif = player.getMaxHP() - player.getCurrentHP();
-            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("System: These are your current stats:");
             System.out.println("Your " + Colors.RED + "minimum damage" + player.getUserTextColor() + " is: " + player.getMinDamage());
             System.out.println("Your " + Colors.RED + "maximum damage" + player.getUserTextColor() + " is: " + player.getMaxDamage());
             System.out.println("Your " + Colors.GREEN + "maximum hp" + player.getUserTextColor() + " are: " + player.getMaxHP());
             System.out.println("Your " + Colors.GREEN + "current hp" + player.getUserTextColor() + " are: " + player.getCurrentHP());
-            System.out.println("--------------------------->press enter to continue");
+            System.out.println("--------------------------->press enter to continue\n");
             scanner.nextLine();
-            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("System: You can buy the following:");
             System.out.println("1. A upgrade to your " + Colors.RED + "minimum damage" + player.getUserTextColor() + "(+1).  Costs: " + Colors.YELLOW + "10 gold" + player.getUserTextColor() + ".");
             System.out.println("2. A upgrade to your " + Colors.RED + "maximum damage" + player.getUserTextColor() + "(+1).  Costs: " + Colors.YELLOW + "10 gold" + player.getUserTextColor() + ".");
@@ -63,7 +63,7 @@ public class Shop {
             choice = PlayerDecision.inputWithCheck(5);
             goldCheckAndBuy(choice);
 
-            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("Do you want to make another purchase?");
             System.out.println("1. Yes");
             System.out.println("2. No");
@@ -74,9 +74,10 @@ public class Shop {
                 buyUpgrades();
             }
 
-            System.out.println("\n------------------------------------------------------------------");
-            System.out.println("Shopkeeper: Thanks for visiting my shop. \nYou can come back whenever you die and Respawn here.");
-            System.out.println("--------------------------->press enter to continue");
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("Shopkeeper: Thanks for visiting my shop.");
+            System.out.println("You can come back whenever you die and Respawn here.");
+            System.out.println("--------------------------->press enter to continue\n");
             scanner.nextLine();
         }
     }
@@ -88,14 +89,14 @@ public class Shop {
                 || player.getGoldCoins() < 30 && choice == 3
                 || player.getGoldCoins() < 15 && choice == 4
         ) {
-            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("System: You do not have enough gold for choice "+choice+".");
-            System.out.println("--------------------------->press enter to continue");
+            System.out.println("--------------------------->press enter to continue\n");
             scanner.nextLine();
         }else if(choice == 5){
-            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("Shopkeeper: You can always come back later.");
-            System.out.println("--------------------------->press enter to continue");
+            System.out.println("--------------------------->press enter to continue\n");
             scanner.nextLine();
         }else {
             switch (choice) {

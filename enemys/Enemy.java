@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
+@SuppressWarnings("unused")
 public class Enemy {
     private static Map<Integer, Enemy> enemys = new HashMap<>(); // Registry of all enemy's
 
@@ -14,7 +15,7 @@ public class Enemy {
 
     // Vars for all relevant Enemy stats.
     public Integer enemyID;
-    public String name = "empty";
+    public String name;
     public int maxDamage;
     public int minDamage;
     public int maxHP;
@@ -73,7 +74,7 @@ public class Enemy {
 
     // Boolean to check if any enemy on the Map still has more than 0 hp
     public static boolean anyEnemyAlive(int index) {
-        // Changed it so that i uses index and not enemys.size also made the for loop start from -1 and check for <= idk why this fixed it but it did.
+        // Changed it so that I use index and not enemy's.size also made the for loop start from -1 and check for <= IDK why this fixed it, but it did.
         for(int i = -1; i <= index; i++) {
             Enemy currentEnemy = Enemy.getEnemy(i);
             if (currentEnemy != null) {
@@ -89,10 +90,7 @@ public class Enemy {
     public static boolean specificEnemyAlive(Integer enemyID){
         try {
             Enemy enemy = getEnemy(enemyID);
-            if (enemy.getCurrentHP() > 0) {
-                return true;
-            }
-            return false;
+            return enemy.getCurrentHP() > 0;
         }catch (NullPointerException e){
             return false;
         }

@@ -3,6 +3,7 @@ package unused;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 public class PlayerOption {
     private static Map<String, PlayerOption> players = new HashMap<>(); // Registry of all players
 
@@ -80,7 +81,7 @@ public class PlayerOption {
         this.maxDamage = maxDamage;
     }
 
-    // idk what this does
+    // IDK what this does
     @Override
     public String toString() {
         return "Player{" +

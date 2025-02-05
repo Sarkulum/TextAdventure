@@ -8,6 +8,7 @@ import map.Shop;
 import map.Tutorial;
 import text.Colors;
 
+@SuppressWarnings("unused")
 public class Player {
     private static Map<String, Player> players = new HashMap<>(); // Registry of all players
 
@@ -129,15 +130,19 @@ public class Player {
             return;
         }
         if(tutorialPassed){
-            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You have died to "+enemy.getEnemyName()+". You will now respawn at the Shop.");
-            System.out.println("------------------------------------------------------------------\n");
+            System.out.println("--------------------------->press enter to continue\n");
+
+            enterScanner.nextLine();
             this.currentHP = this.maxHP;
             Shop.buyUpgrades();
         }else{
             System.out.println("\n------------------------------------------------------------------");
             System.out.println("You have died to a "+enemy.getEnemyName()+". You will now respawn at the beginning.");
-            System.out.println("------------------------------------------------------------------\n");
+            System.out.println("--------------------------->press enter to continue\n");
+
+            enterScanner.nextLine();
             this.currentHP = this.maxHP;
             Tutorial.townGate();
         }
@@ -145,9 +150,9 @@ public class Player {
 
     public void goldCoinPrint(String userID){
         Player player = getPlayer(userID);
-        System.out.println("\n------------------------------------------------------------------");
+        System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("You now have "+ Colors.YELLOW +player.getGoldCoins()+" Gold coins"+player.getUserTextColor()+".");
-        System.out.println("--------------------------->press enter to continue");
+        System.out.println("--------------------------->press enter to continue\n");
         enterScanner.nextLine();
     }
 

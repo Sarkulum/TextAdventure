@@ -6,14 +6,11 @@ import enemys.ZombieTypes;
 import player.Player;
 import player.PlayerDecision;
 import text.Colors;
-
-import java.util.Random;
 import java.util.Scanner;
 
 public class RandomRooms {
     public int index;
     public int attackIndex = -1;
-    Random random = new Random();
     Scanner enterScanner = new Scanner(System.in);
     Player player = Player.getPlayer("ID1");
 
@@ -25,9 +22,11 @@ public class RandomRooms {
         // Access the singleton instance of Attack
         Attack combat = Attack.getInstance();
 
-        System.out.println("\n------------------------------------------------------------------");
+        System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("System: You have entered a room with "+index+" enemy's inside.");
-        System.out.println("------------------------------------------------------------------\n");
+        System.out.println("--------------------------->press enter to continue\n");
+
+        enterScanner.nextLine();
 
         while (Enemy.anyEnemyAlive(maxEnemy)){
             for (int i = 0; i < index; i++) {
@@ -43,7 +42,7 @@ public class RandomRooms {
                 combat.attackPlayer();
             }
             // Make a for loop so every enemy gets printed by name
-            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("System: There are "+index+" in front of you. Who do you want to attack?");
             System.out.println("Enemy status:");
 
@@ -61,9 +60,9 @@ public class RandomRooms {
             combat.setEnemy(currentEnemy);
             combat.attackEnemy();
         }
-        System.out.println("\n------------------------------------------------------------------");
+        System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("System: You have cleared this room and will now move to the next one.");
-        System.out.println("--------------------------->press enter to continue");
+        System.out.println("--------------------------->press enter to continue\n");
         enterScanner.nextLine();
         Enemy.removeAllEntrys();
     }

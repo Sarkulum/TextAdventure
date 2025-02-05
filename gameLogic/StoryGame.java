@@ -72,10 +72,10 @@ public class StoryGame {
         if (!Score.previousPlayer(player)) {
             StartGame();
         }else{
-            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("We have found out that you are a player who has previous played.");
             System.out.println("If you want to you can play the endless mode.");
-            System.out.println("In endless mode you only fight and there is no end");
+            System.out.println("In endless mode you only fight and there is no end.\n");
             System.out.println("1. Endless mode");
             System.out.println("2. Story mode");
 

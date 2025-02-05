@@ -57,7 +57,7 @@ public class Attack {
 
         String enemyName = enemy.getEnemyName();
 
-        System.out.println("\n------------------------------------------------------------------");
+        System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("You have hit the " + enemyName + " for " +Colors.RED +damagePlayer+" damage"+player.getUserTextColor()+"!");
         System.out.println("--------------------------->press enter to continue");
         enterScanner.nextLine();
@@ -86,7 +86,7 @@ public class Attack {
             }
             player.setCurrentHP(player.getCurrentHP() - damageEnemy);
 
-            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You where hit by " + enemy.getEnemyName() + " for " + Colors.RED + damageEnemy + " damage" + player.getUserTextColor() + "!");
             System.out.println("--------------------------->press enter to continue");
             enterScanner.nextLine();

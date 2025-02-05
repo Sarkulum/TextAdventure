@@ -27,11 +27,11 @@ public class EndlessMode {
             waveIndex++;
         }
 
-        System.out.println("\n------------------------------------------------------------------");
+        System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("Do you want to continue or do you want to exit?");
         System.out.println("If you continue you respawn in the shop and you can buy some new Upgrades.");
         System.out.println("You will also restart at the latest Wave.");
-        System.out.println("If you exit your Score will be saved to score.txt and the program will stop.");
+        System.out.println("If you exit your Score will be saved to score.txt and the program will stop.\n");
         System.out.println("1. Continue");
         System.out.println("2. Exit");
 
