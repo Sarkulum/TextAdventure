@@ -11,18 +11,23 @@ public class PlayerDecision {
     // Function to check if player choice is withing the possibility's and also if it is a number
     public static int inputWithCheck(int decisionRange) {
         int decisionValue;
+        boolean inputValid = false;
 
         System.out.println("--------------------------->enter a number to decide\n");
-
-        try {
-            decisionValue = scanner.nextInt();
-            if (decisionValue <= decisionRange){
-                return decisionValue;
-            }else{
-                System.out.println("Please only enter a number within the decision range.");
+        while (!inputValid) {
+            try {
+                decisionValue = scanner.nextInt();
+                if (decisionValue <= decisionRange) {
+                    inputValid = true;
+                    return decisionValue;
+                } else {
+                    System.out.println("Please only enter a number within the decision range.\n");
+                    scanner.next();
+                }
+            } catch (Exception e) {
+                System.out.println("Please only enter numbers.\n");
+                scanner.next();
             }
-        } catch (Exception e) {
-            System.out.println("Please only enter numbers.");
         }
         return 1;
     }
@@ -66,17 +71,20 @@ public class PlayerDecision {
         System.out.println(Colors.BLUE+ "Blue" + Colors.RESET);
         System.out.println(Colors.CYAN+ "Cyan" + Colors.RESET);
         System.out.println(Colors.PURPLE+ "Purple" + Colors.RESET);
-        System.out.println(Colors.Gray + "Gray" + Colors.RESET);
+        System.out.println(Colors.GRAY + "Gray" + Colors.RESET);
+        System.out.println(Colors.HIGH_PURPLE+ "High Purple" +Colors.RESET);
         System.out.println("White");
         System.out.println("--------------------------->enter a word to decide\n");
 
+        scanner.next();
         String input = scanner.nextLine();
 
         return switch (input) { //This looks scary but its basically just a simplified if else statement.
             case "Blue" -> Colors.BLUE;
             case "Cyan" -> Colors.CYAN;
             case "Purple" -> Colors.PURPLE;
-            case "Gray" -> Colors.Gray;
+            case "Gray" -> Colors.GRAY;
+            case "High Purple" -> Colors.HIGH_PURPLE;
             default -> Colors.RESET;
         };
     }

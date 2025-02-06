@@ -50,10 +50,13 @@ public class Attack {
             return;
         }
 
-        int damagePlayer = random.nextInt(player.getMaxDamage());
+
+        int damagePlayer = random.nextInt(player.getMinDamage(), player.getMaxDamage());
+        /* This SHOULD all not be needed, but maybe I am wrong, so I am keeping it.
         if (damagePlayer < player.getMinDamage()) {
             damagePlayer = player.getMinDamage();
         }
+        */
         enemy.setCurrentHP(enemy.getCurrentHP() - damagePlayer);
 
         enemyName = enemy.getEnemyName();
@@ -81,10 +84,12 @@ public class Attack {
         }
 
         if(enemy != null) {
-            int damageEnemy = random.nextInt(enemy.getMaxDamage() + 1);
+            int damageEnemy = random.nextInt(enemy.getMaxDamage(), enemy.getMaxDamage());
+            /* Same here, this SHOULD not be needed, but maybe I am stupid.
             if (damageEnemy < enemy.getMinDamage()) {
                 damageEnemy = enemy.getMinDamage();
             }
+             */
             player.setCurrentHP(player.getCurrentHP() - damageEnemy);
 
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");

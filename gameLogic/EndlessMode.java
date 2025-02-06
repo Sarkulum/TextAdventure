@@ -14,6 +14,7 @@ public class EndlessMode {
         int score = 0;
         RandomRooms randomRooms = new RandomRooms();
         Player player = Player.getPlayer("ID1");
+        player.setEndless(true);
 
         if (fistVisit) {
             Score.displayScores();

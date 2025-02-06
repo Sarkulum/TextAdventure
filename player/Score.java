@@ -58,8 +58,7 @@ public class Score {
     }
 
     // Check if player played before
-    public static boolean previousPlayer(Player player1) {
-        String playerName = player1.getUserName();
+    public static boolean previousPlayer(String playerName) {
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_NAME_PLAYER))) {
             String line = br.readLine(); // Read the first line
             if (line != null) {
@@ -67,7 +66,7 @@ public class Score {
 
                 for (String player : players) {
                     if (playerName.equals(player/*.trim()*/)) { // Trim to remove spaces
-                        System.out.println(playerName + " found!");
+                        // System.out.println(playerName + " found!");
                         return true;
                     }
                 }
@@ -79,10 +78,13 @@ public class Score {
         return false;
     }
 
+    // Save dev to previous player when dev found.
     public static void saveDEV() {
         String playerName = "DEV";
         try (FileWriter writer = new FileWriter(FILE_NAME_PLAYER, true)) { // 'true' enables appending
-            writer.write(playerName+ ",");
+            if (!previousPlayer(playerName)) {
+                writer.write(playerName + ",");
+            }
         } catch (IOException e) {
             System.out.println("An error occurred while saving the score.");
             e.printStackTrace();

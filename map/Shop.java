@@ -2,6 +2,7 @@ package map;
 
 import player.Player;
 import player.PlayerDecision;
+import player.Score;
 import text.Colors;
 
 import java.util.Scanner;
@@ -12,7 +13,7 @@ public class Shop {
     static int choice;
 
     public static void buyUpgrades(){
-        if (!player.getKey()) {
+        if (!player.getKey() && !player.isEndless()) {
 
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
 
@@ -33,7 +34,7 @@ public class Shop {
                 Room1.eaStatue();
             }
 
-        }else {
+        }
             if (player.getFirstShopVisit()) {
                 System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
                 System.out.println("Shopkeeper: Hello " + player.getUserName() + " welcome to my humble shop.");
@@ -78,7 +79,6 @@ public class Shop {
             System.out.println("You can come back whenever you die and Respawn here.");
             System.out.println("--------------------------->press enter to continue\n");
             scanner.nextLine();
-        }
     }
 
     public static void goldCheckAndBuy(int choice) {

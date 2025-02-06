@@ -30,6 +30,7 @@ public class Player {
     public boolean silverRing = false; // Does player one the ring
     boolean key = false;
     int score = 0;
+    boolean endless;
 
     // Constructor (private to encourage using the factory method)
     private Player(String userID ,String userName, int userAge, String userTextColor, int maxHP, int minDamage, int maxDamage, String playerWeapon, boolean DEV, int goldCoins) {
@@ -163,4 +164,8 @@ public class Player {
     // Setter and Getter for score
     public void setScore(int score) {this.score = score;}
     public int getScore() {return this.score;}
+
+    // Getter and setter for endless
+    public boolean isEndless() {return this.endless;}
+    public void setEndless(boolean endless) {this.endless = endless;}
 }

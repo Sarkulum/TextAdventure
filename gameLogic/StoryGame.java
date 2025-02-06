@@ -80,7 +80,8 @@ public class StoryGame {
 
     public static void checkPlayer() {
         Player player = Player.getPlayer("ID1");
-        if (!Score.previousPlayer(player)) {
+        String playerName = player.getUserName();
+        if (!Score.previousPlayer(playerName)) {
             StartGame();
         }else{
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
