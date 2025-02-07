@@ -212,11 +212,12 @@ public class Tutorial {
             System.out.println("It tastes awful, and something feels wrong.");
             System.out.println("You feel your stomach churn, and your head spins.\n");
             System.out.println("System:");
-            System.out.println("You "+Colors.GREEN+"lose 1 HP"+player.getUserTextColor()+".");
+            System.out.println("You "+Colors.RED+"lose 1 HP"+player.getUserTextColor()+".");
             System.out.println("--------------------------->press enter to continue\n");
 
             player.setCurrentHP(player.getCurrentHP() -1);
             enterScanner.nextLine();
+            forest();
         } else if (choice == 3) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You turn away from the abandoned stand and head back to Kröpke.");
