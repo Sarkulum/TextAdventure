@@ -23,19 +23,19 @@ public class Enemy {
     public static int idIndex = 0; // Index to know witch id I am at.
 
     // Constructor to initialize the enemy
-    private Enemy(Integer enemyID, String name, int maxDamage, int minDamage, int maxHP) {
+    private Enemy(Integer enemyID, String name, int minDamage, int maxDamage, int maxHP) {
         this.enemyID = enemyID;       // Assign the ID
         this.name = name;             // Assign the name
-        this.maxDamage = maxDamage;   // Assign maximum damage
         this.minDamage = minDamage;   // Assign minimum damage
+        this.maxDamage = maxDamage;   // Assign maximum damage
         this.maxHP = maxHP;           // Assign maximum HP
         this.currentHP = maxHP;       // Set current HP to max HP by default
     }
 
     // Factory method to create or retrieve an enemy
-    public static Enemy createEnemy(Integer enemyID , String name, int maxDamage, int minDamage, int maxHP) {
+    public static Enemy createEnemy(Integer enemyID , String name, int minDamage, int maxDamage, int maxHP) {
         if (!enemys.containsKey(enemyID)) {
-            Enemy enemy = new Enemy(enemyID, name, maxDamage, minDamage, maxHP);
+            Enemy enemy = new Enemy(enemyID, name, minDamage, maxDamage, maxHP);
             enemys.put(enemyID, enemy);
         }
         return enemys.get(enemyID);

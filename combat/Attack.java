@@ -84,7 +84,7 @@ public class Attack {
         }
 
         if(enemy != null) {
-            int damageEnemy = random.nextInt(enemy.getMaxDamage(), enemy.getMaxDamage());
+            int damageEnemy = random.nextInt(enemy.getMinDamage(), enemy.getMaxDamage());
             /* Same here, this SHOULD not be needed, but maybe I am stupid.
             if (damageEnemy < enemy.getMinDamage()) {
                 damageEnemy = enemy.getMinDamage();

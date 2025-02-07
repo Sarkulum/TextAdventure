@@ -10,86 +10,86 @@ public class ZombieTypes {
             case "Shambler" -> Enemy.createEnemy(
                     finalId,
                     "Shambler",
-                    random.nextInt((7 - 5) + 1) + 5,
                     1,
-                    3
+                    3,
+                    random.nextInt(5, 7)
             );
             case "Rotter" -> Enemy.createEnemy(
                     finalId,
                     "Rotter",
-                    random.nextInt((8 - 6) + 1) + 6,
                     3,
-                    6
+                    6,
+                    random.nextInt(6, 8)
             );
             case "Crawler" -> Enemy.createEnemy(
                     finalId,
                     "Crawler",
-                    random.nextInt((6 - 4) + 1) + 4,
                     1,
-                    4
+                    4,
+                    random.nextInt(4, 6)
             );
             case "Ghoul" -> Enemy.createEnemy(
                     finalId,
                     "Ghoul",
-                    random.nextInt((14 - 10) + 1) + 10,
                     4,
-                    7
+                    7,
+                    random.nextInt(10, 14)
             );
             case "Bloater" -> Enemy.createEnemy(
                     finalId,
                     "Bloater",
-                    random.nextInt((18 - 12) + 1) + 12,
                     3,
-                    6
+                    6,
+                    random.nextInt(12, 18)
             );
             case "Lurker" -> Enemy.createEnemy(
                     finalId,
                     "Lurker",
-                    random.nextInt((12 - 8) + 1) + 8,
                     4,
-                    8
+                    8,
+                    random.nextInt(8, 12)
             );
             case "Spitter" -> Enemy.createEnemy(
                     finalId,
                     "Spitter",
-                    random.nextInt((10 - 6) + 1) + 6,
                     5,
-                    9
+                    9,
+                    random.nextInt(6, 10)
             );
             case "Brute" -> Enemy.createEnemy(
                     finalId,
                     "Brute",
-                    random.nextInt((20 - 15) + 1) + 15,
                     6,
-                    10
+                    10,
+                    random.nextInt(15, 20)
             );
             case "Burnt Zombie" -> Enemy.createEnemy(
                     finalId,
                     "Burnt Zombie",
-                    random.nextInt((14 - 10) + 1) + 10,
                     4,
-                    6
+                    6,
+                    random.nextInt(10, 14)
             );
             case "Mutant Zombie" -> Enemy.createEnemy(
                     finalId,
                     "Mutant Zombie",
-                    random.nextInt((22 - 18) + 1) + 18,
                     7,
-                    12
+                    12,
+                    random.nextInt(18, 22)
             );
             case "Necrofiend" -> Enemy.createEnemy(
                     finalId,
                     "Necrofiend",
-                    random.nextInt((25 - 20) + 1) + 20,
                     8,
-                    15
+                    15,
+                    random.nextInt(20, 25)
             );
             case null, default -> Enemy.createEnemy(
                     finalId,
                     "Walker",
-                    random.nextInt((10 - 8) + 1) + 8,
                     2,
-                    5
+                    5,
+                    random.nextInt(8, 10)
             );
         }
         return finalId;
