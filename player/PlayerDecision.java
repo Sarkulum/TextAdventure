@@ -7,6 +7,7 @@ import java.util.Scanner;
 // Class for all the print statements that are needed to set up a player
 public class PlayerDecision {
     static Scanner scanner = new Scanner(System.in);
+    String input;
 
     // Function to check if player choice is withing the possibility's and also if it is a number
     public static int inputWithCheck(int decisionRange) {
@@ -45,8 +46,7 @@ public class PlayerDecision {
     public boolean DEV() {
         Player player = Player.getPlayer("ID1");
         if(Objects.equals(player.getUserName(), "DEV")){
-            System.out.println(player.getUserTextColor());
-            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println(player.getUserTextColor()+"\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("Welcome DEV you now have the power to destroy.");
             System.out.println("--------------------------->press enter to continue\n");
 
@@ -76,8 +76,8 @@ public class PlayerDecision {
         System.out.println("White");
         System.out.println("--------------------------->enter a word to decide\n");
 
-        scanner.next();
-        String input = scanner.nextLine();
+        scanner.nextLine(); // Consume leftover newline from previous input
+        input = scanner.nextLine(); // Now correctly captures user input
 
         return switch (input) { //This looks scary but its basically just a simplified if else statement.
             case "Blue" -> Colors.BLUE;

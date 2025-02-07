@@ -1,12 +1,15 @@
 package map;
 
+import player.Player;
+
 import java.util.Scanner;
 
 public class Intro {
     static Scanner scanner = new Scanner(System.in);
 
     public static void intro() {
-        System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+        Player player = Player.getPlayer("ID1");
+        System.out.println(player.getUserTextColor()+"\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("I woke up in a pitch-black alleyway. My head is pounding, and I can’t remember how I got here.");
         System.out.println("I reach for my phone, but it’s dead. Great. Just great.");
         System.out.println("--------------------------->press enter to continue\n");
