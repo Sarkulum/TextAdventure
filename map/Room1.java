@@ -10,7 +10,10 @@ import java.util.Scanner;
 public class Room1 {
     static Scanner scanner = new Scanner(System.in);
     static boolean firstVisit2 = true;  //boolean to check if bottle was found
-    static boolean firstVisit3 = true; //boolean to check if first visit to outsideHBF
+    static boolean firstVisit3 = true;
+    static boolean firstVisitMedKit = true;
+    static boolean firstVisitBoots = true;
+    static boolean firstVisitFood = true;//boolean to check if first visit to outsideHBF
     static int choice;
 
     public static void outsideHBF() {
@@ -71,12 +74,14 @@ public class Room1 {
                 System.out.println("\nSystem:");
                 System.out.println("You heal for " + Colors.GREEN + "1hp" + player.getUserTextColor());
                 System.out.println("--------------------------->press enter to continue\n");
+                if (player.getCurrentHP() < player.getMaxHP()) {
+                    player.setCurrentHP(player.getCurrentHP() + 1);
+                }
             }else{
                 System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
                 System.out.println("You have already found everything here.");
                 System.out.println("--------------------------->press enter to continue\n");
             }
-            player.setCurrentHP(player.getCurrentHP()+1);
             scanner.nextLine();
             firstVisit2 = false;
 
@@ -95,9 +100,6 @@ public class Room1 {
 
     public static void eagGround() {
         Player player = Player.getPlayer("ID1");
-        boolean firstVisitMedKit = true;
-        boolean firstVisitBoots = true;
-        boolean firstVisitFood = true;
 
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("The ground floor of Ernst-August-Galerie is a desolate ruin. ");
@@ -129,6 +131,8 @@ public class Room1 {
                 System.out.println("System:");
                 System.out.println("You "+Colors.GREEN+"heal to full health"+player.getUserTextColor()+".");
 
+                player.setCurrentHP(player.getMaxHP());
+
                 firstVisitMedKit = false;
             }
             System.out.println("--------------------------->press enter to continue\n");
@@ -145,6 +149,11 @@ public class Room1 {
                 System.out.println("System:");
                 System.out.println("You can now take more damage("+Colors.GREEN+"+1 max hp"+player.getUserTextColor()+").");
 
+                if (player.getCurrentHP() == player.getMaxHP()) {
+                    player.setCurrentHP(player.getCurrentHP() +1);
+                }
+                player.setMaxHP(player.getMaxHP() +1);
+
                 firstVisitBoots = false;
             }
 
@@ -160,6 +169,10 @@ public class Room1 {
                 System.out.println("Most of the food has spoiled, but behind an overturned kiosk, you find an unopened bottle of soda.");
                 System.out.println("System:");
                 System.out.println("You "+Colors.GREEN+"heal for +1hp"+player.getUserTextColor()+".");
+
+                if (player.getCurrentHP() < player.getMaxHP()) {
+                    player.setCurrentHP(player.getCurrentHP() +1);
+                }
 
                 firstVisitFood = false;
             }

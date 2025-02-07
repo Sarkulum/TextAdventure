@@ -23,8 +23,8 @@ public class StoryGame {
                 setParams.setUserAge(),
                 setParams.setTextColor(),
                 20,
-                5,
                 1,
+                5,
                 "Fist",
                 0
         );

@@ -81,6 +81,7 @@ public class Tutorial {
             System.out.println("--------------------------->press enter to continue\n");
 
             enterScanner.nextLine();
+            townGate();
         }
     }
 
