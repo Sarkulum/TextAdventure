@@ -1,6 +1,8 @@
 package combat;
 
 import enemys.Enemy;
+import map.Shop;
+import map.Tutorial;
 import player.Player;
 import text.Colors;
 
@@ -97,7 +99,29 @@ public class Attack {
             System.out.println("--------------------------->press enter to continue");
             enterScanner.nextLine();
 
-            player.playerAlive(this.enemy);
+            deathMessage();
+        }
+    }
+
+    public void deathMessage() {
+        if(player.getTutorialPassed() && !player.playerAlive()){
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("You have died to "+enemy.getEnemyName()+". You will now respawn at the Shop.");
+            System.out.println("--------------------------->press enter to continue\n");
+
+            enterScanner.nextLine();
+            player.setCurrentHP(player.getMaxHP());
+            player.setPlayerWeapon("Fist");
+            Shop.buyUpgrades();
+        }else if(!player.playerAlive()){
+            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("You have died to a "+enemy.getEnemyName()+". You will now respawn at the beginning.");
+            System.out.println("--------------------------->press enter to continue\n");
+
+            enterScanner.nextLine();
+            player.setCurrentHP(player.getMaxHP());
+            player.setPlayerWeapon("Fist");
+            Tutorial.townGate();
         }
     }
 }

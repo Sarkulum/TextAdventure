@@ -9,17 +9,11 @@ import java.util.Scanner;
 
 public class Room1 {
     static Scanner scanner = new Scanner(System.in);
-    static boolean firstVisit2 = true;  //boolean to check if bottle was found
-    static boolean firstVisit3 = true;
-    static boolean firstVisitMedKit = true;
-    static boolean firstVisitBoots = true;
-    static boolean firstVisitFood = true;//boolean to check if first visit to outsideHBF
     static int choice;
+    static Player player = Player.getPlayer("ID1");
 
     public static void outsideHBF() {
-        Player player = Player.getPlayer("ID1");
-
-        if(firstVisit3) {
+        if(player.isFirstVisit3()) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("The cold night air hits me as I step outside into the eerie silence.");
             System.out.println("The once bastling plaza in front of the station is now lifeless.");
@@ -36,7 +30,7 @@ public class Room1 {
             System.out.println("--------------------------->press enter to continue\n");
 
             scanner.nextLine();
-            firstVisit3 = false;
+            player.setFirstVisit3(false);
         }
 
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
@@ -54,9 +48,10 @@ public class Room1 {
             System.out.println("'Follow the fog, trust the light.'\n");
 
             if(!Objects.equals(player.getPlayerWeapon(), "Crowbar")) {
-                System.out.println("You also notice a crowbar leaning against the base of the statue.");
+                System.out.println("You also notice "+Colors.HIGH_RED+"a crowbar"+player.getUserTextColor()+" leaning against the base of the statue.");
                 System.out.println("System:");
                 System.out.println("You have obtained weapon: 'Crowbar'");
+                System.out.println("It is not noticeably better than the kitchen knife.");
 
                 player.setPlayerWeapon("Crowbar");
             }
@@ -66,7 +61,7 @@ public class Room1 {
 
             outsideHBF();
         } else if (choice == 2) {
-            if(firstVisit2) {
+            if(player.isFirstVisit2()) {
                 System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
                 System.out.println("Rummaging through the broken bicycles,");
                 System.out.println("you find a backpack with a half-full water bottle inside.");
@@ -83,7 +78,7 @@ public class Room1 {
                 System.out.println("--------------------------->press enter to continue\n");
             }
             scanner.nextLine();
-            firstVisit2 = false;
+            player.setFirstVisit2(false);
 
             outsideHBF();
         } else if (choice == 3) {
@@ -99,8 +94,6 @@ public class Room1 {
     }
 
     public static void eagGround() {
-        Player player = Player.getPlayer("ID1");
-
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("The ground floor of Ernst-August-Galerie is a desolate ruin. ");
         System.out.println("Broken storefronts, shattered glass, and the faint stench of decay fill the air.");
@@ -125,7 +118,7 @@ public class Room1 {
             System.out.println("You follow the trail to the service door.");
             System.out.println("The door is looked.");
 
-            if (Objects.equals(player.getPlayerWeapon(), "Crowbar") && firstVisitMedKit) {
+            if (Objects.equals(player.getPlayerWeapon(), "Crowbar") && player.isFirstVisitMedKit()) {
                 System.out.println("But you are able to open it using the crowbar you picked up.");
                 System.out.println("Inside you find a supply room with a MedKit.");
                 System.out.println("System:");
@@ -133,7 +126,7 @@ public class Room1 {
 
                 player.setCurrentHP(player.getMaxHP());
 
-                firstVisitMedKit = false;
+                player.setFirstVisitMedKit(false);
             }
             System.out.println("--------------------------->press enter to continue\n");
 
@@ -143,7 +136,7 @@ public class Room1 {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("The Fashion section is a mess, with clothes scattered everywhere.");
 
-            if (firstVisitBoots) {
+            if (player.isFirstVisitBoots()) {
                 System.out.println("Among the wreckage, you find a pair of sturdy boots.");
                 System.out.println("They’re a bit too big, but they’ll do.");
                 System.out.println("System:");
@@ -154,7 +147,7 @@ public class Room1 {
                 }
                 player.setMaxHP(player.getMaxHP() +1);
 
-                firstVisitBoots = false;
+                player.setFirstVisitBoots(false);
             }
 
             System.out.println("--------------------------->press enter to continue\n");
@@ -165,7 +158,7 @@ public class Room1 {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("The Food Court is eerily silent.");
 
-            if (firstVisitFood) {
+            if (player.isFirstVisitFood()) {
                 System.out.println("Most of the food has spoiled, but behind an overturned kiosk, you find an unopened bottle of soda.");
                 System.out.println("System:");
                 System.out.println("You "+Colors.GREEN+"heal for +1hp"+player.getUserTextColor()+".");
@@ -174,7 +167,7 @@ public class Room1 {
                     player.setCurrentHP(player.getCurrentHP() +1);
                 }
 
-                firstVisitFood = false;
+                player.setFirstVisitFood(false);
             }
 
             System.out.println("--------------------------->press enter to continue\n");
@@ -193,8 +186,6 @@ public class Room1 {
     }
 
     public static void eaStatue() {
-        Player player = Player.getPlayer("ID1");
-
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("You return to the statue of Ernst-August.");
         System.out.println("The shadows seem darker now, and the once-silent plaza feels... alive, as if something is watching you.");
@@ -225,7 +216,7 @@ public class Room1 {
 
         if (choice == 2 && !player.getKey()) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.println("Inside the compartment, you find a small key with a tag attached.");
+            System.out.println("Inside the compartment, you find "+Colors.HIGH_RED+"a small key"+player.getUserTextColor()+" with a tag attached.");
             System.out.println("The tag reads: 'Forgotten Treasures.'");
             System.out.println("You feel a chill run down your spine as you realize this must be the key to something nearby.");
             System.out.println("--------------------------->press enter to continue\n");

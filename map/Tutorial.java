@@ -12,14 +12,12 @@ import java.util.Scanner;
 
 public class Tutorial {
     static Scanner enterScanner = new Scanner(System.in); // Scanner to check if the player wants to proceed.
-    public static int choice; // Int for player choice.
     static Enemy firstEnemy = Enemy.getEnemy(ZombieTypes.createZombie("Shambler", 0)); // Make an enemy
-    public static boolean mission = false;
-    public static boolean medKit = true;
+    static Player player = Player.getPlayer("ID1");
+    static int choice; // Int for player choice.
 
     // Starting room.
     public static void townGate() {
-        Player player = Player.getPlayer("ID1");
         System.out.println(player.userTextColor);
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("A thick, smoky wall blocks a narrow passage leading further into the city.");
@@ -28,7 +26,7 @@ public class Tutorial {
         System.out.println("1. Talk to the person");
         System.out.println("2. Smack them");
         System.out.println("3. Do nothing");
-        if (mission) {
+        if (player.isMission()) {
             System.out.println("4. Go north to the crossroad");
         }
 
@@ -50,24 +48,39 @@ public class Tutorial {
                 System.out.println("If you bring me a pack of cigarettes, "+player.getUserName()+", I’ll let you through that smoky wall.\n");
                 System.out.println("--------------------------->press enter to continue\n");
 
-                mission = true;
+                player.setMission(true);
                 enterScanner.nextLine();
                 townGate();
             }
         }else if (choice == 2) {
-            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.println("Person: 'Hey what’s wrong with you?'");
-            System.out.println("The person bonks you on the head.");
-            System.out.println("For some reason, you feel like picking a fight isn’t the best idea.");
-            System.out.println("\nSystem:");
-            System.out.println("You receive "+Colors.RED+"1 damage"+ player.getUserTextColor()+".");
-            player.setCurrentHP(player.getCurrentHP() -1);
-            System.out.println("Your"+Colors.GREEN+" HP: " + player.getCurrentHP() + player.getUserTextColor());
-            System.out.println("--------------------------->press enter to continue\n");
+            if (player.getCurrentHP() > 1) {
+                System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("Person: 'Hey what’s wrong with you?'");
+                System.out.println("The person bonks you on the head.");
+                System.out.println("For some reason, you feel like picking a fight isn’t the best idea.");
+                System.out.println("\nSystem:");
+                System.out.println("You receive " + Colors.RED + "1 damage" + player.getUserTextColor() + ".");
+                player.setCurrentHP(player.getCurrentHP() - 1);
+                System.out.println("Your" + Colors.GREEN + " HP: " + player.getCurrentHP() + player.getUserTextColor());
+                System.out.println("--------------------------->press enter to continue\n");
 
-            enterScanner.nextLine();
-            townGate();
-        }else if (choice == 4 && mission){
+                enterScanner.nextLine();
+                townGate();
+            }else{
+                System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("Person: 'Hey what’s wrong with you?'");
+                System.out.println("The person bonks you on the head.");
+                System.out.println("For some reason, you feel like picking a fight isn’t the best idea.");
+                System.out.println("\nSystem:");
+                System.out.println("You receive " + Colors.RED + "1 damage" + player.getUserTextColor() + ".\n");
+                System.out.println("You have died to the Person. You will now respawn.");
+                System.out.println("--------------------------->press enter to continue\n");
+
+                enterScanner.nextLine();
+                player.setCurrentHP(player.getMaxHP());
+                townGate();
+            }
+        }else if (choice == 4 && player.isMission()){
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You decide to leave the smoky wall and the strange person behind, heading toward Kröpke.");
             System.out.println("--------------------------->press enter to continue\n");
@@ -111,8 +124,6 @@ public class Tutorial {
     }
 
     public static void river(){
-        Player player = Player.getPlayer("ID1");
-
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("You step into what used to be a pharmacy.");
         System.out.println("The shelves are mostly empty, some toppled over, and shattered pill bottles crunch under your feet.");
@@ -140,7 +151,7 @@ public class Tutorial {
 
             enterScanner.nextLine();
             crossRoad();
-        } else if (choice == 3 && medKit) {
+        } else if (choice == 3 && player.isMedKit()) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You spot an old first-aid kit behind the counter.");
             System.out.println("Some of the items inside are still usable.");
@@ -148,14 +159,14 @@ public class Tutorial {
             System.out.println("Your "+Colors.GREEN+"HP"+player.getUserTextColor()+" have recovered.");
 
             player.setCurrentHP(player.getMaxHP());
-            medKit = false;
+            player.setMedKit(false);
 
             System.out.println("Your "+Colors.GREEN+"HP: " + player.getCurrentHP()+player.getUserTextColor());
             System.out.println("--------------------------->press enter to continue\n");
 
             enterScanner.nextLine();
             river();
-        } else if (choice == 3 && !medKit) {
+        } else if (choice == 3 && !player.isMedKit()) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You glance behind the counter, but the first-aid kit is empty.");
             System.out.println("No more supplies left.");
@@ -167,8 +178,6 @@ public class Tutorial {
     }
 
     public static void forest(){
-        Player player = Player.getPlayer("ID1");
-
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.print("You enter what used to be a small fast-food stand.");
         System.out.println("The air is stale, and the floor is sticky with old grease.");
@@ -206,7 +215,7 @@ public class Tutorial {
 
             enterScanner.nextLine();
             forest();
-        } else if (choice == 2) {
+        } else if (choice == 2 && !player.isBurgerEaten()) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You pick up the rotten burger, your stomach turning as you take a bite.");
             System.out.println("It tastes awful, and something feels wrong.");
@@ -216,6 +225,13 @@ public class Tutorial {
             System.out.println("--------------------------->press enter to continue\n");
 
             player.setCurrentHP(player.getCurrentHP() -1);
+            enterScanner.nextLine();
+            forest();
+        } else if (choice == 2 && player.isBurgerEaten()) {
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("Except for the burger you have foolishly eaten there is nothing else here.");
+            System.out.println("--------------------------->press enter to continue\n");
+
             enterScanner.nextLine();
             forest();
         } else if (choice == 3) {
@@ -229,9 +245,6 @@ public class Tutorial {
     }
 
     public static void goblinCave(){
-        Player player = Player.getPlayer("ID1");
-
-
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("You step into a ransacked kiosk. Shelves are toppled, shattered glass crunches underfoot, and the air reeks of stale beer and decay.");
 
@@ -277,8 +290,6 @@ public class Tutorial {
     }
 
     public static void fight(){
-        Player player = Player.getPlayer("ID1"); // Get player with ID1
-
         // Access the singleton instance of Attack
         Attack combat = Attack.getInstance();
 
@@ -309,7 +320,7 @@ public class Tutorial {
             System.out.println("The zombie gurgles one last time before collapsing:");
             System.out.println("'H-heute ... nur Malboro im Angebot ... '");
             System.out.println("As it twitches on the floor, something falls from its pocket ...");
-            System.out.println("a pack of cigarettes!!!");
+            System.out.println(Colors.HIGH_RED+"a pack of cigarettes!!!"+player.getUserTextColor());
             System.out.println("--------------------------->press enter to continue\n");
 
             enterScanner.nextLine();

@@ -13,10 +13,6 @@ public class Room2 {
     static Scanner scanner = new Scanner(System.in);
     static Player player = Player.getPlayer("ID1");
     static int choice;
-    static boolean soda = true;
-    static boolean firstSandwich = true;
-    static boolean zombieFought = false;
-    static boolean zombieCreated = false;
 
     public static void subwaySandwich() {
         if (player.getKey()) {
@@ -54,7 +50,7 @@ public class Room2 {
             Shop.buyUpgrades();
         }
 
-        if (firstSandwich) {
+        if (player.isFirstSandwich()) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You step into what used to be a bustling subway tunnel.");
             System.out.println("The air here is colder and the faint sound of dripping water echoes all around you.");
@@ -63,25 +59,25 @@ public class Room2 {
             System.out.println("--------------------------->press enter to continue\n");
 
             scanner.nextLine();
-            firstSandwich = false;
+            player.setFirstSandwich(false);
         }
 
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("A broken vending machine flickers faintly in the corner.");
-        if (!zombieFought) {
+        if (!player.isZombieFought()) {
             System.out.println("Among the rubble, a faint sound catches my attention.");
             System.out.println("It´s a low, guttural growl, its close but I can´t tell from which direction it comes.");
         }
         System.out.println("1. Inspect the vending machine.");
         System.out.println("2. Investigate the makings on the wall");
-        if (!zombieFought) {
+        if (!player.isZombieFought()) {
             System.out.println("3. Follow the growl.");
         }
         System.out.println("4. Ignore the noise and move forward.");
 
         choice = PlayerDecision.inputWithCheck(4);
 
-        if (choice == 1 && soda) {
+        if (choice == 1 && player.isSoda()) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("The vending machine looks barely functional, but there is a chance something useful could be inside.");
             System.out.println("You find an unopened can of soda.");
@@ -91,9 +87,9 @@ public class Room2 {
 
             player.setCurrentHP(player.getCurrentHP() +1);
             scanner.nextLine();
+            player.setSoda(false);
             subwaySandwich();
-            soda = false;
-        } else if (choice == 1 && !soda) {
+        } else if (choice == 1 && !player.isSoda()) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("The vending machine sparks and breaks completely.");
             System.out.println("Nothing else can be retrieved.");
@@ -112,7 +108,7 @@ public class Room2 {
 
             scanner.nextLine();
             subwaySandwich();
-        } else if (choice == 3 && !zombieFought) {
+        } else if (choice == 3 && !player.isZombieFought()) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You toughen up and follow the sound.");
             System.out.println("Suddenly, a zombie lunges at you from behind a pile of rubble!");
@@ -130,15 +126,15 @@ public class Room2 {
     }
     
     public static void fight() {
-        if (!zombieCreated) {
+        if (!player.isZombieCreated()) {
             ZombieTypes.createZombie("Ghoul", 0);
-            zombieCreated = true;
+            player.setZombieCreated(true);
         }
         Enemy zombie = Enemy.getEnemy(0);
         Attack combat = Attack.getInstance();
         combat.setEnemy(zombie);
 
-        if (!zombieFought) {
+        if (!player.isZombieFought()) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("Your " + Colors.GREEN + "HP: " + player.getCurrentHP() + player.getUserTextColor());
             System.out.println("Monster HP: " + zombie.getCurrentHP());
@@ -151,7 +147,7 @@ public class Room2 {
                 combat.attackPlayer();
                 combat.attackEnemy();
                 if (!Enemy.specificEnemyAlive(0)){
-                    zombieFought = true;
+                    player.setZombieFought(true);
                 }
                 fight();
             } else if (choice == 2) {

@@ -62,24 +62,6 @@ public class Shop {
 
         choice = PlayerDecision.inputWithCheck(5);
         goldCheckAndBuy(choice);
-
-        System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-        System.out.println("Do you want to make another purchase?");
-        System.out.println("1. Yes");
-        System.out.println("2. No");
-
-        choice = PlayerDecision.inputWithCheck(2);
-
-        if (choice == 1) {
-            buyUpgrades();
-        } else if (choice == 2) {
-
-            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.println("Shopkeeper: Thanks for visiting my shop.");
-            System.out.println("You can come back whenever you die and Respawn here.");
-            System.out.println("--------------------------->press enter to continue\n");
-            scanner.nextLine();
-        }
     }
 
 
@@ -94,18 +76,49 @@ public class Shop {
             System.out.println("System: You do not have enough gold for choice "+choice+".");
             System.out.println("--------------------------->press enter to continue\n");
             scanner.nextLine();
-        }else if(choice == 5){
+        }else {
+            if (choice == 1) {
+                player.setMinDamage(player.getMinDamage() + 1);
+                player.setGoldCoins(player.getGoldCoins() -10);
+                goodBye();
+            } else if (choice == 2) {
+                player.setMaxDamage(player.getMaxDamage() + 1);
+                player.setGoldCoins(player.getGoldCoins() -20);
+                goodBye();
+            } else if (choice == 3) {
+                player.setMaxHP(player.getMaxHP() + 1);
+                player.setGoldCoins(player.getGoldCoins() -30);
+                goodBye();
+            } else if (choice == 4) {
+                player.setCurrentHP(player.getMaxHP());
+                player.setGoldCoins(player.getGoldCoins() -15);
+                goodBye();
+            } else if (choice == 5) {
+                System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("Shopkeeper: Thanks for visiting my shop.");
+                System.out.println("You can come back whenever you die and Respawn here.");
+                System.out.println("--------------------------->press enter to continue\n");
+                scanner.nextLine();
+            }
+        }
+    }
+
+    public static void goodBye() {
+        System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("Do you want to make another purchase?");
+        System.out.println("1. Yes");
+        System.out.println("2. No");
+
+        choice = PlayerDecision.inputWithCheck(2);
+
+        if (choice == 1) {
+            buyUpgrades();
+        } else if (choice == 2) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.println("Shopkeeper: You can always come back later.");
+            System.out.println("Shopkeeper: Thanks for visiting my shop.");
+            System.out.println("You can come back whenever you die and Respawn here.");
             System.out.println("--------------------------->press enter to continue\n");
             scanner.nextLine();
-        }else {
-            switch (choice) {
-                case 1 -> player.setMinDamage(player.getMinDamage() + 1);
-                case 2 -> player.setMaxDamage(player.getMaxDamage() + 1);
-                case 3 -> player.setMaxHP(player.getMaxHP() + 1);
-                case 4 -> player.setCurrentHP(player.getMaxHP());
-            }
         }
     }
 }

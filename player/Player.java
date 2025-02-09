@@ -3,9 +3,6 @@ package player;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import enemys.Enemy;
-import map.Shop;
-import map.Tutorial;
 import text.Colors;
 
 @SuppressWarnings("unused")
@@ -14,6 +11,7 @@ public class Player {
 
     Scanner enterScanner = new Scanner(System.in);
 
+    // Constructor vars
     public String userID; // Player identifier
     public String userName; // Username set by player
     public int userAge; // User Age
@@ -25,12 +23,33 @@ public class Player {
     String playerWeapon; // Name of the weapon the player has
     boolean DEV; // Is user Dev?
     int goldCoins; // Count for gold coins
+    int score = 0;
+
+    // pre game var
+    boolean endless; // Check for if player is playing endless mode
+
+    // Vars from tuto
     boolean tutorialPassed = false; // Has player passed the tutorial?
     boolean firstShopVisit = true; // Has the player visited the shop before
     public boolean silverRing = false; // Does player one the ring
-    boolean key = false;
-    int score = 0;
-    boolean endless;
+    boolean mission = false; // Boolean for mission from person in tuto
+    boolean medKit = true; // Check if medkit in tuto was taken or not
+    boolean burgerEaten = false;
+
+    //Vars from room 1
+    boolean firstVisit2 = true;  //boolean to check if bottle was found
+    boolean firstVisit3 = true;
+    boolean firstVisitMedKit = true;
+    boolean firstVisitBoots = true;
+    boolean firstVisitFood = true;//boolean to check if first visit to outsideHBF
+    boolean key = false; // Checks for the key you get in room 1 at statue
+
+    // Vars from room 2
+
+    boolean soda = true;
+    boolean firstSandwich = true;
+    boolean zombieFought = false;
+    boolean zombieCreated = false;
 
     // Constructor (private to encourage using the factory method)
     private Player(String userID ,String userName, int userAge, String userTextColor, int maxHP, int minDamage, int maxDamage, String playerWeapon, boolean DEV, int goldCoins) {
@@ -46,8 +65,8 @@ public class Player {
         this.DEV = DEV;
         this.goldCoins = goldCoins;
     }
-
     // Factory method to create or retrieve a player
+
     public static Player createPlayer(
             String userID,
             String userName,
@@ -67,24 +86,32 @@ public class Player {
         return players.get(userID);
     }
 
+    public void goldCoinPrint(String userID){
+        Player player = getPlayer(userID);
+        System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("You now have "+ Colors.YELLOW +player.getGoldCoins()+" Gold coins"+player.getUserTextColor()+".");
+        System.out.println("--------------------------->press enter to continue\n");
+        enterScanner.nextLine();
+    }
+
     // Method to retrieve a player by name
     public static Player getPlayer(String userID) {
         return players.get(userID);
     }
 
-    // Getter for username.
+    // Getter for username (setter is in constructor)
     public String getUserName(){return this.userName;}
 
     // Getter and Setter for DEV
     public void setDEV(boolean inputDEV) {this.DEV = inputDEV;}
     public boolean DEV(){return this.DEV;}
 
-    // Getter for user age.
+    // Getter for user age (setter is in constructor)
     public int getUserAge() {
         return this.userAge;
     }
 
-    // Getter for text color.
+    // Getter for text color (setter is in constructor)
     public String getUserTextColor() {
         return this.userTextColor;
     }
@@ -126,36 +153,7 @@ public class Player {
     public boolean getSilverRing(){return this.silverRing;}
 
     // Get alive status of player
-    public void playerAlive(Enemy enemy){
-        if(this.currentHP > 0){
-            return;
-        }
-        if(tutorialPassed){
-            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.println("You have died to "+enemy.getEnemyName()+". You will now respawn at the Shop.");
-            System.out.println("--------------------------->press enter to continue\n");
-
-            enterScanner.nextLine();
-            this.currentHP = this.maxHP;
-            Shop.buyUpgrades();
-        }else{
-            System.out.println("\n------------------------------------------------------------------");
-            System.out.println("You have died to a "+enemy.getEnemyName()+". You will now respawn at the beginning.");
-            System.out.println("--------------------------->press enter to continue\n");
-
-            enterScanner.nextLine();
-            this.currentHP = this.maxHP;
-            Tutorial.townGate();
-        }
-    }
-
-    public void goldCoinPrint(String userID){
-        Player player = getPlayer(userID);
-        System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-        System.out.println("You now have "+ Colors.YELLOW +player.getGoldCoins()+" Gold coins"+player.getUserTextColor()+".");
-        System.out.println("--------------------------->press enter to continue\n");
-        enterScanner.nextLine();
-    }
+    public boolean playerAlive(){return this.currentHP > 0;}
 
     //Setter and Getter for key
     public void setKey(boolean key) {this.key = key;}
@@ -168,4 +166,52 @@ public class Player {
     // Getter and setter for endless
     public boolean isEndless() {return this.endless;}
     public void setEndless(boolean endless) {this.endless = endless;}
+
+    //Getter and Setter for med kit
+    public  boolean isMedKit() {return this.medKit;}
+    public void setMedKit(boolean medKit) {this.medKit = medKit;}
+
+    // Getter and setter for Mission in tuto
+    public  boolean isMission() {return this.mission;}
+    public  void setMission(boolean mission) {this.mission = mission;}
+
+    // Getter and setter for FirstVisit2
+    public boolean isFirstVisit2() {return this.firstVisit2;}
+    public void setFirstVisit2(boolean firstVisit2) {this.firstVisit2 = firstVisit2;}
+
+    // Getter and setter for FirstVisit3
+    public boolean isFirstVisit3() {return this.firstVisit3;}
+    public void setFirstVisit3(boolean firstVisit3) {this.firstVisit3 = firstVisit3;}
+
+    // Getter and setter for FirstVisitMedKit
+    public boolean isFirstVisitMedKit() {return this.firstVisitMedKit;}
+    public void setFirstVisitMedKit(boolean firstVisitMedKit) {this.firstVisitMedKit = firstVisitMedKit;}
+
+    // Getter and setter for FirstVisitBoots
+    public boolean isFirstVisitBoots() {return this.firstVisitBoots;}
+    public void setFirstVisitBoots(boolean firstVisitBoots) {this.firstVisitBoots = firstVisitBoots;}
+
+    // Getter and setter for FirstVisitFood
+    public boolean isFirstVisitFood() {return this.firstVisitFood;}
+    public void setFirstVisitFood(boolean firstVisitFood) {this.firstVisitFood = firstVisitFood;}
+
+    // Getter ans setter for Soda
+    public boolean isSoda() {return this.soda;}
+    public void setSoda(boolean soda) {this.soda = soda;}
+
+    // Getter and setter for FirstSandwich
+    public boolean isFirstSandwich() {return this.firstSandwich;}
+    public void setFirstSandwich(boolean firstSandwich) {this.firstSandwich = firstSandwich;}
+
+    // Getter and setter for ZombieFought
+    public boolean isZombieFought() {return this.zombieFought;}
+    public void setZombieFought(boolean zombieFought) {this.zombieFought = zombieFought;}
+
+    // Getter and setter for ZombieCreated
+    public boolean isZombieCreated() {return this.zombieCreated;}
+    public void setZombieCreated(boolean zombieCreated) {this.zombieCreated = zombieCreated;}
+
+    // Getter and setter for BurgerEaten
+    public boolean isBurgerEaten() {return this.burgerEaten;}
+    public void setBurgerEaten(boolean burgerEaten) {this.burgerEaten = burgerEaten;}
 }
