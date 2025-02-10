@@ -10,9 +10,9 @@ public class Puzzle {
 
     public static void intro() {
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-        System.out.println("You’ve carefully navigated the dark, eerie subway tunnel.");
-        System.out.println("The guttural growls and faint echoes still make your heart race, but you’ve made it this far.");
-        System.out.println(" Just as you think you’ve reached the next area, you stumble upon something unexpected.");
+        System.out.println("You've carefully navigated the dark, eerie subway tunnel.");
+        System.out.println("The guttural growls and faint echoes still make your heart race, but you've made it this far.");
+        System.out.println(" Just as you think you've reached the next area, you stumble upon something unexpected.");
         System.out.println("--------------------------->press enter to continue");
 
         scanner.nextLine();
@@ -20,7 +20,7 @@ public class Puzzle {
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("A large metal door blocks the way forward.");
         System.out.println("The door is covered in the same strange markings as the walls of the subway, symbols that seem ancient and ritualistic.");
-        System.out.println("But at its center is something different—a mechanical panel with glowing letters.");
+        System.out.println("But at its center is something different, a mechanical panel with glowing letters.");
         System.out.println("As you approach, the panel comes to life, flickering dimly.");
         System.out.println("--------------------------->press enter to continue");
 

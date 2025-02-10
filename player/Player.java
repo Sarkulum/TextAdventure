@@ -45,7 +45,6 @@ public class Player {
     boolean key = false; // Checks for the key you get in room 1 at statue
 
     // Vars from room 2
-
     boolean soda = true;
     boolean firstSandwich = true;
     boolean zombieFought = false;
@@ -93,6 +92,31 @@ public class Player {
         System.out.println("--------------------------->press enter to continue\n");
         enterScanner.nextLine();
     }
+
+    public void resetOnDeath() {
+        // Reset only the necessary variables
+        this.currentHP = this.maxHP; // Restore HP
+
+        // Tutorial and room-related booleans
+        this.mission = false;
+        this.medKit = true;
+        this.burgerEaten = false;
+
+        this.firstVisit2 = true;
+        this.firstVisit3 = true;
+        this.firstVisitMedKit = true;
+        this.firstVisitBoots = true;
+        this.firstVisitFood = true;
+        this.key = false;
+
+        this.soda = true;
+        this.firstSandwich = true;
+        this.zombieFought = false;
+        this.zombieCreated = false;
+
+        // Add any other booleans you want to reset
+    }
+
 
     // Method to retrieve a player by name
     public static Player getPlayer(String userID) {

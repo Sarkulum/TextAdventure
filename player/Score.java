@@ -6,7 +6,6 @@ public class Score {
     public static final String FILE_NAME_PLAYER = "player.txt";
      public static final String FILE_NAME_SCORE = "scores.txt";
      //public static int score = 0;
-     public static Player player = Player.getPlayer("ID1");
 
 
     public static void ensureFileExists(String fileName) {
@@ -24,6 +23,7 @@ public class Score {
 
     // Save a score to the file
     public static void saveScore(int score) {
+        Player player = Player.getPlayer("ID1");
         String playerName = player.getUserName();
         try (FileWriter writer = new FileWriter(FILE_NAME_SCORE, true)) { // 'true' enables appending
             writer.write(playerName + ": " + score + "\n");
@@ -48,6 +48,7 @@ public class Score {
     }
 
     public static void savePlayer() {
+        Player player = Player.getPlayer("ID1");
         String playerName = player.getUserName();
         try (FileWriter writer = new FileWriter(FILE_NAME_PLAYER, true)) { // 'true' enables appending
             writer.write(playerName+ ",");

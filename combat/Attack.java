@@ -44,21 +44,10 @@ public class Attack {
 
     // Player attacks the enemy
     public void attackEnemy() {
-        if (enemy == null) {
-            System.out.println("No enemy set! Use setEnemy() to specify an enemy.");
-            System.out.println("System: Press enter to continue.");
-            enterScanner.nextLine();
-
-            return;
-        }
+        if (enemy == null) {return;}
 
 
         int damagePlayer = random.nextInt(player.getMinDamage(), player.getMaxDamage());
-        /* This SHOULD all not be needed, but maybe I am wrong, so I am keeping it.
-        if (damagePlayer < player.getMinDamage()) {
-            damagePlayer = player.getMinDamage();
-        }
-        */
         enemy.setCurrentHP(enemy.getCurrentHP() - damagePlayer);
 
         enemyName = enemy.getEnemyName();
@@ -87,11 +76,6 @@ public class Attack {
 
         if(enemy != null) {
             int damageEnemy = random.nextInt(enemy.getMinDamage(), enemy.getMaxDamage());
-            /* Same here, this SHOULD not be needed, but maybe I am stupid.
-            if (damageEnemy < enemy.getMinDamage()) {
-                damageEnemy = enemy.getMinDamage();
-            }
-             */
             player.setCurrentHP(player.getCurrentHP() - damageEnemy);
 
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
@@ -123,5 +107,16 @@ public class Attack {
             player.setPlayerWeapon("Fist");
             Tutorial.townGate();
         }
+    }
+
+    public boolean validEnemy() {
+        if (enemy == null) {
+            System.out.println("\n------------------------------------------------------------------");
+            System.out.println("The enemy you chose is either dead or you have schizophrenia.");
+            System.out.println("Please pick a different one.");
+
+            return false;
+        }
+        return true;
     }
 }

@@ -40,12 +40,13 @@ public class Tutorial {
                 System.out.println("The person inhales the smoke as if it is nothing, and the smoky wall dissipates.");
                 System.out.println("--------------------------->press enter to continue\n");
 
+                player.setTutorialPassed(true);
                 enterScanner.nextLine();
             }else {
                 System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
                 System.out.println("Person:");
                 System.out.println("'Welcome, nice to see another survivor.'");
-                System.out.println("If you bring me a pack of cigarettes, "+player.getUserName()+", I’ll let you through that smoky wall.\n");
+                System.out.println("If you bring me a pack of cigarettes, "+player.getUserName()+", I'll let you through that smoky wall.\n");
                 System.out.println("--------------------------->press enter to continue\n");
 
                 player.setMission(true);
@@ -55,9 +56,9 @@ public class Tutorial {
         }else if (choice == 2) {
             if (player.getCurrentHP() > 1) {
                 System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-                System.out.println("Person: 'Hey what’s wrong with you?'");
+                System.out.println("Person: 'Hey what's wrong with you?'");
                 System.out.println("The person bonks you on the head.");
-                System.out.println("For some reason, you feel like picking a fight isn’t the best idea.");
+                System.out.println("For some reason, you feel like picking a fight isn't the best idea.");
                 System.out.println("\nSystem:");
                 System.out.println("You receive " + Colors.RED + "1 damage" + player.getUserTextColor() + ".");
                 player.setCurrentHP(player.getCurrentHP() - 1);
@@ -68,9 +69,9 @@ public class Tutorial {
                 townGate();
             }else{
                 System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-                System.out.println("Person: 'Hey what’s wrong with you?'");
+                System.out.println("Person: 'Hey what's wrong with you?'");
                 System.out.println("The person bonks you on the head.");
-                System.out.println("For some reason, you feel like picking a fight isn’t the best idea.");
+                System.out.println("For some reason, you feel like picking a fight isn't the best idea.");
                 System.out.println("\nSystem:");
                 System.out.println("You receive " + Colors.RED + "1 damage" + player.getUserTextColor() + ".\n");
                 System.out.println("You have died to the Person. You will now respawn.");
@@ -128,7 +129,7 @@ public class Tutorial {
         System.out.println("You step into what used to be a pharmacy.");
         System.out.println("The shelves are mostly empty, some toppled over, and shattered pill bottles crunch under your feet.");
         System.out.println("A faint smell of disinfectant lingers in the air.");
-        System.out.println("The place has been ransacked, but maybe there’s still something useful left.\n");
+        System.out.println("The place has been ransacked, but maybe there's still something useful left.\n");
         System.out.println("1. Look around the pharmacy.");
         System.out.println("2. Leave the pharmacy.");
         System.out.println("3. Check behind the counter.");
@@ -139,7 +140,7 @@ public class Tutorial {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You take a moment to examine the ruined pharmacy.");
             System.out.println("Broken shelves, dried bloodstains on the floor, and a faint buzzing sound from a flickering light overhead.");
-            System.out.println("You wonder who came here before you – and if they made it out alive.");
+            System.out.println("You wonder who came here before you and if they made it out alive.");
             System.out.println("--------------------------->press enter to continue\n");
 
             enterScanner.nextLine();
@@ -194,7 +195,7 @@ public class Tutorial {
             System.out.println("You step behind the counter, searching for anything useful.");
             System.out.println("As you rummage through a drawer, your fingers touch something cold and metallic ...");
             System.out.println("a kitchen knife!!!");
-            System.out.println("It’s not in the best condition, but it’s better than nothing.");
+            System.out.println("It's not in the best condition, but it's better than nothing.");
             System.out.println("--------------------------->press enter to continue\n");
 
             enterScanner.nextLine();
@@ -215,7 +216,7 @@ public class Tutorial {
 
             enterScanner.nextLine();
             forest();
-        } else if (choice == 2 && !player.isBurgerEaten()) {
+        } else if (choice == 2 && !player.isBurgerEaten() && player.getCurrentHP() > 1) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You pick up the rotten burger, your stomach turning as you take a bite.");
             System.out.println("It tastes awful, and something feels wrong.");
@@ -225,15 +226,25 @@ public class Tutorial {
             System.out.println("--------------------------->press enter to continue\n");
 
             player.setCurrentHP(player.getCurrentHP() -1);
+            player.setBurgerEaten(true);
             enterScanner.nextLine();
             forest();
-        } else if (choice == 2 && player.isBurgerEaten()) {
+        } else if (choice == 2 && player.isBurgerEaten() && player.getCurrentHP() > 1) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("Except for the burger you have foolishly eaten there is nothing else here.");
             System.out.println("--------------------------->press enter to continue\n");
 
             enterScanner.nextLine();
             forest();
+        } else if (choice == 2) {
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("You feel your stomach churn, and your head spins as you fall over and you vision turns black.");
+            System.out.println("--------------------------->press enter to continue\n");
+
+            enterScanner.nextLine();
+            player.setBurgerEaten(true);
+            player.setCurrentHP(player.getMaxHP());
+
         } else if (choice == 3) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You turn away from the abandoned stand and head back to Kröpke.");
@@ -266,6 +277,7 @@ public class Tutorial {
         } else if (choice == 1 && player.getSilverRing()) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("Now that the zombie is no longer a threat, you take a moment to search the kiosk.");
+            System.out.println("But you can't find anything of interest.");
             System.out.println("--------------------------->press enter to continue\n");
 
             enterScanner.nextLine();
@@ -273,7 +285,7 @@ public class Tutorial {
         } else if (choice == 2 && !player.getSilverRing()) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("Panic takes over, and you sprint back to Kröpke.");
-            System.out.println("The zombie snarls but doesn’t chase you.");
+            System.out.println("The zombie snarls but doesn't chase you.");
             System.out.println("The kiosk remains dangerous.");
             System.out.println("--------------------------->press enter to continue\n");
 

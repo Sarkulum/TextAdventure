@@ -25,7 +25,7 @@ public class Room1 {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("Broken bicycles and overturned trash cans are scattered across the cobblestones.");
             System.out.println("The faint hum and flickering  streetlights adds an ominous soundtrack to the stillness.");
-            System.out.println("In the west across the street is the Ernst-August-Galerie – a shopping enter that used to be full of life.");
+            System.out.println("In the west across the street is the Ernst-August-Galerie a shopping enter that used to be full of life.");
             System.out.println("Its glass entrance doors are shattered and inside,the dim glow of emergency lights casts long shadows on the tiled floors.");
             System.out.println("--------------------------->press enter to continue\n");
 
@@ -65,7 +65,7 @@ public class Room1 {
                 System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
                 System.out.println("Rummaging through the broken bicycles,");
                 System.out.println("you find a backpack with a half-full water bottle inside.");
-                System.out.println("It’s stale but drinkable.");
+                System.out.println("It's stale but drinkable.");
                 System.out.println("\nSystem:");
                 System.out.println("You heal for " + Colors.GREEN + "1hp" + player.getUserTextColor());
                 System.out.println("--------------------------->press enter to continue\n");
@@ -138,7 +138,7 @@ public class Room1 {
 
             if (player.isFirstVisitBoots()) {
                 System.out.println("Among the wreckage, you find a pair of sturdy boots.");
-                System.out.println("They’re a bit too big, but they’ll do.");
+                System.out.println("They're a bit too big, but they'll do.");
                 System.out.println("System:");
                 System.out.println("You can now take more damage("+Colors.GREEN+"+1 max hp"+player.getUserTextColor()+").");
 
@@ -176,7 +176,7 @@ public class Room1 {
             eagGround();
         } else if (choice == 4) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.println("You decide you’ve seen enough of the mall for now.");
+            System.out.println("You decide you've seen enough of the mall for now.");
             System.out.println("You head back out into the cold night air.");
             System.out.println("--------------------------->press enter to continue\n");
 
@@ -189,13 +189,13 @@ public class Room1 {
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("You return to the statue of Ernst-August.");
         System.out.println("The shadows seem darker now, and the once-silent plaza feels... alive, as if something is watching you.");
-        System.out.println("You notice a faint glimmer in the base of the statue—something you didn’t see before.");
+        System.out.println("You notice a faint glimmer in the base of the statue, something you didn't see before.");
         System.out.println("--------------------------->press enter to continue\n");
 
         scanner.nextLine();
 
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-        System.out.println("As you get closer, you realize there’s a small hidden compartment built into the pedestal.");
+        System.out.println("As you get closer, you realize there's a small hidden compartment built into the pedestal.");
         System.out.println("A carved inscription reads: 'Seek and you shall find.'");
         System.out.println("--------------------------->press enter to continue\n");
 
@@ -228,7 +228,7 @@ public class Room1 {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You carefully examine the statue once more.");
             System.out.println("Aside from the strange writing and the hidden compartment, nothing else seems unusual.");
-            System.out.println("Whatever ‘Forgotten Treasures’ means, it’s not here.");
+            System.out.println("Whatever ‘Forgotten Treasures' means, it's not here.");
             System.out.println("--------------------------->press enter to continue\n");
 
             scanner.nextLine();

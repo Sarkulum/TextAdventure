@@ -3,7 +3,6 @@ package map;
 import combat.Attack;
 import enemys.Enemy;
 import enemys.PercentBasedEnemy;
-import enemys.ZombieTypes;
 import player.Player;
 import player.PlayerDecision;
 import text.Colors;
@@ -45,21 +44,31 @@ public class RandomRooms {
             }
             // Make a for loop so every enemy gets printed by name
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.println("System: There are "+index+" in front of you. Who do you want to attack?");
+            System.out.println("System: There are "+index+" enemy's in front of you. Who do you want to attack?");
             System.out.println("Enemy status:");
 
             for (int i = 0; i < maxEnemy; i++) {
                 int j = i + 1;
+                Enemy currentEnemy = Enemy.getEnemy(i);
                 if (Enemy.specificEnemyAlive(i)){
-                    System.out.println("Enemy: " + j + " = "+Colors.GREEN+"Alive"+player.getUserTextColor());
+                    System.out.println(currentEnemy.getEnemyName()+": " + j + " = "+Colors.GREEN+"Alive("+currentEnemy.getCurrentHP()+")"+player.getUserTextColor());
                 }else {
-                    System.out.println("Enemy: " + j + " = "+Colors.RED+"DEAD"+player.getUserTextColor());
+                    System.out.println(currentEnemy.getEnemyName()+": " + j + " = "+Colors.RED+"DEAD"+player.getUserTextColor());
                 }
             }
-            choice = PlayerDecision.inputWithCheck(maxEnemy) -1;
+
+            choice = PlayerDecision.inputWithCheck(maxEnemy) - 1;
 
             Enemy currentEnemy = Enemy.getEnemy(choice);
             combat.setEnemy(currentEnemy);
+
+            while (!combat.validEnemy()) {
+                choice = PlayerDecision.inputWithCheck(maxEnemy) - 1;
+
+                Enemy actuallyEnemy = Enemy.getEnemy(choice);
+                combat.setEnemy(actuallyEnemy);
+            }
+
             combat.attackEnemy();
         }
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
