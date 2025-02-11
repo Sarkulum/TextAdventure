@@ -12,14 +12,12 @@ public class PlayerDecision {
     // Function to check if player choice is withing the possibility's and also if it is a number
     public static int inputWithCheck(int decisionRange) {
         int decisionValue;
-        boolean inputValid = false;
 
         System.out.println("--------------------------->enter a number to decide\n");
-        while (!inputValid) {
+        while (true) {
             try {
                 decisionValue = scanner.nextInt();
                 if (decisionValue <= decisionRange) {
-                    inputValid = true;
                     return decisionValue;
                 } else {
                     System.out.println("Please only enter a number within the decision range.\n");
@@ -30,7 +28,6 @@ public class PlayerDecision {
                 scanner.next();
             }
         }
-        return 1;
     }
 
     // Setter using scanner to set username.
@@ -87,5 +84,22 @@ public class PlayerDecision {
             case "High Purple" -> Colors.HIGH_PURPLE;
             default -> Colors.RESET;
         };
+    }
+
+    // Methode to get player input to move
+    public static int[] getPlayerInput() {
+        while (true) {
+            try {
+                System.out.println("Please enter a target row:\n");
+                int targetRow = scanner.nextInt();
+
+                System.out.println("\nPlease enter a target col:\n");
+                int targetCol = scanner.nextInt();
+
+                return new int[]{targetRow, targetCol};
+            }catch (Exception e) {
+                System.out.println("Please enter a valid input!!!");
+            }
+        }
     }
 }

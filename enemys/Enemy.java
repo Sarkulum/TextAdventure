@@ -47,7 +47,7 @@ public class Enemy {
     }
 
     // Getter for Hash Map
-    public Map<Integer, Enemy> getHashMap() {return enemys;}
+    public static Map<Integer, Enemy> getHashMap() {return enemys;}
 
     // Getter for id
     public Integer getEnemyID() {return this.enemyID;}

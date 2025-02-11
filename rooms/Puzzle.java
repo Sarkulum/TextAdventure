@@ -1,4 +1,4 @@
-package map;
+package rooms;
 
 import player.PlayerDecision;
 

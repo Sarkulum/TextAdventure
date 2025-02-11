@@ -1,4 +1,4 @@
-package map;
+package rooms;
 
 import gameLogic.StoryGame;
 import player.Player;

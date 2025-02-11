@@ -17,12 +17,13 @@ public class PercentBasedEnemy {
     }
 
     // Spawns 1 enemy.
-    public static void spawnEnemy(){
+    public static int spawnEnemy(){
         int randomEnemy = random.nextInt(100);
-       enemy = enemyArray[randomEnemy];
-
-        ZombieTypes.createZombie(enemy, Enemy.getIdIndex());
+        enemy = enemyArray[randomEnemy];
+        int id = Enemy.getIdIndex();
+        ZombieTypes.createZombie(enemy, id);
         Enemy.setIdIndex(1);
+        return id;
     }
 
     // Reset index for new chances

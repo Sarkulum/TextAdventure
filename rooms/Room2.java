@@ -1,8 +1,9 @@
-package map;
+package rooms;
 
 import combat.Attack;
 import enemys.Enemy;
 import enemys.ZombieTypes;
+import map.Map;
 import player.Player;
 import player.PlayerDecision;
 import text.Colors;
@@ -13,6 +14,7 @@ public class Room2 {
     static Scanner scanner = new Scanner(System.in);
     static Player player = Player.getPlayer("ID1");
     static int choice;
+    static Map map = Map.makeMap(10);
 
     public static void subwaySandwich() {
         if (player.getKey()) {
@@ -144,8 +146,8 @@ public class Room2 {
             choice = PlayerDecision.inputWithCheck(2);
 
             if (choice == 1) {
-                combat.attackPlayer();
-                combat.attackEnemy();
+                combat.attackPlayer(map.getRoomMap());
+                combat.attackEnemy(map.getRoomMap());
                 if (!Enemy.specificEnemyAlive(0)){
                     player.setZombieFought(true);
                 }

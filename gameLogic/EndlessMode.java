@@ -1,7 +1,7 @@
 package gameLogic;
 
-import map.RandomRooms;
-import map.Shop;
+import rooms.RandomRooms;
+import rooms.Shop;
 import player.Player;
 import player.PlayerDecision;
 import player.Score;

@@ -1,8 +1,10 @@
 package combat;
 
 import enemys.Enemy;
-import map.Shop;
-import map.Tutorial;
+import map.Map;
+import pathFinding.AStar;
+import rooms.Shop;
+import rooms.Tutorial;
 import player.Player;
 import text.Colors;
 
@@ -16,6 +18,8 @@ public class Attack {
     private static Random random = new Random();
     private static String enemyName;
     Scanner enterScanner = new Scanner(System.in);
+    AStar aStar = new AStar();
+    Map map;
 
     // Private constructor to prevent direct instantiation
     private Attack(Player player) {
@@ -43,30 +47,37 @@ public class Attack {
     }
 
     // Player attacks the enemy
-    public void attackEnemy() {
+    public void attackEnemy(String[][] map) {
         if (enemy == null) {return;}
 
+        if (aStar.isPlayerAdjacentToEnemy(map, enemy)) {
+            int damagePlayer = random.nextInt(player.getMinDamage(), player.getMaxDamage());
+            enemy.setCurrentHP(enemy.getCurrentHP() - damagePlayer);
 
-        int damagePlayer = random.nextInt(player.getMinDamage(), player.getMaxDamage());
-        enemy.setCurrentHP(enemy.getCurrentHP() - damagePlayer);
+            enemyName = enemy.getEnemyName();
 
-        enemyName = enemy.getEnemyName();
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("You have hit the " + enemyName + " for " + Colors.RED + damagePlayer + " damage" + player.getUserTextColor() + "!");
+            System.out.println("--------------------------->press enter to continue");
+            enterScanner.nextLine();
 
-        System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-        System.out.println("You have hit the " + enemyName + " for " +Colors.RED +damagePlayer+" damage"+player.getUserTextColor()+"!");
-        System.out.println("--------------------------->press enter to continue");
-        enterScanner.nextLine();
+            Enemy.cleanList();
 
-        Enemy.cleanList();
+            // Don't know if this is needed.
+            if(!Enemy.specificEnemyAlive(enemy.getEnemyID())) {
+                Enemy.dropGoldCoins(enemyName);
+            }
+        }else{
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("You are not close enough to the enemy to attack.");
+            System.out.println("--------------------------->press enter to continue\n");
 
-        // Don't know if this is needed.
-        if(!Enemy.specificEnemyAlive(enemy.getEnemyID())) {
-            Enemy.dropGoldCoins(enemyName);
+            enterScanner.nextLine();
         }
     }
 
     // Enemy attacks the player
-    public void attackPlayer() {
+    public void attackPlayer(String[][] map) {
         if (player == null) {
             System.out.println("No player set! Use setPlayer() to specify a player.");
             System.out.println("System: Press enter to continue.");
@@ -74,16 +85,24 @@ public class Attack {
             return;
         }
 
-        if(enemy != null) {
-            int damageEnemy = random.nextInt(enemy.getMinDamage(), enemy.getMaxDamage());
-            player.setCurrentHP(player.getCurrentHP() - damageEnemy);
+        if (aStar.isEnemyAdjacentToPlayer(map, enemy)) {
+            if (enemy != null) {
+                int damageEnemy = random.nextInt(enemy.getMinDamage(), enemy.getMaxDamage());
+                player.setCurrentHP(player.getCurrentHP() - damageEnemy);
 
+                System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("You where hit by " + enemy.getEnemyName() + " for " + Colors.RED + damageEnemy + " damage" + player.getUserTextColor() + "!");
+                System.out.println("--------------------------->press enter to continue");
+                enterScanner.nextLine();
+
+                deathMessage();
+            }
+        }else{
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.println("You where hit by " + enemy.getEnemyName() + " for " + Colors.RED + damageEnemy + " damage" + player.getUserTextColor() + "!");
-            System.out.println("--------------------------->press enter to continue");
-            enterScanner.nextLine();
+            System.out.println("The enemy is not close enough to attack you.");
+            System.out.println("--------------------------->press enter to continue\n");
 
-            deathMessage();
+            enterScanner.nextLine();
         }
     }
 

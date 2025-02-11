@@ -24,6 +24,7 @@ public class Player {
     boolean DEV; // Is user Dev?
     int goldCoins; // Count for gold coins
     int score = 0;
+    int movementSpeed; // How far player can move in 1 turn
 
     // pre game var
     boolean endless; // Check for if player is playing endless mode
@@ -51,7 +52,7 @@ public class Player {
     boolean zombieCreated = false;
 
     // Constructor (private to encourage using the factory method)
-    private Player(String userID ,String userName, int userAge, String userTextColor, int maxHP, int minDamage, int maxDamage, String playerWeapon, boolean DEV, int goldCoins) {
+    private Player(String userID ,String userName, int userAge, String userTextColor, int maxHP, int minDamage, int maxDamage, String playerWeapon, boolean DEV, int goldCoins, int movementSpeed) {
         this.userID = userID;
         this.userName = userName;
         this.userAge = userAge;
@@ -63,6 +64,7 @@ public class Player {
         this.playerWeapon = playerWeapon;
         this.DEV = DEV;
         this.goldCoins = goldCoins;
+        this.movementSpeed = movementSpeed;
     }
     // Factory method to create or retrieve a player
 
@@ -76,10 +78,11 @@ public class Player {
             int minDamage,
             int maxDamage,
             String playerWeapon,
-            int goldCoins
+            int goldCoins,
+            int movementSpeed
     ) {
         if (!players.containsKey(userID)) {
-            Player player = new Player(userID, userName, userAge, userTextColor, maxHP, minDamage, maxDamage, playerWeapon, DEV, goldCoins);
+            Player player = new Player(userID, userName, userAge, userTextColor, maxHP, minDamage, maxDamage, playerWeapon, DEV, goldCoins, movementSpeed);
             players.put(userID, player);
         }
         return players.get(userID);
@@ -238,4 +241,8 @@ public class Player {
     // Getter and setter for BurgerEaten
     public boolean isBurgerEaten() {return this.burgerEaten;}
     public void setBurgerEaten(boolean burgerEaten) {this.burgerEaten = burgerEaten;}
+
+    // Getter and setter for movement speed
+    public int getMovementSpeed() {return this.movementSpeed;}
+    public void setMovementSpeed(int movementSpeed) {this.movementSpeed = movementSpeed;}
 }

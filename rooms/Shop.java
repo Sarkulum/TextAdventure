@@ -1,8 +1,7 @@
-package map;
+package rooms;
 
 import player.Player;
 import player.PlayerDecision;
-import player.Score;
 import text.Colors;
 
 import java.util.Scanner;

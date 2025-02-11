@@ -2,7 +2,7 @@ package gameLogic;
 
 import combat.Attack;
 import enemys.PercentBasedEnemy;
-import map.*;
+import rooms.*;
 import player.Player;
 import player.PlayerDecision;
 import player.Score;
@@ -26,7 +26,8 @@ public class StoryGame {
                 1,
                 5,
                 "Fist",
-                0
+                0,
+                5
         );
         player1.setDEV(setParams.DEV());
 
@@ -39,8 +40,6 @@ public class StoryGame {
             Score.saveDEV();
         }
 
-        // Initialize the Attack singleton with the player
-        Attack.initialize(player1);
         checkPlayer();
     }
 
@@ -123,6 +122,8 @@ public class StoryGame {
             int choice = PlayerDecision.inputWithCheck(2);
 
             if (choice == 1) {
+                // Initialize the Attack singleton with the player
+                Attack.initialize(player);
                 EndlessMode.endlessMode();
             } else if (choice == 2) {
                 StartGame();

@@ -1,12 +1,13 @@
-package map;
+package rooms;
 
 import combat.Attack;
 import enemys.ZombieTypes;
+import map.Map;
+import pathFinding.AStar;
 import player.Player;
 import player.PlayerDecision;
 import enemys.Enemy;
 import text.Colors;
-
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -15,6 +16,8 @@ public class Tutorial {
     static Enemy firstEnemy = Enemy.getEnemy(ZombieTypes.createZombie("Shambler", 0)); // Make an enemy
     static Player player = Player.getPlayer("ID1");
     static int choice; // Int for player choice.
+    static Map map = Map.makeMap(5);
+    static AStar aStar =  new AStar();
 
     // Starting room.
     public static void townGate() {
@@ -273,6 +276,7 @@ public class Tutorial {
         choice = PlayerDecision.inputWithCheck(2);
 
         if (choice == 1 && !player.getSilverRing()) {
+            buildMapKiosk();
             fight();
         } else if (choice == 1 && player.getSilverRing()) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
@@ -302,6 +306,7 @@ public class Tutorial {
     }
 
     public static void fight(){
+
         // Access the singleton instance of Attack
         Attack combat = Attack.getInstance();
 
@@ -309,6 +314,11 @@ public class Tutorial {
         combat.setEnemy(firstEnemy);
 
         if(Enemy.specificEnemyAlive(0)) {
+            map.printMap(map.getRoomMap());
+            map.getPlayerTarget();
+            aStar.moveEnemyAStar(map.getRoomMap(), 2, firstEnemy);
+            map.printMap(map.getRoomMap());
+
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("Your "+Colors.GREEN+"HP: " + player.getCurrentHP() + player.getUserTextColor());
             System.out.println("Monster HP: " + firstEnemy.getCurrentHP());
@@ -318,8 +328,8 @@ public class Tutorial {
             choice = PlayerDecision.inputWithCheck(2);
 
             if (choice == 1 && Enemy.specificEnemyAlive(0)) {
-                combat.attackPlayer();
-                combat.attackEnemy();
+                combat.attackPlayer(map.getRoomMap());
+                combat.attackEnemy(map.getRoomMap());
                 fight();
             } else if (choice == 2) {
                 crossRoad();
@@ -338,5 +348,24 @@ public class Tutorial {
             enterScanner.nextLine();
             goblinCave();
         }
+        /*
+         1  2  3  4  5
+        [ ][E][ ][ ][ ] 1
+        [#][#][#][ ][ ] 2
+        [ ][ ][ ][ ][ ] 3
+        [ ][ ][ ][ ][ ] 4
+        [ ][ ][P][ ][ ] 5
+         */
+    }
+
+    public static void buildMapKiosk() {
+        map.placeEnemy(0, 3, firstEnemy);
+        map.placeObstical(1,4);
+        map.placeObstical(1,3);
+        map.placeObstical(1,2);
+        map.placePlayer(4, 2);
+
+        // Initialize the Attack singleton with the player
+        Attack.initialize(player);
     }
 }
