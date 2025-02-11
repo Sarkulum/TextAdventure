@@ -59,8 +59,10 @@ public class AStar {
     private boolean isValidMove(String[][] grid, int row, int col, boolean[][] closedSet) {
         // First checks if move is in bounds and then checks if there is an obstacle
         return row >= 0 && col >= 0 && row < grid.length && col < grid[0].length
-                && !Objects.equals(grid[row][col], "[#]") && !closedSet[row][col];
+                && Objects.equals(grid[row][col], "[ ]") && !closedSet[row][col];
     }
+
+    //private boolean isValidMovePlay
 
     // This is the function I actually call when wanting to move the enemy
     public void moveEnemyAStar(String[][] grid, int movementLimit, Enemy enemy) {
@@ -101,17 +103,25 @@ public class AStar {
         // Calculate the distance (Manhattan distance)
         int distance = Math.abs(targetRow - currentRow) + Math.abs(targetCol - currentCol);
 
-        // Check if the movement is within the movement limit
-        if (distance <= movementLimit) {
-            // If within limit, move the player
-            grid[currentRow][currentCol] = "[ ]"; // Clear old position
-            grid[targetRow][targetCol] = "[P]";  // Set new position (P for player)
-            return true;
-        } else {
-            // If the movement exceeds the limit, calculate a closer position
-            int[] limitedPosition = getLimitedStep(currentRow, currentCol, targetRow, targetCol, movementLimit);
-            grid[currentRow][currentCol] = "[ ]"; // Clear old position
-            grid[limitedPosition[0]][limitedPosition[1]] = "[P]"; // Set the limited position
+        try {
+            // Check if the movement is within the movement limit
+            if (distance <= movementLimit && targetRow <= grid.length && targetCol <= grid.length) {
+                // If within limit, move the player
+                grid[currentRow][currentCol] = "[ ]"; // Clear old position
+                grid[targetRow][targetCol] = "[P]";  // Set new position (P for player)
+                return true;
+            } else if (targetRow <= grid.length && targetCol <= grid.length) {
+                // If the movement exceeds the limit, calculate a closer position
+                int[] limitedPosition = getLimitedStep(currentRow, currentCol, targetRow, targetCol, movementLimit);
+                grid[currentRow][currentCol] = "[ ]"; // Clear old position
+                grid[limitedPosition[0]][limitedPosition[1]] = "[P]"; // Set the limited position
+                return false;
+            } else {
+                System.out.println("You fucked up.");
+                return false;
+            }
+        }catch (IndexOutOfBoundsException e) {
+            System.out.println("You picked a index that was out of bounds. You did not move.");
             return false;
         }
     }
@@ -120,7 +130,7 @@ public class AStar {
         int rowDiff = targetRow - currentRow;
         int colDiff = targetCol - currentCol;
 
-        // Normalize the direction and apply the movement limit
+        // Normalize the direction and apply the movement limit, abs just removes stuff like - or so
         if (Math.abs(rowDiff) > Math.abs(colDiff)) {
             // Prioritize row movement (vertical)
             int step = (rowDiff != 0) ? (int) Math.signum(rowDiff) * Math.min(movementLimit, Math.abs(rowDiff)) : 0;
