@@ -75,21 +75,24 @@ public class AStar {
         // Find the path to the player
         List<int[]> path = aStar(grid, enemyRow, enemyCol, playerPos[0], playerPos[1]);
         if (path != null && path.size() > 1) {
-            // Get the next step in the path
-            int[] nextStep = path.get(1);
+            // Start moving the enemy step by step
+            int distanceTraveled = 0; // Track how much movement we've used
 
-            // Calculate the distance between the enemy's current position and the next step
-            int distance = Math.abs(nextStep[0] - enemyRow) + Math.abs(nextStep[1] - enemyCol);
+            // Loop through the path and move as long as movement limit isn't reached
+            for (int i = 1; i < path.size() && distanceTraveled < movementLimit; i++) {
+                int[] currentStep = path.get(i);
+                int distance = Math.abs(currentStep[0] - enemyRow) + Math.abs(currentStep[1] - enemyCol);
 
-            // If the movement distance is less than or equal to the movement limit, move the enemy
-            if (distance <= movementLimit) {
-                grid[enemyRow][enemyCol] = "[ ]"; // Clear the old position
-                grid[nextStep[0]][nextStep[1]] = "["+id+"]"; // Move the enemy
-            } else {
-                // If the movement is greater than the limit, move the enemy only by the movement limit
-                int[] limitedStep = getLimitedStep(enemyRow, enemyCol, nextStep[0], nextStep[1], movementLimit);
-                grid[enemyRow][enemyCol] = "[ ]"; // Clear the old position
-                grid[limitedStep[0]][limitedStep[1]] = "["+id+"]"; // Move the enemy within the movement limit
+                // Move only if we haven't exceeded the movement limit
+                if (distanceTraveled + distance <= movementLimit) {
+                    grid[enemyRow][enemyCol] = "[ ]"; // Clear the old position
+                    enemyRow = currentStep[0];
+                    enemyCol = currentStep[1];
+                    grid[enemyRow][enemyCol] = "["+id+"]"; // Move the enemy to the new position
+                    distanceTraveled += distance; // Add distance moved
+                } else {
+                    break; // Stop if we've reached the movement limit
+                }
             }
         }
     }

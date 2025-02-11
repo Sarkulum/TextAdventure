@@ -46,7 +46,9 @@ public class RandomRooms {
 
         while (Enemy.anyEnemyAlive(maxEnemy)){
             map.printMap(map.getRoomMap());
-            PlayerDecision.getPlayerInput();
+            int[] playerMove = PlayerDecision.getPlayerInput();
+            int[] playerLocation = aStar.findPlayer(map.getRoomMap());
+            aStar.movePlayer(map.getRoomMap(), playerLocation[0], playerLocation[1], playerMove[0], playerMove[1], player.getMovementSpeed());
 
             // this seems a bit fucking weird
             for (int i = 0; i < index; i++) {
