@@ -10,7 +10,7 @@ In fights, you need to input rows and columns to move. A row is **NOT** a coordi
 
 ## How to finish the game.
 <details>
-  <summary>Spoiler Warning</summary>
+  <summary>Spoiler Warning!!! click for game walk through </summary>
 
 First you need talke to the Person you meet in front of the smoke wall.
 Then chose to go to the crossroad and then go to the abandoned kiosk.
@@ -40,3 +40,13 @@ If you choose 1 you will reset the game and start from the beginning.
 If you choose 2 you will die and the game ends.
 
 </details>
+
+## How to install
+
+First make sure you have Java JDK 23 installed.
+
+Then you can either use the shell command below, in the same directory as the TextAdventure.jar file you can find under releases.
+```shell
+java -jar TextAdventure.jar
+```
+Or you can download the sketchy batch file I provided you with :3
