@@ -211,7 +211,7 @@ public class Tutorial {
             System.out.println("You replaced your weapon 'Fist' with 'Knife'("+Colors.RED+"+1 min damage"+player.getUserTextColor()+" & "+Colors.RED+"+5 max damage"+player.getUserTextColor()+")");
             System.out.println("--------------------------->press enter to continue\n");
 
-            Weapon.creatWeapon("Knife", 0, 1, 5, 0);
+            Weapon.creatWeapon("Knife", 0, 1, 5, 1);
             Weapon.equipWeapon("Knife");
             enterScanner.nextLine();
             forest();

@@ -54,7 +54,7 @@ public class Room1 {
                 System.out.println("You have obtained weapon: 'Crowbar'");
                 System.out.println("It is not noticeably better than the kitchen knife.");
 
-                Weapon.creatWeapon("Crowbar", 0, 1, 5, 0);
+                Weapon.creatWeapon("Crowbar", 0, 1, 5, 1);
                 Weapon.equipWeapon("Crowbar");
             }
             System.out.println("--------------------------->press enter to continue\n");
