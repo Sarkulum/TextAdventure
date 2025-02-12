@@ -61,7 +61,7 @@ public class RandomRooms {
                 combat.attackPlayer(map.getRoomMap());
             }
 
-            map.printMap(map.getRoomMap(), false);
+            map.printMap(map.getRoomMap(), true);
             int[] playerMove = PlayerDecision.getPlayerInput();
             int[] playerLocation = aStar.findPlayer(map.getRoomMap());
             aStar.movePlayer(map.getRoomMap(), playerLocation[0], playerLocation[1], playerMove[0], playerMove[1], player.getMovementSpeed());

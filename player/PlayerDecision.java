@@ -90,6 +90,8 @@ public class PlayerDecision {
     public static int[] getPlayerInput() {
         while (true) {
             try {
+                System.out.println("------------------------------------------------------------------------------------------------------------------------------------\n");
+                System.out.println("You can now input a location you would like to move to.\n");
                 System.out.println("Please enter a target row:\n");
                 int targetRow = scanner.nextInt();
 
