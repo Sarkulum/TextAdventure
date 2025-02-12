@@ -22,9 +22,10 @@ public class Enemy {
     public int currentHP;
     public int movement;
     public static int idIndex = 0; // Index to know witch id I am at.
+    public int range;
 
     // Constructor to initialize the enemy
-    private Enemy(Integer enemyID, String name, int minDamage, int maxDamage, int maxHP, int movement) {
+    private Enemy(Integer enemyID, String name, int minDamage, int maxDamage, int maxHP, int movement, int range) {
         this.enemyID = enemyID;       // Assign the ID
         this.name = name;             // Assign the name
         this.minDamage = minDamage;   // Assign minimum damage
@@ -32,12 +33,13 @@ public class Enemy {
         this.maxHP = maxHP;           // Assign maximum HP
         this.currentHP = maxHP;       // Set current HP to max HP by default
         this.movement = movement;
+        this.range = range;
     }
 
     // Factory method to create or retrieve an enemy
-    public static Enemy createEnemy(Integer enemyID , String name, int minDamage, int maxDamage, int maxHP, int movement) {
+    public static Enemy createEnemy(Integer enemyID , String name, int minDamage, int maxDamage, int maxHP, int movement, int range) {
         if (!enemys.containsKey(enemyID)) {
-            Enemy enemy = new Enemy(enemyID, name, minDamage, maxDamage, maxHP, movement);
+            Enemy enemy = new Enemy(enemyID, name, minDamage, maxDamage, maxHP, movement, range);
             enemys.put(enemyID, enemy);
         }
         return enemys.get(enemyID);
@@ -81,6 +83,10 @@ public class Enemy {
     // Getter and setter for movement
     public int getMovement() {return this.movement;}
     public void setMovement(int movement) {this.movement = movement;}
+
+    // Getter and setter for range
+    public int getRange() {return this.range;}
+    public void setRange(int range) {this.range = range;}
 
     // Boolean to check if any enemy on the Map still has more than 0 hp
     public static boolean anyEnemyAlive(int index) {

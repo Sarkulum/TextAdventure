@@ -3,11 +3,10 @@ package rooms;
 import combat.Attack;
 import enemys.Enemy;
 import enemys.PercentBasedEnemy;
-import map.Map;
+import map.GridMap;
 import pathFinding.AStar;
 import player.Player;
 import player.PlayerDecision;
-import text.Colors;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -17,12 +16,12 @@ public class RandomRooms {
     Scanner enterScanner = new Scanner(System.in);
     Player player = Player.getPlayer("ID1");
     int choice;
-    Map map = Map.makeMap(10);
+    GridMap gridMap = GridMap.makeMap(10);
     Random random = new Random();
     AStar aStar = new AStar();
 
     public void setRandomRoom(int maxEnemy){
-        map.placePlayer(9, 4);
+        gridMap.placePlayer(9, 4);
         index = maxEnemy;
         for(int i = 0; maxEnemy > i; i++){
             int id = PercentBasedEnemy.spawnEnemy();
@@ -30,7 +29,7 @@ public class RandomRooms {
             boolean placed = false;
 
             while (!placed) {
-                placed = map.placeEnemy(random.nextInt(10), random.nextInt(10), enemy);
+                placed = gridMap.placeEnemy(random.nextInt(10), random.nextInt(10), enemy);
             }
         }
         // Access the singleton instance of Attack
@@ -44,7 +43,7 @@ public class RandomRooms {
 
 
         while (Enemy.anyEnemyAlive(maxEnemy)){
-            map.printMap(map.getRoomMap(), false);
+            gridMap.printMap(gridMap.getRoomMap(), false);
 
             // this seems a bit fucking weird
             for (int i = 0; i < index; i++) {
@@ -56,16 +55,18 @@ public class RandomRooms {
             // Changed some shit here if no worky set i = -1 back to i = 0
             for (int i = 0; i < maxEnemy; i++) {
                 Enemy currentEnemy = Enemy.getEnemy(i);
-                aStar.moveEnemyAStar(map.getRoomMap(), currentEnemy.getMovement(), currentEnemy);
-                combat.setEnemy(currentEnemy);
-                combat.attackPlayer(map.getRoomMap());
+                if (currentEnemy != null) {
+                    aStar.moveEnemyAStar(gridMap.getRoomMap(), currentEnemy.getMovement(), currentEnemy);
+                    combat.setEnemy(currentEnemy);
+                    combat.attackPlayer(gridMap.getRoomMap());
+                }
             }
 
-            map.printMap(map.getRoomMap(), true);
+            gridMap.printMap(gridMap.getRoomMap(), true);
             int[] playerMove = PlayerDecision.getPlayerInput();
-            int[] playerLocation = aStar.findPlayer(map.getRoomMap());
-            aStar.movePlayer(map.getRoomMap(), playerLocation[0], playerLocation[1], playerMove[0], playerMove[1], player.getMovementSpeed());
-            map.printMap(map.getRoomMap(), true);
+            int[] playerLocation = aStar.findPlayer(gridMap.getRoomMap());
+            aStar.movePlayer(gridMap.getRoomMap(), playerLocation[0], playerLocation[1], playerMove[0], playerMove[1], player.getMovementSpeed());
+            gridMap.printMap(gridMap.getRoomMap(), true);
 
             do {
                 choice = PlayerDecision.inputWithCheck(maxEnemy);
@@ -74,13 +75,13 @@ public class RandomRooms {
                 combat.setEnemy(actuallyEnemy);
             } while (!combat.validEnemy());
 
-            combat.attackEnemy(map.getRoomMap());
+            combat.attackEnemy(gridMap);
         }
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("System: You have cleared this room and will now move to the next one.");
         System.out.println("--------------------------->press enter to continue\n");
         enterScanner.nextLine();
         Enemy.removeAllEntrys();
-        map.cleanMap();
+        gridMap.cleanMap();
     }
 }

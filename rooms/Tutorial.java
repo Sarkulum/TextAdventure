@@ -3,7 +3,7 @@ package rooms;
 import combat.Attack;
 import enemys.ZombieTypes;
 import items.Weapon;
-import map.Map;
+import map.GridMap;
 import pathFinding.AStar;
 import player.Player;
 import player.PlayerDecision;
@@ -16,7 +16,7 @@ public class Tutorial {
     static Enemy firstEnemy = Enemy.getEnemy(ZombieTypes.createZombie("Shambler", 0)); // Make an enemy
     static Player player = Player.getPlayer("ID1");
     static int choice; // Int for player choice.
-    static Map map = Map.makeMap(5); // Make the map used in the kiosk fight
+    static GridMap gridMap = GridMap.makeMap(5); // Make the map used in the kiosk fight
     static AStar aStar =  new AStar(); // Make a new pathfinding instance
 
     // Starting room.
@@ -321,24 +321,24 @@ public class Tutorial {
 
         if(Enemy.specificEnemyAlive(0)) {
             while (Enemy.specificEnemyAlive(0)) {
-                map.printMap(map.getRoomMap(), false);
-                aStar.moveEnemyAStar(map.getRoomMap(), firstEnemy.getMovement(), firstEnemy);
-                combat.attackPlayer(map.getRoomMap());
+                gridMap.printMap(gridMap.getRoomMap(), false);
+                aStar.moveEnemyAStar(gridMap.getRoomMap(), firstEnemy.getMovement(), firstEnemy);
+                combat.attackPlayer(gridMap.getRoomMap());
 
-                map.printMap(map.getRoomMap(), false);
+                gridMap.printMap(gridMap.getRoomMap(), false);
                 int[] playerMove = PlayerDecision.getPlayerInput();
-                int[] playerLocation = aStar.findPlayer(map.getRoomMap());
-                aStar.movePlayer(map.getRoomMap(), playerLocation[0], playerLocation[1], playerMove[0], playerMove[1], player.getMovementSpeed());
-                map.printMap(map.getRoomMap(), true);
+                int[] playerLocation = aStar.findPlayer(gridMap.getRoomMap());
+                aStar.movePlayer(gridMap.getRoomMap(), playerLocation[0], playerLocation[1], playerMove[0], playerMove[1], player.getMovementSpeed());
+                gridMap.printMap(gridMap.getRoomMap(), true);
 
                 choice = PlayerDecision.inputWithCheck(0);
 
-                combat.attackEnemy(map.getRoomMap());
+                combat.attackEnemy(gridMap);
             }
             fight();
         }else{
             player.setSilverRing(true);
-            map.cleanMap();
+            gridMap.cleanMap();
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("The zombie gurgles one last time before collapsing:");
             System.out.println("'H-heute ... nur Malboro im Angebot ... '");
@@ -361,11 +361,11 @@ public class Tutorial {
 
     // Method to make the map for fight and place Obsticals
     public static void buildMapKiosk() {
-        map.placeEnemy(0, 3, firstEnemy);
-        map.placeObstical(1,4);
-        map.placeObstical(1,3);
-        map.placeObstical(1,2);
-        map.placePlayer(4, 2);
+        gridMap.placeEnemy(0, 3, firstEnemy);
+        gridMap.placeObstical(1,4);
+        gridMap.placeObstical(1,3);
+        gridMap.placeObstical(1,2);
+        gridMap.placePlayer(4, 2);
 
         // Initialize the Attack singleton with the player
         Attack.initialize(player);

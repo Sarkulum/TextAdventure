@@ -1,6 +1,8 @@
 package pathFinding;
 
 import enemys.Enemy;
+import map.GridMap;
+
 import java.util.*;
 
 public class AStar {
@@ -197,8 +199,9 @@ public class AStar {
         return null; // Enemy not found (should not happen if enemy exists in the grid)
     }
 
-    // Check if player is adjacent to enemy
-    public boolean isPlayerAdjacentToEnemy(String[][] map, Enemy enemy) {
+    // Check if player is within 'units' distance of the enemy in any direction
+    public boolean isPlayerAdjacentToEnemy(GridMap gridMap, Enemy enemy, int units) {
+        String[][] map = gridMap.getRoomMap();
         int[] player = findPlayer(map);
         int[] enemyPosition = findEnemy(map, enemy);
 
@@ -207,12 +210,12 @@ public class AStar {
         int enemyRow = enemyPosition[0];
         int enemyCol = enemyPosition[1];
 
-        // Check if player is adjacent to the enemy (within one unit distance in any direction)
-        return (Math.abs(playerRow - enemyRow) <= 1 && Math.abs(playerCol - enemyCol) <= 1);
+        // The check now verifies that the difference in both row and column is within the specified 'units'
+        return (Math.abs(playerRow - enemyRow) <= units && Math.abs(playerCol - enemyCol) <= units);
     }
 
-    // Check if player is adjacent to enemy
-    public boolean isEnemyAdjacentToPlayer(String[][] map, Enemy enemy) {
+    // Check if enemy is within 'units' distance of the player in any direction
+    public boolean isEnemyAdjacentToPlayer(String[][] map, Enemy enemy, int units) {
         int[] player = findPlayer(map);
         int[] enemyPosition = findEnemy(map, enemy);
 
@@ -221,9 +224,10 @@ public class AStar {
         int enemyRow = enemyPosition[0];
         int enemyCol = enemyPosition[1];
 
-        // Check if player is adjacent to the enemy (within one unit distance in any direction)
-        return (Math.abs(enemyRow - playerRow) <= 1 && Math.abs(enemyCol - playerCol) <= 1);
+        // The check now verifies that the enemy is within 'units' distance of the player
+        return (Math.abs(enemyRow - playerRow) <= units && Math.abs(enemyCol - playerCol) <= units);
     }
+
 
     public void movePlayerToValidSpot(String[][] grid, int currentRow, int currentCol, int targetRow, int targetCol) {
         // If the target position is empty, move there

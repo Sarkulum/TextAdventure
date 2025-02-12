@@ -1,5 +1,6 @@
 package rooms;
 
+import items.Weapon;
 import player.Player;
 import player.PlayerDecision;
 import text.Colors;
@@ -57,7 +58,8 @@ public class Shop {
         System.out.println("2. A upgrade to your " + Colors.RED + "maximum damage" + player.getUserTextColor() + "(+1).  Costs: " + Colors.YELLOW + "10 gold" + player.getUserTextColor() + ".");
         System.out.println("3. A Upgrade to your " + Colors.GREEN + "maximum hp" + player.getUserTextColor() + "(+1).      Costs: " + Colors.YELLOW + "30 gold" + player.getUserTextColor() + ".");
         System.out.println("4. A heal that " + Colors.GREEN + "heals " + player.getUserTextColor() + "you to full hp(" + hpDif + ").   Costs: " + Colors.YELLOW + "15 gold" + player.getUserTextColor() + ".");
-        System.out.println("5. Don't buy anything.");
+        System.out.println("5. A gun that can attack over Range for "+Colors.RED+"20 max damage"+player.getUserTextColor()+".   Costs: " + Colors.YELLOW + "50 gold" + player.getUserTextColor() + ".");
+        System.out.println("6. Don't buy anything.");
 
         choice = PlayerDecision.inputWithCheck(5);
         goldCheckAndBuy(choice);
@@ -70,6 +72,7 @@ public class Shop {
                 || player.getGoldCoins() < 20 && choice == 2
                 || player.getGoldCoins() < 30 && choice == 3
                 || player.getGoldCoins() < 15 && choice == 4
+                || player.getGoldCoins() < 50 && choice == 5
         ) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("System: You do not have enough gold for choice "+choice+".");
@@ -93,6 +96,11 @@ public class Shop {
                 player.setGoldCoins(player.getGoldCoins() -15);
                 goodBye();
             } else if (choice == 5) {
+                Weapon.creatWeapon("Gun", 0, 5, 20, 5);
+                Weapon.equipWeapon("Gun");
+                player.setGoldCoins(player.getGoldCoins() -50);
+                goodBye();
+            } else if (choice == 6) {
                 System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
                 System.out.println("Shopkeeper: Thanks for visiting my shop.");
                 System.out.println("You can come back whenever you die and Respawn here.");

@@ -3,7 +3,7 @@ package rooms;
 import combat.Attack;
 import enemys.Enemy;
 import enemys.ZombieTypes;
-import map.Map;
+import map.GridMap;
 import pathFinding.AStar;
 import player.Player;
 import player.PlayerDecision;
@@ -15,7 +15,7 @@ public class Room2 {
     static Scanner scanner = new Scanner(System.in);
     static Player player = Player.getPlayer("ID1");
     static int choice;
-    static Map map = Map.makeMap(5);
+    static GridMap gridMap = GridMap.makeMap(5);
     static AStar aStar = new AStar();
 
     public static void subwaySandwich() {
@@ -165,19 +165,19 @@ public class Room2 {
 
         if (!player.isZombieFought()) {
             while (Enemy.specificEnemyAlive(0)) {
-                map.printMap(map.getRoomMap(), false);
-                aStar.moveEnemyAStar(map.getRoomMap(), zombie.getMovement(), zombie);
-                combat.attackPlayer(map.getRoomMap());
+                gridMap.printMap(gridMap.getRoomMap(), false);
+                aStar.moveEnemyAStar(gridMap.getRoomMap(), zombie.getMovement(), zombie);
+                combat.attackPlayer(gridMap.getRoomMap());
 
-                map.printMap(map.getRoomMap(), false);
+                gridMap.printMap(gridMap.getRoomMap(), false);
                 int[] playerMove = PlayerDecision.getPlayerInput();
-                int[] playerLocation = aStar.findPlayer(map.getRoomMap());
-                aStar.movePlayer(map.getRoomMap(), playerLocation[0], playerLocation[1], playerMove[0], playerMove[1], player.getMovementSpeed());
-                map.printMap(map.getRoomMap(), true);
+                int[] playerLocation = aStar.findPlayer(gridMap.getRoomMap());
+                aStar.movePlayer(gridMap.getRoomMap(), playerLocation[0], playerLocation[1], playerMove[0], playerMove[1], player.getMovementSpeed());
+                gridMap.printMap(gridMap.getRoomMap(), true);
 
                 choice = PlayerDecision.inputWithCheck(0);
 
-                combat.attackEnemy(map.getRoomMap());
+                combat.attackEnemy(gridMap);
             }
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("The zombie falls over and dies.");

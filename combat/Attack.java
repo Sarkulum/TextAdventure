@@ -2,11 +2,14 @@ package combat;
 
 import enemys.Enemy;
 import items.Weapon;
+import map.GridMap;
 import pathFinding.AStar;
 import rooms.Shop;
 import rooms.Tutorial;
 import player.Player;
 import text.Colors;
+
+import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -44,11 +47,11 @@ public class Attack {
     }
 
     // Player attacks the enemy
-    public void attackEnemy(String[][] map) {
+    public void attackEnemy(GridMap gridMap) {
         if (enemy == null) {return;}
 
-        if (aStar.isPlayerAdjacentToEnemy(map, enemy)) {
-            Weapon weapon = Weapon.getWeapon(Weapon.getEquippedWeaponName());
+        Weapon weapon = Weapon.getWeapon(Weapon.getEquippedWeaponName());
+        if (aStar.isPlayerAdjacentToEnemy(gridMap, enemy, weapon.getRange())) {
             int damagePlayer = random.nextInt(player.getMinDamage() + weapon.getBonusMinDamage(), player.getMaxDamage() + weapon.getBonusMaxDamage());
             enemy.setCurrentHP(enemy.getCurrentHP() - damagePlayer);
 
@@ -61,6 +64,10 @@ public class Attack {
 
             // Don't know if this is needed.
             if(!Enemy.specificEnemyAlive(enemy.getEnemyID())) {
+                String[][] map = gridMap.getRoomMap();
+                int[] enemyPosition = aStar.findEnemy(map, enemy);
+                gridMap.removeEnemy(enemyPosition[0], enemyPosition[1],enemy);
+
                 Enemy.dropGoldCoins(enemy.getEnemyName());
             }
         }else{
@@ -82,7 +89,7 @@ public class Attack {
             return;
         }
 
-        if (aStar.isEnemyAdjacentToPlayer(map, enemy)) {
+        if (aStar.isEnemyAdjacentToPlayer(map, enemy, enemy.getRange())) {
             if (enemy != null) {
                 int damageEnemy = random.nextInt(enemy.getMinDamage(), enemy.getMaxDamage());
                 player.setCurrentHP(player.getCurrentHP() - damageEnemy);

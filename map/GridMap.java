@@ -3,18 +3,17 @@ package map;
 import enemys.Enemy;
 import pathFinding.AStar;
 import player.Player;
-import player.PlayerDecision;
 import text.Colors;
 
 import java.util.*;
 
-public class Map {
+public class GridMap {
     String[][] roomMap;
     Player player = Player.getPlayer("ID1");
     Scanner scanner = new Scanner(System.in);
     AStar AStar = new AStar();
 
-    private Map(int size){
+    private GridMap(int size){
         this.roomMap = new String[size][size];
 
         for (int x = 0; x < size; x++){
@@ -24,8 +23,8 @@ public class Map {
         }
     }
     //Fill the 2D Array with # for empty fields and make it 10x10
-    public static Map makeMap(int size) {
-        return new Map(size);
+    public static GridMap makeMap(int size) {
+        return new GridMap(size);
     }
 
     public void placeObstical(int row, int col) {
@@ -127,6 +126,13 @@ public class Map {
         if (!isAttack) {
             System.out.println("--------------------------->press enter to continue\n");
             scanner.nextLine();
+        }
+    }
+
+    public void removeEnemy(int row, int col, Enemy enemy) {
+        // Ensure the position contains the correct enemy before removing
+        if (Objects.equals(this.roomMap[row][col], "[" + enemy.getEnemyID() + "]")) {
+            this.roomMap[row][col] = "[ ]"; // Reset to empty field
         }
     }
 }
