@@ -61,7 +61,7 @@ public class Shop {
         System.out.println("5. A gun that can attack over Range for "+Colors.RED+"20 max damage"+player.getUserTextColor()+".   Costs: " + Colors.YELLOW + "50 gold" + player.getUserTextColor() + ".");
         System.out.println("6. Don't buy anything.");
 
-        choice = PlayerDecision.inputWithCheck(5);
+        choice = PlayerDecision.inputWithCheck(6);
         goldCheckAndBuy(choice);
     }
 

@@ -49,7 +49,7 @@ public class Tutorial {
                 System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
                 System.out.println("Person:");
                 System.out.println("'Welcome, nice to see another survivor.'");
-                System.out.println("If you bring me a pack of cigarettes, "+player.getUserName()+", I'll let you through that smoky wall.\n");
+                System.out.println("If you bring me a pack of cigarettes, "+player.getUserName()+", I'll let you through that smoky wall.");
                 System.out.println("--------------------------->press enter to continue\n");
 
                 player.setMission(true);
@@ -263,7 +263,6 @@ public class Tutorial {
 
     // Still named goblinCave from old version. Is now a Kiosk, but i still contains the fight
     public static void goblinCave(){
-        System.out.println(Weapon.getEquippedWeaponName());
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
 
         if (!player.getSilverRing()) {
@@ -323,7 +322,7 @@ public class Tutorial {
             while (Enemy.specificEnemyAlive(0)) {
                 gridMap.printMap(gridMap.getRoomMap(), false);
                 aStar.moveEnemyAStar(gridMap.getRoomMap(), firstEnemy.getMovement(), firstEnemy);
-                combat.attackPlayer(gridMap.getRoomMap());
+                combat.attackPlayer(gridMap);
 
                 gridMap.printMap(gridMap.getRoomMap(), false);
                 int[] playerMove = PlayerDecision.getPlayerInput();
@@ -331,14 +330,16 @@ public class Tutorial {
                 aStar.movePlayer(gridMap.getRoomMap(), playerLocation[0], playerLocation[1], playerMove[0], playerMove[1], player.getMovementSpeed());
                 gridMap.printMap(gridMap.getRoomMap(), true);
 
-                choice = PlayerDecision.inputWithCheck(0);
+                // Just gets ignored because there is only 1 enemy anyway.
+                Enemy enemy = PlayerDecision.pickEnemy();
 
                 combat.attackEnemy(gridMap);
             }
             fight();
         }else{
             player.setSilverRing(true);
-            gridMap.cleanMap();
+            String[][] map = gridMap.getRoomMap();
+            gridMap.cleanMap(map.length);
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("The zombie gurgles one last time before collapsing:");
             System.out.println("'H-heute ... nur Malboro im Angebot ... '");

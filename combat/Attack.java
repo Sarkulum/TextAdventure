@@ -80,7 +80,8 @@ public class Attack {
     }
 
     // Enemy attacks the player
-    public void attackPlayer(String[][] map) {
+    public void attackPlayer(GridMap gridMap) {
+        String[][] map = gridMap.getRoomMap();
         // Check if player is set in instance
         if (player == null) {
             System.out.println("No player set! Use setPlayer() to specify a player.");
@@ -99,7 +100,7 @@ public class Attack {
                 System.out.println("--------------------------->press enter to continue");
                 enterScanner.nextLine();
 
-                deathMessage();
+                deathMessage(gridMap);
             }
         }else{
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
@@ -110,7 +111,7 @@ public class Attack {
         }
     }
 
-    public void deathMessage() {
+    public void deathMessage(GridMap gridMap) {
         // If player has passed Tutuo. They respawn at the shop
         if(player.getTutorialPassed() && !player.playerAlive()){
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
@@ -118,6 +119,8 @@ public class Attack {
             System.out.println("--------------------------->press enter to continue\n");
 
             enterScanner.nextLine();
+            String[][] map = gridMap.getRoomMap();
+            gridMap.cleanMap(map.length);
             player.setCurrentHP(player.getMaxHP());
             player.setPlayerWeapon("Fist");
             Shop.buyUpgrades();
@@ -127,6 +130,8 @@ public class Attack {
             System.out.println("--------------------------->press enter to continue\n");
 
             enterScanner.nextLine();
+            String[][] map = gridMap.getRoomMap();
+            gridMap.cleanMap(map.length);
             player.setCurrentHP(player.getMaxHP());
             player.setPlayerWeapon("Fist");
             Tutorial.townGate();

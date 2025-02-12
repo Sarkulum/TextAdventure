@@ -31,7 +31,7 @@ public class StoryGame {
                 3
         );
 
-        Weapon.creatWeapon("Fist", 0, 0, 0, 0);
+        Weapon.creatWeapon("Fist", 0, 0, 0, 1);
         Weapon.equipWeapon("Fist");
         player1.setDEV(setParams.DEV());
 

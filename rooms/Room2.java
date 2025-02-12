@@ -167,7 +167,7 @@ public class Room2 {
             while (Enemy.specificEnemyAlive(0)) {
                 gridMap.printMap(gridMap.getRoomMap(), false);
                 aStar.moveEnemyAStar(gridMap.getRoomMap(), zombie.getMovement(), zombie);
-                combat.attackPlayer(gridMap.getRoomMap());
+                combat.attackPlayer(gridMap);
 
                 gridMap.printMap(gridMap.getRoomMap(), false);
                 int[] playerMove = PlayerDecision.getPlayerInput();
@@ -175,7 +175,8 @@ public class Room2 {
                 aStar.movePlayer(gridMap.getRoomMap(), playerLocation[0], playerLocation[1], playerMove[0], playerMove[1], player.getMovementSpeed());
                 gridMap.printMap(gridMap.getRoomMap(), true);
 
-                choice = PlayerDecision.inputWithCheck(0);
+                // Just gets ignored because there is only 1 enemy anyway.
+                Enemy enemy = PlayerDecision.pickEnemy();
 
                 combat.attackEnemy(gridMap);
             }

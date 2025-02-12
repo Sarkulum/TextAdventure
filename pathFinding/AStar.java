@@ -126,12 +126,16 @@ public class AStar {
                     return true;
                 }
             } else if (isInBounds(grid, targetRow, targetCol)) {
-                // If the movement exceeds the limit, move as far as possible within the limit
-                System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-                System.out.println("You did not have enough movement for that so we placed you to the furthest point you could go.");
-                System.out.println("--------------------------->press enter to continue\n");
-                scanner.nextLine();
                 int[] limitedPosition = getLimitedStep(currentRow, currentCol, targetRow, targetCol, movementLimit);
+
+                // Only print message if the player is NOT reaching the exact desired target
+                if (limitedPosition[0] != targetRow || limitedPosition[1] != targetCol) {
+                    System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+                    System.out.println("You did not have enough movement for that, so we placed you to the furthest point you could go.");
+                    System.out.println("--------------------------->press enter to continue\n");
+                    scanner.nextLine();
+                }
+
                 movePlayerToValidSpot(grid, currentRow, currentCol, limitedPosition[0], limitedPosition[1]);
                 return true;
             } else {

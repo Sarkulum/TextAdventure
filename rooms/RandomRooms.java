@@ -58,7 +58,7 @@ public class RandomRooms {
                 if (currentEnemy != null) {
                     aStar.moveEnemyAStar(gridMap.getRoomMap(), currentEnemy.getMovement(), currentEnemy);
                     combat.setEnemy(currentEnemy);
-                    combat.attackPlayer(gridMap.getRoomMap());
+                    combat.attackPlayer(gridMap);
                 }
             }
 
@@ -69,9 +69,9 @@ public class RandomRooms {
             gridMap.printMap(gridMap.getRoomMap(), true);
 
             do {
-                choice = PlayerDecision.inputWithCheck(maxEnemy);
 
-                Enemy actuallyEnemy = Enemy.getEnemy(choice);
+
+                Enemy actuallyEnemy = PlayerDecision.pickEnemy();
                 combat.setEnemy(actuallyEnemy);
             } while (!combat.validEnemy());
 
@@ -82,6 +82,7 @@ public class RandomRooms {
         System.out.println("--------------------------->press enter to continue\n");
         enterScanner.nextLine();
         Enemy.removeAllEntrys();
-        gridMap.cleanMap();
+        String[][] map = gridMap.getRoomMap();
+        gridMap.cleanMap(map.length);
     }
 }

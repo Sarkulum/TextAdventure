@@ -1,5 +1,6 @@
 package player;
 
+import enemys.Enemy;
 import text.Colors;
 import java.util.Objects;
 import java.util.Scanner;
@@ -88,10 +89,10 @@ public class PlayerDecision {
 
     // Methode to get player input to move
     public static int[] getPlayerInput() {
+        System.out.println("------------------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.println("You can now input a location you would like to move to.\n");
         while (true) {
             try {
-                System.out.println("------------------------------------------------------------------------------------------------------------------------------------\n");
-                System.out.println("You can now input a location you would like to move to.\n");
                 System.out.println("Please enter a target row:\n");
                 int targetRow = scanner.nextInt();
 
@@ -100,7 +101,26 @@ public class PlayerDecision {
 
                 return new int[]{targetRow, targetCol};
             }catch (Exception e) {
-                System.out.println("Please enter a valid input!!!");
+                System.out.println("Please only enter numbers.\n");
+                scanner.next();
+            }
+        }
+    }
+
+    public static Enemy pickEnemy() {
+        boolean validEnemy = false;
+        System.out.println("--------------------------->enter a number to decide\n");
+        while (true){
+            try {
+                Enemy enemy = Enemy.getEnemy(scanner.nextInt());
+
+                if (enemy != null && enemy.getCurrentHP() > 0) {
+                    return enemy;
+                }
+                System.out.println("That was a invalid input. Please enter a Enemy that exists and is Alive.");
+            } catch (Exception e) {
+                System.out.println("Please only enter numbers.\n");
+                scanner.next();
             }
         }
     }
