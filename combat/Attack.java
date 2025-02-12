@@ -2,13 +2,11 @@ package combat;
 
 import enemys.Enemy;
 import items.Weapon;
-import map.Map;
 import pathFinding.AStar;
 import rooms.Shop;
 import rooms.Tutorial;
 import player.Player;
 import text.Colors;
-
 import java.util.Random;
 import java.util.Scanner;
 
@@ -16,11 +14,9 @@ public class Attack {
     private static Attack instance; // Singleton instance
     private Player player;          // Fixed Player
     private Enemy enemy;            // Dynamic Enemy
-    private static Random random = new Random();
-    private static String enemyName;
+    private static Random random = new Random(); // Random
     Scanner enterScanner = new Scanner(System.in);
     AStar aStar = new AStar();
-    Map map;
 
     // Private constructor to prevent direct instantiation
     private Attack(Player player) {
@@ -34,7 +30,7 @@ public class Attack {
         }
     }
 
-    // Method to get the singleton instance
+    // Method to get the singleton instance and check if player is set
     public static Attack getInstance() {
         if (instance == null) {
             throw new IllegalStateException("Attack has not been initialized with a Player!");
@@ -52,15 +48,12 @@ public class Attack {
         if (enemy == null) {return;}
 
         if (aStar.isPlayerAdjacentToEnemy(map, enemy)) {
-            String weaponName = Weapon.getEquippedWeaponName();
-            Weapon weapon = Weapon.getWeapon(weaponName);
+            Weapon weapon = Weapon.getWeapon(Weapon.getEquippedWeaponName());
             int damagePlayer = random.nextInt(player.getMinDamage() + weapon.getBonusMinDamage(), player.getMaxDamage() + weapon.getBonusMaxDamage());
             enemy.setCurrentHP(enemy.getCurrentHP() - damagePlayer);
 
-            enemyName = enemy.getEnemyName();
-
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.println("You have hit the " + enemyName + " for " + Colors.RED + damagePlayer + " damage" + player.getUserTextColor() + "!");
+            System.out.println("You have hit the " + enemy.getEnemyName() + " for " + Colors.RED + damagePlayer + " damage" + player.getUserTextColor() + "!");
             System.out.println("--------------------------->press enter to continue");
             enterScanner.nextLine();
 
@@ -68,7 +61,7 @@ public class Attack {
 
             // Don't know if this is needed.
             if(!Enemy.specificEnemyAlive(enemy.getEnemyID())) {
-                Enemy.dropGoldCoins(enemyName);
+                Enemy.dropGoldCoins(enemy.getEnemyName());
             }
         }else{
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
@@ -81,6 +74,7 @@ public class Attack {
 
     // Enemy attacks the player
     public void attackPlayer(String[][] map) {
+        // Check if player is set in instance
         if (player == null) {
             System.out.println("No player set! Use setPlayer() to specify a player.");
             System.out.println("System: Press enter to continue.");
@@ -110,6 +104,7 @@ public class Attack {
     }
 
     public void deathMessage() {
+        // If player has passed Tutuo. They respawn at the shop
         if(player.getTutorialPassed() && !player.playerAlive()){
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You have died to "+enemy.getEnemyName()+". You will now respawn at the Shop.");
@@ -131,6 +126,7 @@ public class Attack {
         }
     }
 
+    // Methode to check if enemy is not null
     public boolean validEnemy() {
         if (enemy == null) {
             System.out.println("\n------------------------------------------------------------------");

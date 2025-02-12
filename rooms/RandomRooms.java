@@ -56,7 +56,7 @@ public class RandomRooms {
             // Changed some shit here if no worky set i = -1 back to i = 0
             for (int i = 0; i < maxEnemy; i++) {
                 Enemy currentEnemy = Enemy.getEnemy(i);
-                aStar.moveEnemyAStar(map.getRoomMap(), 4, currentEnemy);
+                aStar.moveEnemyAStar(map.getRoomMap(), currentEnemy.getMovement(), currentEnemy);
                 combat.setEnemy(currentEnemy);
                 combat.attackPlayer(map.getRoomMap());
             }
@@ -68,7 +68,7 @@ public class RandomRooms {
             map.printMap(map.getRoomMap(), true);
 
             do {
-                choice = PlayerDecision.inputWithCheck(maxEnemy) - 1;
+                choice = PlayerDecision.inputWithCheck(maxEnemy);
 
                 Enemy actuallyEnemy = Enemy.getEnemy(choice);
                 combat.setEnemy(actuallyEnemy);

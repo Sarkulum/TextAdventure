@@ -74,6 +74,14 @@ public class Enemy {
     public void setCurrentHP(int inputHP) { this.currentHP = inputHP; }
     public int getCurrentHP() { return this.currentHP; }
 
+    // Setter and getter for idIndex
+    public static void setIdIndex(int id) {idIndex = idIndex + id;}
+    public static int getIdIndex() {return idIndex;}
+
+    // Getter and setter for movement
+    public int getMovement() {return this.movement;}
+    public void setMovement(int movement) {this.movement = movement;}
+
     // Boolean to check if any enemy on the Map still has more than 0 hp
     public static boolean anyEnemyAlive(int index) {
         // Changed it so that I use index and not enemy's.size also made the for loop start from -1 and check for <= IDK why this fixed it, but it did.
@@ -101,7 +109,7 @@ public class Enemy {
     // clean list to remove all dead enemy's
     public static void cleanList() {
         // Use an iterator to safely remove elements while iterating
-        enemys.entrySet().removeIf(entry -> entry.getValue().getCurrentHP() <= 0);// Clears all dead enemies in one step because hash maps are fucking stupid
+        enemys.entrySet().removeIf(entry -> entry.getValue().getCurrentHP() <= 0);// Clears all dead enemies in one step because hash maps are fucking stupid and for loops don't work
 
     }
 
@@ -181,12 +189,4 @@ public class Enemy {
             }
         }
     }
-
-    // Setter and getter for idIndex
-    public static void setIdIndex(int id) {idIndex = idIndex + id;}
-    public static int getIdIndex() {return idIndex;}
-
-    // Getter and setter for movement
-    public int getMovement() {return this.movement;}
-    public void setMovement(int movement) {this.movement = movement;}
 }

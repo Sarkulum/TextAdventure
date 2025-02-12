@@ -9,7 +9,6 @@ import player.Player;
 import player.PlayerDecision;
 import enemys.Enemy;
 import text.Colors;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Tutorial {
@@ -17,8 +16,8 @@ public class Tutorial {
     static Enemy firstEnemy = Enemy.getEnemy(ZombieTypes.createZombie("Shambler", 0)); // Make an enemy
     static Player player = Player.getPlayer("ID1");
     static int choice; // Int for player choice.
-    static Map map = Map.makeMap(5);
-    static AStar aStar =  new AStar();
+    static Map map = Map.makeMap(5); // Make the map used in the kiosk fight
+    static AStar aStar =  new AStar(); // Make a new pathfinding instance
 
     // Starting room.
     public static void townGate() {
@@ -103,6 +102,7 @@ public class Tutorial {
         }
     }
 
+    // Kröpke crossRoad
     public static void crossRoad(){
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("You stand in the heart of the city, but it feels nothing like it used to.");
@@ -128,6 +128,7 @@ public class Tutorial {
         }
     }
 
+    // Name river from old version of the program. Is now a pharmacy
     public static void river(){
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("You step into what used to be a pharmacy.");
@@ -182,6 +183,7 @@ public class Tutorial {
         }
     }
 
+    // Still named forest from old version of the program. Is now a fast-food stand
     public static void forest(){
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.print("You enter what used to be a small fast-food stand.");
@@ -259,6 +261,7 @@ public class Tutorial {
         }
     }
 
+    // Still named goblinCave from old version. Is now a Kiosk, but i still contains the fight
     public static void goblinCave(){
         System.out.println(Weapon.getEquippedWeaponName());
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
@@ -307,6 +310,7 @@ public class Tutorial {
         }
     }
 
+    // Methode for the combat with the zombie in goblinCave
     public static void fight(){
 
         // Access the singleton instance of Attack
@@ -318,7 +322,7 @@ public class Tutorial {
         if(Enemy.specificEnemyAlive(0)) {
             while (Enemy.specificEnemyAlive(0)) {
                 map.printMap(map.getRoomMap(), false);
-                aStar.moveEnemyAStar(map.getRoomMap(), 2, firstEnemy);
+                aStar.moveEnemyAStar(map.getRoomMap(), firstEnemy.getMovement(), firstEnemy);
                 combat.attackPlayer(map.getRoomMap());
 
                 map.printMap(map.getRoomMap(), false);
@@ -345,16 +349,17 @@ public class Tutorial {
             enterScanner.nextLine();
             goblinCave();
         }
-        /*
+        /*This is the map of the kiosk
          1  2  3  4  5
-        [ ][E][ ][ ][ ] 1
-        [#][#][#][ ][ ] 2
+        [ ][ ][ ][E][ ] 1
+        [ ][ ][#][#][#] 2
         [ ][ ][ ][ ][ ] 3
         [ ][ ][ ][ ][ ] 4
         [ ][ ][P][ ][ ] 5
          */
     }
 
+    // Method to make the map for fight and place Obsticals
     public static void buildMapKiosk() {
         map.placeEnemy(0, 3, firstEnemy);
         map.placeObstical(1,4);

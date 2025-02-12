@@ -166,7 +166,7 @@ public class Room2 {
         if (!player.isZombieFought()) {
             while (Enemy.specificEnemyAlive(0)) {
                 map.printMap(map.getRoomMap(), false);
-                aStar.moveEnemyAStar(map.getRoomMap(), 2, zombie);
+                aStar.moveEnemyAStar(map.getRoomMap(), zombie.getMovement(), zombie);
                 combat.attackPlayer(map.getRoomMap());
 
                 map.printMap(map.getRoomMap(), false);

@@ -1,8 +1,10 @@
 /*
 Text Adventure
-22.01.25
-Version 0.0.1
+12.02.25
+Version 0.0.2
 Valerie, Ashley, Anna
+
+Made for JDK 23
 */
 
 import gameLogic.StoryGame;

@@ -1,7 +1,6 @@
 package pathFinding;
 
 import enemys.Enemy;
-
 import java.util.*;
 
 public class AStar {
@@ -27,9 +26,16 @@ public class AStar {
             // Sets Node current to the node with the lowest movement cost
             Node current = openSet.poll();
 
+            /*
             // If the node has the same row and col as target then it found the shortest path
             if (current.row == targetRow && current.col == targetCol) {
                 return reconstructPath(current); // return the shortest path
+            }
+            */
+
+            // Check if current node is adjacent to the target (Manhattan distance 1)
+            if (heuristic(current.row, current.col, targetRow, targetCol) == 1) {
+                return reconstructPath(current);
             }
 
             closedSet[current.row][current.col] = true; // Mark node as visited if it does not return.
@@ -58,7 +64,7 @@ public class AStar {
     private boolean isValidMove(String[][] grid, int row, int col, boolean[][] closedSet) {
         // First checks if move is in bounds and then checks if there is an obstacle
         return row >= 0 && col >= 0 && row < grid.length && col < grid[0].length
-                && Objects.equals(grid[row][col], "[ ]") && !closedSet[row][col];
+                && !Objects.equals(grid[row][col], "[#]") && !Objects.equals(grid[row][col], "[P]") && !closedSet[row][col];
     }
 
     //private boolean isValidMovePlay

@@ -3,6 +3,7 @@ package enemys;
 import java.util.Random;
 
 public class ZombieTypes {
+    // Just a really fucking long switch case to create the enemy with a name corresponding to the type name (could maybe use enums her insted of string)
     public static Integer createZombie(String name, Integer finalId) {
         Random random = new Random();
 
