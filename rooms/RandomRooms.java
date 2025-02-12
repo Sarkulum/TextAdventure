@@ -14,7 +14,6 @@ import java.util.Scanner;
 
 public class RandomRooms {
     public int index;
-    public int attackIndex = -1;
     Scanner enterScanner = new Scanner(System.in);
     Player player = Player.getPlayer("ID1");
     int choice;
@@ -45,16 +44,12 @@ public class RandomRooms {
 
 
         while (Enemy.anyEnemyAlive(maxEnemy)){
-            map.printMap(map.getRoomMap());
-            int[] playerMove = PlayerDecision.getPlayerInput();
-            int[] playerLocation = aStar.findPlayer(map.getRoomMap());
-            aStar.movePlayer(map.getRoomMap(), playerLocation[0], playerLocation[1], playerMove[0], playerMove[1], player.getMovementSpeed());
+            map.printMap(map.getRoomMap(), false);
 
             // this seems a bit fucking weird
             for (int i = 0; i < index; i++) {
                 if (!Enemy.specificEnemyAlive(i)){
                     index--;
-                    attackIndex--;
                 }
             }
 
@@ -66,32 +61,19 @@ public class RandomRooms {
                 combat.attackPlayer(map.getRoomMap());
             }
 
-            // Make a for loop so every enemy gets printed by name
-            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.println("System: There are "+index+" enemy's in front of you. Who do you want to attack?");
-            System.out.println("Enemy status:");
+            map.printMap(map.getRoomMap(), false);
+            int[] playerMove = PlayerDecision.getPlayerInput();
+            int[] playerLocation = aStar.findPlayer(map.getRoomMap());
+            aStar.movePlayer(map.getRoomMap(), playerLocation[0], playerLocation[1], playerMove[0], playerMove[1], player.getMovementSpeed());
+            map.printMap(map.getRoomMap(), true);
 
-            for (int i = 0; i < maxEnemy; i++) {
-                int j = i + 1;
-                Enemy currentEnemy = Enemy.getEnemy(i);
-                if (Enemy.specificEnemyAlive(i)){
-                    System.out.println(currentEnemy.getEnemyName()+": " + j + " = "+Colors.GREEN+"Alive("+currentEnemy.getCurrentHP()+")"+player.getUserTextColor());
-                }else {
-                    System.out.println(currentEnemy.getEnemyName()+": " + j + " = "+Colors.RED+"DEAD"+player.getUserTextColor());
-                }
-            }
-
-            choice = PlayerDecision.inputWithCheck(maxEnemy) - 1;
-
-            Enemy currentEnemy = Enemy.getEnemy(choice);
-            combat.setEnemy(currentEnemy);
-
-            while (!combat.validEnemy()) {
+            do {
                 choice = PlayerDecision.inputWithCheck(maxEnemy) - 1;
 
                 Enemy actuallyEnemy = Enemy.getEnemy(choice);
                 combat.setEnemy(actuallyEnemy);
-            }
+            } while (!combat.validEnemy());
+
             combat.attackEnemy(map.getRoomMap());
         }
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");

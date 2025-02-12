@@ -2,6 +2,7 @@ package gameLogic;
 
 import combat.Attack;
 import enemys.PercentBasedEnemy;
+import items.Weapon;
 import rooms.*;
 import player.Player;
 import player.PlayerDecision;
@@ -27,8 +28,11 @@ public class StoryGame {
                 5,
                 "Fist",
                 0,
-                5
+                3
         );
+
+        Weapon.creatWeapon("Fist", 0, 0, 0, 0);
+        Weapon.equipWeapon("Fist");
         player1.setDEV(setParams.DEV());
 
         if(player1.DEV()){
@@ -37,6 +41,7 @@ public class StoryGame {
             player1.setMinDamage(100);
             player1.setMaxDamage(200);
             player1.setGoldCoins(100);
+            player1.setMovementSpeed(100);
             Score.saveDEV();
         }
 

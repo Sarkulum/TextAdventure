@@ -2,12 +2,11 @@ package pathFinding;
 
 import enemys.Enemy;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class AStar {
+    Scanner scanner = new Scanner(System.in);
+
     // 1D List of ints that takes a 2D char array the position if the enemy and the player
     public List<int[]> aStar(String[][] grid, int startRow, int startCol, int targetRow, int targetCol) {
 
@@ -104,24 +103,37 @@ public class AStar {
         int distance = Math.abs(targetRow - currentRow) + Math.abs(targetCol - currentCol);
 
         try {
-            // Check if the movement is within the movement limit
-            if (distance <= movementLimit && targetRow <= grid.length && targetCol <= grid.length) {
-                // If within limit, move the player
-                grid[currentRow][currentCol] = "[ ]"; // Clear old position
-                grid[targetRow][targetCol] = "[P]";  // Set new position (P for player)
-                return true;
-            } else if (targetRow <= grid.length && targetCol <= grid.length) {
-                // If the movement exceeds the limit, calculate a closer position
+            // Check if the movement is within the movement limit and within grid bounds
+            if (distance <= movementLimit && isInBounds(grid, targetRow, targetCol)) {
+                // If the target position is empty, move the player normally
+                if (grid[targetRow][targetCol].equals("[ ]")) {
+                    grid[currentRow][currentCol] = "[ ]"; // Clear old position
+                    grid[targetRow][targetCol] = "[P]";  // Move player
+                    return true;
+                } else if (grid[targetRow][targetCol].equals("[P]")){
+                    return true;
+                }else{
+                    // If the target position is occupied, move to the closest valid adjacent square
+                    movePlayerToValidSpot(grid, currentRow, currentCol, targetRow, targetCol);
+                    return true;
+                }
+            } else if (isInBounds(grid, targetRow, targetCol)) {
+                // If the movement exceeds the limit, move as far as possible within the limit
+                System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("You did not have enough movement for that so we placed you to the furthest point you could go.");
+                System.out.println("--------------------------->press enter to continue\n");
+                scanner.nextLine();
                 int[] limitedPosition = getLimitedStep(currentRow, currentCol, targetRow, targetCol, movementLimit);
-                grid[currentRow][currentCol] = "[ ]"; // Clear old position
-                grid[limitedPosition[0]][limitedPosition[1]] = "[P]"; // Set the limited position
-                return false;
+                movePlayerToValidSpot(grid, currentRow, currentCol, limitedPosition[0], limitedPosition[1]);
+                return true;
             } else {
-                System.out.println("You fucked up.");
+                System.out.println("You stupid fuck! You tried to move outside the grid.");
+                System.out.println("Try again.");
                 return false;
             }
-        }catch (IndexOutOfBoundsException e) {
-            System.out.println("You picked a index that was out of bounds. You did not move.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("You stupid fuck! You tried to move outside the grid.");
+            System.out.println("Try again.");
             return false;
         }
     }
@@ -205,6 +217,58 @@ public class AStar {
 
         // Check if player is adjacent to the enemy (within one unit distance in any direction)
         return (Math.abs(enemyRow - playerRow) <= 1 && Math.abs(enemyCol - playerCol) <= 1);
+    }
+
+    public void movePlayerToValidSpot(String[][] grid, int currentRow, int currentCol, int targetRow, int targetCol) {
+        // If the target position is empty, move there
+        if (grid[targetRow][targetCol].equals("[ ]")) {
+            grid[currentRow][currentCol] = "[ ]"; // Clear old position
+            grid[targetRow][targetCol] = "[P]";   // Move player to the new position
+            return;
+        }
+
+        // Define possible adjacent positions (Up, Down, Left, Right)
+        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        int[] bestPosition = null;
+        int bestDistance = Integer.MAX_VALUE;
+
+        // Find the closest valid adjacent position
+        for (int[] dir : directions) {
+            int newRow = targetRow + dir[0];
+            int newCol = targetCol + dir[1];
+
+            // Check if the new position is within bounds and empty
+            if (isInBounds(grid, newRow, newCol) && grid[newRow][newCol].equals("[ ]")) {
+                int distance = Math.abs(newRow - currentRow) + Math.abs(newCol - currentCol);
+                if (distance < bestDistance) {
+                    bestDistance = distance;
+                    bestPosition = new int[]{newRow, newCol};
+                }
+            }
+        }
+
+        // Move the player to the closest valid adjacent position if available
+        if (bestPosition != null) {
+            grid[currentRow][currentCol] = "[ ]"; // Clear old position
+            grid[bestPosition[0]][bestPosition[1]] = "[P]"; // Move player
+        }
+    }
+
+    // Helper function to check if a position is within the grid bounds
+    private boolean isInBounds(String[][] grid, int row, int col) {
+        return row >= 0 && col >= 0 && row < grid.length && col < grid[0].length;
+    }
+
+    public int findDistanceBetween(String[][] grid, Enemy enemy) {
+        int[] enemyPos = findEnemy(grid, enemy);
+        int[] playerPos = findPlayer(grid);
+
+        if (enemyPos == null || playerPos == null) {
+            System.out.println("Enemy or player not found on the grid.");
+            return -1; // Return -1 to indicate an error
+        }
+
+        return heuristic(enemyPos[0], enemyPos[1], playerPos[0], playerPos[1]);
     }
 
     /*

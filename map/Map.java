@@ -59,26 +59,8 @@ public class Map {
         }
     }
 
-    public void getPlayerTarget() {
-        int[] choice = PlayerDecision.getPlayerInput();
-        int targetRow = choice[0];
-        int targetCol = choice[1];
-
-        int[] position = AStar.findPlayer(this.roomMap);
-        int currentRow = position[0];
-        int currentCol = position[1];
-
-        if (!AStar.movePlayer(this.roomMap, currentRow, currentCol, targetRow, targetCol, player.getMovementSpeed())) {
-            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.println("You did not have enough movement for that so we placed you to the furthest point you could go.");
-            System.out.println("--------------------------->press enter to continue\n");
-
-            scanner.nextLine();
-        }
-    }
-
     //A function to print the 2D Array in the console. Don't have a clue how it works.
-    public void printMap(String[][] map){
+    public void printMap(String[][] map, boolean isAttack){
         int rows = this.roomMap.length;
         int cols = this.roomMap[0].length;;
 
@@ -142,7 +124,9 @@ public class Map {
 
             System.out.println();
         }
-        System.out.println("--------------------------->press enter to continue\n");
-        scanner.nextLine();
+        if (!isAttack) {
+            System.out.println("--------------------------->press enter to continue\n");
+            scanner.nextLine();
+        }
     }
 }

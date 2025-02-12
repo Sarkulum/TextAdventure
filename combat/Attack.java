@@ -1,6 +1,7 @@
 package combat;
 
 import enemys.Enemy;
+import items.Weapon;
 import map.Map;
 import pathFinding.AStar;
 import rooms.Shop;
@@ -51,7 +52,9 @@ public class Attack {
         if (enemy == null) {return;}
 
         if (aStar.isPlayerAdjacentToEnemy(map, enemy)) {
-            int damagePlayer = random.nextInt(player.getMinDamage(), player.getMaxDamage());
+            String weaponName = Weapon.getEquippedWeaponName();
+            Weapon weapon = Weapon.getWeapon(weaponName);
+            int damagePlayer = random.nextInt(player.getMinDamage() + weapon.getBonusMinDamage(), player.getMaxDamage() + weapon.getBonusMaxDamage());
             enemy.setCurrentHP(enemy.getCurrentHP() - damagePlayer);
 
             enemyName = enemy.getEnemyName();

@@ -2,6 +2,7 @@ package rooms;
 
 import combat.Attack;
 import enemys.ZombieTypes;
+import items.Weapon;
 import map.Map;
 import pathFinding.AStar;
 import player.Player;
@@ -193,7 +194,7 @@ public class Tutorial {
 
         choice = PlayerDecision.inputWithCheck(3);
 
-        if (choice == 1 && Objects.equals(player.getPlayerWeapon(), "Fist")) {
+        if (choice == 1 && !Weapon.hasWeapon("Knife")) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You step behind the counter, searching for anything useful.");
             System.out.println("As you rummage through a drawer, your fingers touch something cold and metallic ...");
@@ -208,11 +209,11 @@ public class Tutorial {
             System.out.println("You replaced your weapon 'Fist' with 'Knife'("+Colors.RED+"+1 min damage"+player.getUserTextColor()+" & "+Colors.RED+"+5 max damage"+player.getUserTextColor()+")");
             System.out.println("--------------------------->press enter to continue\n");
 
-            player.setMinDamage(2);
-            player.setMaxDamage(10);
+            Weapon.creatWeapon("Knife", 0, 1, 5, 0);
+            Weapon.equipWeapon("Knife");
             enterScanner.nextLine();
             forest();
-        } else if (choice == 1 && !Objects.equals(player.getPlayerWeapon(), "Fist")) {
+        } else if (choice == 1 && Weapon.hasWeapon("Knife")) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You already searched here. Nothing else useful remains.");
             System.out.println("--------------------------->press enter to continue\n");
@@ -259,10 +260,11 @@ public class Tutorial {
     }
 
     public static void goblinCave(){
+        System.out.println(Weapon.getEquippedWeaponName());
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-        System.out.println("You step into a ransacked kiosk. Shelves are toppled, shattered glass crunches underfoot, and the air reeks of stale beer and decay.");
 
         if (!player.getSilverRing()) {
+            System.out.println("You step into a ransacked kiosk. Shelves are toppled, shattered glass crunches underfoot, and the air reeks of stale beer and decay.");
             System.out.println("Behind the counter, a hunched figure twitches.");
             System.out.println("Once a shopkeeper, now a zombie.");
             System.out.println("Its head jerks toward you, and with a guttural growl it lunges!\n");
@@ -314,30 +316,25 @@ public class Tutorial {
         combat.setEnemy(firstEnemy);
 
         if(Enemy.specificEnemyAlive(0)) {
-            map.printMap(map.getRoomMap());
-            map.getPlayerTarget();
-            aStar.moveEnemyAStar(map.getRoomMap(), 2, firstEnemy);
-            map.printMap(map.getRoomMap());
-
-            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.println("Your "+Colors.GREEN+"HP: " + player.getCurrentHP() + player.getUserTextColor());
-            System.out.println("Monster HP: " + firstEnemy.getCurrentHP());
-            System.out.println("1: Attack");
-            System.out.println("2: Run");
-
-            choice = PlayerDecision.inputWithCheck(2);
-
-            if (choice == 1 && Enemy.specificEnemyAlive(0)) {
+            while (Enemy.specificEnemyAlive(0)) {
+                map.printMap(map.getRoomMap(), false);
+                aStar.moveEnemyAStar(map.getRoomMap(), 2, firstEnemy);
                 combat.attackPlayer(map.getRoomMap());
+
+                map.printMap(map.getRoomMap(), false);
+                int[] playerMove = PlayerDecision.getPlayerInput();
+                int[] playerLocation = aStar.findPlayer(map.getRoomMap());
+                aStar.movePlayer(map.getRoomMap(), playerLocation[0], playerLocation[1], playerMove[0], playerMove[1], player.getMovementSpeed());
+                map.printMap(map.getRoomMap(), true);
+
+                choice = PlayerDecision.inputWithCheck(0);
+
                 combat.attackEnemy(map.getRoomMap());
-                fight();
-            } else if (choice == 2) {
-                crossRoad();
-            } else if (choice == 0) {
-                fight();
             }
+            fight();
         }else{
             player.setSilverRing(true);
+            map.cleanMap();
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("The zombie gurgles one last time before collapsing:");
             System.out.println("'H-heute ... nur Malboro im Angebot ... '");

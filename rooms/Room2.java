@@ -4,6 +4,7 @@ import combat.Attack;
 import enemys.Enemy;
 import enemys.ZombieTypes;
 import map.Map;
+import pathFinding.AStar;
 import player.Player;
 import player.PlayerDecision;
 import text.Colors;
@@ -14,7 +15,8 @@ public class Room2 {
     static Scanner scanner = new Scanner(System.in);
     static Player player = Player.getPlayer("ID1");
     static int choice;
-    static Map map = Map.makeMap(10);
+    static Map map = Map.makeMap(5);
+    static AStar aStar = new AStar();
 
     public static void subwaySandwich() {
         if (player.getKey()) {
@@ -115,9 +117,38 @@ public class Room2 {
             System.out.println("You toughen up and follow the sound.");
             System.out.println("Suddenly, a zombie lunges at you from behind a pile of rubble!");
             System.out.println("--------------------------->press enter to continue\n");
-            
+
+            if (!player.isZombieCreated()) {
+                ZombieTypes.createZombie("Ghoul", 0);
+                player.setZombieCreated(true);
+            }
+
+            Enemy zombie = Enemy.getEnemy(0);
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("Your " + Colors.GREEN + "HP: " + player.getCurrentHP() + player.getUserTextColor());
+            System.out.println("Monster HP: " + zombie.getCurrentHP());
+            System.out.println("1: Fight");
+            System.out.println("2: Run");
+
+            choice = PlayerDecision.inputWithCheck(2);
+
+            if (choice == 1) {
+                fight();
+            } else if (choice == 2) {
+                System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+                System.out.println("You run like the little bitch you are!");
+                System.out.println("--------------------------->press enter to continue\n");
+
+                scanner.nextLine();
+                subwaySandwich();
+            }
+
+        } else if (choice == 3 && player.isZombieFought()) {
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("You see the now even more lifeless body of the zombie.");
+            System.out.println("--------------------------->press enter to continue\n");
+
             scanner.nextLine();
-            fight();
         } else if (choice == 4) {
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You decide not to risk whatever made that sound and move on.");
@@ -128,38 +159,31 @@ public class Room2 {
     }
     
     public static void fight() {
-        if (!player.isZombieCreated()) {
-            ZombieTypes.createZombie("Ghoul", 0);
-            player.setZombieCreated(true);
-        }
         Enemy zombie = Enemy.getEnemy(0);
         Attack combat = Attack.getInstance();
         combat.setEnemy(zombie);
 
         if (!player.isZombieFought()) {
-            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-            System.out.println("Your " + Colors.GREEN + "HP: " + player.getCurrentHP() + player.getUserTextColor());
-            System.out.println("Monster HP: " + zombie.getCurrentHP());
-            System.out.println("1: Attack");
-            System.out.println("2: Run");
-
-            choice = PlayerDecision.inputWithCheck(2);
-
-            if (choice == 1) {
+            while (Enemy.specificEnemyAlive(0)) {
+                map.printMap(map.getRoomMap(), false);
+                aStar.moveEnemyAStar(map.getRoomMap(), 2, zombie);
                 combat.attackPlayer(map.getRoomMap());
-                combat.attackEnemy(map.getRoomMap());
-                if (!Enemy.specificEnemyAlive(0)){
-                    player.setZombieFought(true);
-                }
-                fight();
-            } else if (choice == 2) {
-                System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-                System.out.println("You run like the little bitch you are!");
-                System.out.println("--------------------------->press enter to continue\n");
 
-                scanner.nextLine();
-                subwaySandwich();
+                map.printMap(map.getRoomMap(), false);
+                int[] playerMove = PlayerDecision.getPlayerInput();
+                int[] playerLocation = aStar.findPlayer(map.getRoomMap());
+                aStar.movePlayer(map.getRoomMap(), playerLocation[0], playerLocation[1], playerMove[0], playerMove[1], player.getMovementSpeed());
+                map.printMap(map.getRoomMap(), true);
+
+                choice = PlayerDecision.inputWithCheck(0);
+
+                combat.attackEnemy(map.getRoomMap());
             }
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("The zombie falls over and dies.");
+            System.out.println("--------------------------->press enter to continue\n");
+
+            scanner.nextLine();
         }
     }
 }

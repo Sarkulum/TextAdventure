@@ -20,22 +20,24 @@ public class Enemy {
     public int minDamage;
     public int maxHP;
     public int currentHP;
+    public int movement;
     public static int idIndex = 0; // Index to know witch id I am at.
 
     // Constructor to initialize the enemy
-    private Enemy(Integer enemyID, String name, int minDamage, int maxDamage, int maxHP) {
+    private Enemy(Integer enemyID, String name, int minDamage, int maxDamage, int maxHP, int movement) {
         this.enemyID = enemyID;       // Assign the ID
         this.name = name;             // Assign the name
         this.minDamage = minDamage;   // Assign minimum damage
         this.maxDamage = maxDamage;   // Assign maximum damage
         this.maxHP = maxHP;           // Assign maximum HP
         this.currentHP = maxHP;       // Set current HP to max HP by default
+        this.movement = movement;
     }
 
     // Factory method to create or retrieve an enemy
-    public static Enemy createEnemy(Integer enemyID , String name, int minDamage, int maxDamage, int maxHP) {
+    public static Enemy createEnemy(Integer enemyID , String name, int minDamage, int maxDamage, int maxHP, int movement) {
         if (!enemys.containsKey(enemyID)) {
-            Enemy enemy = new Enemy(enemyID, name, minDamage, maxDamage, maxHP);
+            Enemy enemy = new Enemy(enemyID, name, minDamage, maxDamage, maxHP, movement);
             enemys.put(enemyID, enemy);
         }
         return enemys.get(enemyID);
@@ -183,4 +185,8 @@ public class Enemy {
     // Setter and getter for idIndex
     public static void setIdIndex(int id) {idIndex = idIndex + id;}
     public static int getIdIndex() {return idIndex;}
+
+    // Getter and setter for movement
+    public int getMovement() {return this.movement;}
+    public void setMovement(int movement) {this.movement = movement;}
 }

@@ -1,5 +1,6 @@
 package rooms;
 
+import items.Weapon;
 import player.Player;
 import player.PlayerDecision;
 import text.Colors;
@@ -47,13 +48,14 @@ public class Room1 {
             System.out.println("\nOn its pedestal, someone has carved the words:");
             System.out.println("'Follow the fog, trust the light.'\n");
 
-            if(!Objects.equals(player.getPlayerWeapon(), "Crowbar")) {
+            if(!Weapon.hasWeapon("Crowbar")) {
                 System.out.println("You also notice "+Colors.HIGH_RED+"a crowbar"+player.getUserTextColor()+" leaning against the base of the statue.");
                 System.out.println("System:");
                 System.out.println("You have obtained weapon: 'Crowbar'");
                 System.out.println("It is not noticeably better than the kitchen knife.");
 
-                player.setPlayerWeapon("Crowbar");
+                Weapon.creatWeapon("Crowbar", 0, 1, 5, 0);
+                Weapon.equipWeapon("Crowbar");
             }
             System.out.println("--------------------------->press enter to continue\n");
 
@@ -118,7 +120,7 @@ public class Room1 {
             System.out.println("You follow the trail to the service door.");
             System.out.println("The door is looked.");
 
-            if (Objects.equals(player.getPlayerWeapon(), "Crowbar") && player.isFirstVisitMedKit()) {
+            if (Weapon.hasWeapon("Crowbar") && player.isFirstVisitMedKit()) {
                 System.out.println("But you are able to open it using the crowbar you picked up.");
                 System.out.println("Inside you find a supply room with a MedKit.");
                 System.out.println("System:");
