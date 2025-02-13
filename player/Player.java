@@ -34,7 +34,7 @@ public class Player {
     boolean firstShopVisit = true; // Has the player visited the shop before
     public boolean silverRing = false; // Does player one the ring
     boolean mission = false; // Boolean for mission from person in tuto
-    boolean medKit = true; // Check if medkit in tuto was taken or not
+    boolean medKit = true; // Check if med kit in tuto was taken or not
     boolean burgerEaten = false;
 
     //Vars from room 1

@@ -261,7 +261,7 @@ public class Tutorial {
         }
     }
 
-    // Still named goblinCave from old version. Is now a Kiosk, but i still contains the fight
+    // Still named goblinCave from old version. Is now a Kiosk, but I still contains the fight
     public static void goblinCave(){
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
 
@@ -320,18 +320,18 @@ public class Tutorial {
 
         if(Enemy.specificEnemyAlive(0)) {
             while (Enemy.specificEnemyAlive(0)) {
-                gridMap.printMap(gridMap.getRoomMap(), false);
+                gridMap.printMap(false);
                 aStar.moveEnemyAStar(gridMap.getRoomMap(), firstEnemy.getMovement(), firstEnemy);
                 combat.attackPlayer(gridMap);
 
-                gridMap.printMap(gridMap.getRoomMap(), false);
+                gridMap.printMap(false);
                 int[] playerMove = PlayerDecision.getPlayerInput();
                 int[] playerLocation = aStar.findPlayer(gridMap.getRoomMap());
                 aStar.movePlayer(gridMap.getRoomMap(), playerLocation[0], playerLocation[1], playerMove[0], playerMove[1], player.getMovementSpeed());
-                gridMap.printMap(gridMap.getRoomMap(), true);
+                gridMap.printMap(true);
 
                 // Just gets ignored because there is only 1 enemy anyway.
-                Enemy enemy = PlayerDecision.pickEnemy();
+                PlayerDecision.pickEnemy();
 
                 combat.attackEnemy(gridMap);
             }
@@ -360,7 +360,7 @@ public class Tutorial {
          */
     }
 
-    // Method to make the map for fight and place Obsticals
+    // Method to make the map for fight and place Obstetrical
     public static void buildMapKiosk() {
         gridMap.placeEnemy(0, 3, firstEnemy);
         gridMap.placeObstical(1,4);

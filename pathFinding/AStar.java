@@ -17,7 +17,7 @@ public class AStar {
         // 2D array to marke the visited and not visited fields
         boolean[][] closedSet = new boolean[grid.length][grid[0].length];
 
-        // Adds a node with enemy start position idk what the 0 does and then calls a function that estimates how far the enemy is from the player(heuristic)
+        // Adds a node with enemy start position IDK what the 0 does and then calls a function that estimates how far the enemy is from the player(heuristic)
         openSet.add(new Node(startRow, startCol, 0, heuristic(startRow, startCol, targetRow, targetCol), null));
 
         // 2D array of all possible movements
@@ -27,13 +27,6 @@ public class AStar {
         while (!openSet.isEmpty()) {
             // Sets Node current to the node with the lowest movement cost
             Node current = openSet.poll();
-
-            /*
-            // If the node has the same row and col as target then it found the shortest path
-            if (current.row == targetRow && current.col == targetCol) {
-                return reconstructPath(current); // return the shortest path
-            }
-            */
 
             // Check if current node is adjacent to the target (Manhattan distance 1)
             if (heuristic(current.row, current.col, targetRow, targetCol) == 1) {
@@ -47,7 +40,7 @@ public class AStar {
                 int newRow = current.row + dir[0]; // 0 is the first position in the extracted array dir
                 int newCol = current.col + dir[1]; // 1 is the second position in the extracted array dir
 
-                // if just checks if there is a '#' in the spot that the enemy is trying to move to
+                // if to checks if there is a '#' in the spot that the enemy is trying to move to
                 if (isValidMove(grid, newRow, newCol, closedSet)) {
                     // Basically this just adds a new nod if movement is valid
                     int newG = current.gCost + 1; // This adds 1 to gCost as you move 1 space further
@@ -172,13 +165,13 @@ public class AStar {
     private List<int[]> reconstructPath(Node node) {
         List<int[]> path = new ArrayList<>();
         while (node != null) {
-            path.add(0, new int[]{node.row, node.col}); // Add to start of the list
+            path.addFirst(new int[]{node.row, node.col}); // Add to start of the list
             node = node.parent;
         }
         return path;
     }
 
-    // Just searches the hole array for 'P' wich means player
+    // Just searches the hole array for 'P' witch means player
     public int[] findPlayer(String[][] grid) {
         for (int row = 0; row < grid.length; row++) {
             for (int col = 0; col < grid[row].length; col++) {
@@ -190,7 +183,7 @@ public class AStar {
         return null; // Player not found (should not happen if player exists in the grid)
     }
 
-    // Just searches the hole array for 'enemyid' wich means enemy
+    // Just searches the hole array for 'enemyId' witch means enemy
     public int[] findEnemy(String[][] grid, Enemy enemy) {
         int target = enemy.getEnemyID();
         for (int row = 0; row < grid.length; row++) {

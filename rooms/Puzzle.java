@@ -1,7 +1,6 @@
 package rooms;
 
 import player.PlayerDecision;
-
 import java.util.Scanner;
 
 public class Puzzle {

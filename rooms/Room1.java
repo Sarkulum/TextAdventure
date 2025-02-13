@@ -4,8 +4,6 @@ import items.Weapon;
 import player.Player;
 import player.PlayerDecision;
 import text.Colors;
-
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Room1 {

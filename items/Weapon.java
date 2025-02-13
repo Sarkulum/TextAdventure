@@ -1,10 +1,9 @@
 package items;
 
-import player.Player;
-
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 public class Weapon {
     private static Map<String, Weapon> weapons = new HashMap<>(); // Registry of all weapons the player has
 

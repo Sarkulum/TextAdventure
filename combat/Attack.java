@@ -8,8 +8,6 @@ import rooms.Shop;
 import rooms.Tutorial;
 import player.Player;
 import text.Colors;
-
-import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -112,7 +110,7 @@ public class Attack {
     }
 
     public void deathMessage(GridMap gridMap) {
-        // If player has passed Tutuo. They respawn at the shop
+        // If player has passed Tuto. They respawn at the shop
         if(player.getTutorialPassed() && !player.playerAlive()){
             System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
             System.out.println("You have died to "+enemy.getEnemyName()+". You will now respawn at the Shop.");

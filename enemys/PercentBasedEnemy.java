@@ -2,7 +2,7 @@ package enemys;
 
 import java.util.Random;
 
-// This is just a array with a length of 100 that is getting filled with the names of enemy's to then call the zombieTypes class to spawn them based on name
+// This is just an array with a length of 100 that is getting filled with the names of enemy's to then call the zombieTypes class to spawn them based on name
 @SuppressWarnings("unused")
 public class PercentBasedEnemy {
     static String[] enemyArray = new String[100]; // Spawn enemy's based on percent chance
@@ -37,7 +37,7 @@ public class PercentBasedEnemy {
             setEnemyArray("Walker", 50);
             setEnemyArray("Shambler", 30);
             setEnemyArray("Crawler", 20);
-        } else if (waveCount < 10) { // Mid waves
+        } else if (waveCount < 10) { // Mid-waves
             setEnemyArray("Walker", 30);
             setEnemyArray("Shambler", 25);
             setEnemyArray("Crawler", 15);

@@ -4,7 +4,6 @@ import items.Weapon;
 import player.Player;
 import player.PlayerDecision;
 import text.Colors;
-
 import java.util.Scanner;
 
 public class Shop {

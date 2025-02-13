@@ -8,7 +8,6 @@ import pathFinding.AStar;
 import player.Player;
 import player.PlayerDecision;
 import text.Colors;
-
 import java.util.Scanner;
 
 public class Room2 {
@@ -165,18 +164,18 @@ public class Room2 {
 
         if (!player.isZombieFought()) {
             while (Enemy.specificEnemyAlive(0)) {
-                gridMap.printMap(gridMap.getRoomMap(), false);
+                gridMap.printMap(false);
                 aStar.moveEnemyAStar(gridMap.getRoomMap(), zombie.getMovement(), zombie);
                 combat.attackPlayer(gridMap);
 
-                gridMap.printMap(gridMap.getRoomMap(), false);
+                gridMap.printMap(false);
                 int[] playerMove = PlayerDecision.getPlayerInput();
                 int[] playerLocation = aStar.findPlayer(gridMap.getRoomMap());
                 aStar.movePlayer(gridMap.getRoomMap(), playerLocation[0], playerLocation[1], playerMove[0], playerMove[1], player.getMovementSpeed());
-                gridMap.printMap(gridMap.getRoomMap(), true);
+                gridMap.printMap(true);
 
                 // Just gets ignored because there is only 1 enemy anyway.
-                Enemy enemy = PlayerDecision.pickEnemy();
+                PlayerDecision.pickEnemy();
 
                 combat.attackEnemy(gridMap);
             }

@@ -1,10 +1,8 @@
 package map;
 
 import enemys.Enemy;
-import pathFinding.AStar;
 import player.Player;
 import text.Colors;
-
 import java.util.*;
 
 public class GridMap {
@@ -58,7 +56,7 @@ public class GridMap {
     }
 
     //A function to print the 2D Array in the console. Don't have a clue how it works.
-    public void printMap(String[][] map, boolean isAttack){
+    public void printMap(boolean isAttack){
         int rows = this.roomMap.length;
         int cols = this.roomMap[0].length;
 
@@ -76,7 +74,7 @@ public class GridMap {
         HashMap<Integer, Enemy> enemyMap = (HashMap<Integer, Enemy>) Enemy.getHashMap();
         String[] enemyInfo = new String[100];
         int index = 0;
-        int enemysFound = 0;
+        int enemyFound = 0;
         int enemyID = 0;
 
         for (int i = 0; i < enemyMap.size(); i++) {
@@ -89,8 +87,8 @@ public class GridMap {
                 if (enemyMap.get(enemyID) != null) {
                     Enemy enemy = Enemy.getEnemy(enemyID);
                     String status = enemy.getCurrentHP() > 0 ? "Alive" : "Dead";
-                    enemyInfo[enemysFound] = enemy.getEnemyName() + ": " + enemyID + " = " + status + " (" + enemy.getCurrentHP() + "HP)";
-                    enemysFound++;
+                    enemyInfo[enemyFound] = enemy.getEnemyName() + ": " + enemyID + " = " + status + " (" + enemy.getCurrentHP() + "HP)";
+                    enemyFound++;
                     enemyID++;
                 }
             } catch (NullPointerException e) {
@@ -104,14 +102,12 @@ public class GridMap {
             for (int col = 0; col < cols; col++) {
                 String cell = roomMap[row][col];
 
-                if (Objects.equals(cell, "[ ]")) {
-                    System.out.print("[ ]");
-                } else if (Objects.equals(cell, "[P]")) {
-                    System.out.print(Colors.GREEN + "[P]" + player.getUserTextColor());
-                } else if (Objects.equals(cell, "[#]")) {
-                    System.out.print(Colors.GRAY + "[#]" + player.getUserTextColor());
-                } else { // Enemy found (formatted as "[X]")
-                    System.out.print(Colors.RED + cell + player.getUserTextColor());
+                switch (cell) {
+                    case "[ ]" -> System.out.print("[ ]");
+                    case "[P]" -> System.out.print(Colors.GREEN + "[P]" + player.getUserTextColor());
+                    case "[#]" -> System.out.print(Colors.GRAY + "[#]" + player.getUserTextColor());
+                    case null, default ->  // Enemy found (formatted as "[X]")
+                            System.out.print(Colors.RED + cell + player.getUserTextColor());
                 }
             }
 

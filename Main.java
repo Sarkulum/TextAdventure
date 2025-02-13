@@ -8,6 +8,8 @@ Made for JDK 23
 */
 
 import gameLogic.StoryGame;
+import text.Colors;
+
 import java.util.Scanner;
 
 public class Main {
@@ -15,7 +17,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("This is a little text based game made for school.");
-        System.out.println("Code by Sarkulum aka. Valerie");
+        System.out.println(Colors.HIGH_PURPLE+"Code by Sarkulum aka. Valerie"+Colors.RESET);
         System.out.println("Tutorial story and documentation by LeLean aka. Ashley");
         System.out.println("Story for room 1/2 and puzzle by Anna");
         System.out.println("--------------------------->press enter to continue\n");

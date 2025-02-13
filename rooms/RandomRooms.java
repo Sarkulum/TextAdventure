@@ -15,7 +15,6 @@ public class RandomRooms {
     public int index;
     Scanner enterScanner = new Scanner(System.in);
     Player player = Player.getPlayer("ID1");
-    int choice;
     GridMap gridMap = GridMap.makeMap(10);
     Random random = new Random();
     AStar aStar = new AStar();
@@ -43,7 +42,7 @@ public class RandomRooms {
 
 
         while (Enemy.anyEnemyAlive(maxEnemy)){
-            gridMap.printMap(gridMap.getRoomMap(), false);
+            gridMap.printMap(false);
 
             // this seems a bit fucking weird
             for (int i = 0; i < index; i++) {
@@ -62,11 +61,11 @@ public class RandomRooms {
                 }
             }
 
-            gridMap.printMap(gridMap.getRoomMap(), true);
+            gridMap.printMap(true);
             int[] playerMove = PlayerDecision.getPlayerInput();
             int[] playerLocation = aStar.findPlayer(gridMap.getRoomMap());
             aStar.movePlayer(gridMap.getRoomMap(), playerLocation[0], playerLocation[1], playerMove[0], playerMove[1], player.getMovementSpeed());
-            gridMap.printMap(gridMap.getRoomMap(), true);
+            gridMap.printMap(true);
 
             do {
 

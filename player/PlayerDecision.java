@@ -108,7 +108,6 @@ public class PlayerDecision {
     }
 
     public static Enemy pickEnemy() {
-        boolean validEnemy = false;
         System.out.println("--------------------------->enter a number to decide\n");
         while (true){
             try {

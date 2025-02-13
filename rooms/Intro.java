@@ -1,7 +1,6 @@
 package rooms;
 
 import player.Player;
-
 import java.util.Scanner;
 
 public class Intro {

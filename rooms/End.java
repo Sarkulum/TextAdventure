@@ -4,7 +4,6 @@ import gameLogic.StoryGame;
 import player.Player;
 import player.PlayerDecision;
 import player.Score;
-
 import java.util.Scanner;
 
 public class End {
