@@ -9,8 +9,8 @@ public class Weapon {
 
     String name;
     int amourPen;
-    int bonusMaxDamage;
     int bonusMinDamage;
+    int bonusMaxDamage;
     int range;
     boolean equipped;
 

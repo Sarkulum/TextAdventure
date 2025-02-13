@@ -68,8 +68,6 @@ public class RandomRooms {
             gridMap.printMap(true);
 
             do {
-
-
                 Enemy actuallyEnemy = PlayerDecision.pickEnemy();
                 combat.setEnemy(actuallyEnemy);
             } while (!combat.validEnemy());

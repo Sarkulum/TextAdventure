@@ -51,17 +51,30 @@ public class Shop {
         System.out.println("Your " + Colors.GREEN + "current hp" + player.getUserTextColor() + " are: " + player.getCurrentHP());
         System.out.println("--------------------------->press enter to continue\n");
         scanner.nextLine();
-        System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
-        System.out.println("System: You can buy the following:");
-        System.out.println("1. A upgrade to your " + Colors.RED + "minimum damage" + player.getUserTextColor() + "(+1).  Costs: " + Colors.YELLOW + "10 gold" + player.getUserTextColor() + ".");
-        System.out.println("2. A upgrade to your " + Colors.RED + "maximum damage" + player.getUserTextColor() + "(+1).  Costs: " + Colors.YELLOW + "10 gold" + player.getUserTextColor() + ".");
-        System.out.println("3. A Upgrade to your " + Colors.GREEN + "maximum hp" + player.getUserTextColor() + "(+1).      Costs: " + Colors.YELLOW + "30 gold" + player.getUserTextColor() + ".");
-        System.out.println("4. A heal that " + Colors.GREEN + "heals " + player.getUserTextColor() + "you to full hp(" + hpDif + ").   Costs: " + Colors.YELLOW + "15 gold" + player.getUserTextColor() + ".");
-        System.out.println("5. A gun that can attack over Range for "+Colors.RED+"20 max damage"+player.getUserTextColor()+".   Costs: " + Colors.YELLOW + "50 gold" + player.getUserTextColor() + ".");
-        System.out.println("6. Don't buy anything.");
+        if (player.getMinDamage() < player.getMaxDamage()-1) {
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("System: You can buy the following:");
+            System.out.println("1. A upgrade to your " + Colors.RED + "minimum damage" + player.getUserTextColor() + "(+1).  Costs: " + Colors.YELLOW + "10 gold" + player.getUserTextColor() + ".");
+            System.out.println("2. A upgrade to your " + Colors.RED + "maximum damage" + player.getUserTextColor() + "(+1).  Costs: " + Colors.YELLOW + "10 gold" + player.getUserTextColor() + ".");
+            System.out.println("3. A Upgrade to your " + Colors.GREEN + "maximum hp" + player.getUserTextColor() + "(+1).      Costs: " + Colors.YELLOW + "30 gold" + player.getUserTextColor() + ".");
+            System.out.println("4. A heal that " + Colors.GREEN + "heals " + player.getUserTextColor() + "you to full hp(" + hpDif + ").   Costs: " + Colors.YELLOW + "15 gold" + player.getUserTextColor() + ".");
+            System.out.println("5. A gun that can attack over Range for " + Colors.RED + "20 max damage" + player.getUserTextColor() + ".   Costs: " + Colors.YELLOW + "50 gold" + player.getUserTextColor() + ".");
+            System.out.println("6. Don't buy anything.");
 
-        choice = PlayerDecision.inputWithCheck(6);
-        goldCheckAndBuy(choice);
+            choice = PlayerDecision.inputWithCheck(6);
+            goldCheckAndBuy(choice);
+        }else{
+            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("System: You can buy the following:");
+            System.out.println("1. A upgrade to your " + Colors.RED + "maximum damage" + player.getUserTextColor() + "(+1).  Costs: " + Colors.YELLOW + "10 gold" + player.getUserTextColor() + ".");
+            System.out.println("2. A Upgrade to your " + Colors.GREEN + "maximum hp" + player.getUserTextColor() + "(+1).      Costs: " + Colors.YELLOW + "30 gold" + player.getUserTextColor() + ".");
+            System.out.println("3. A heal that " + Colors.GREEN + "heals " + player.getUserTextColor() + "you to full hp(" + hpDif + ").   Costs: " + Colors.YELLOW + "15 gold" + player.getUserTextColor() + ".");
+            System.out.println("4. A gun that can attack over Range for " + Colors.RED + "20 max damage" + player.getUserTextColor() + ".   Costs: " + Colors.YELLOW + "50 gold" + player.getUserTextColor() + ".");
+            System.out.println("5. Don't buy anything.");
+
+            choice = PlayerDecision.inputWithCheck(5);
+            goldCheckAndBuy(choice+1);
+        }
     }
 
 
