@@ -32,6 +32,7 @@ public class EndlessMode {
             waveIndex++;
         }
 
+        PercentBasedEnemy.resetIndex();
         // Ask the player if the want to continue
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("Do you want to continue or do you want to exit?");

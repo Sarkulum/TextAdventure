@@ -5,7 +5,7 @@ import java.util.Random;
 // This is just an array with a length of 100 that is getting filled with the names of enemy's to then call the zombieTypes class to spawn them based on name
 @SuppressWarnings("unused")
 public class PercentBasedEnemy {
-    static String[] enemyArray = new String[100]; // Spawn enemy's based on percent chance
+    static String[] enemyArray = new String[200]; // Spawn enemy's based on percent chance
     static int index = 0; // Index so you don't overwrite a spot
     static Random random = new Random();
     public static String enemy;
