@@ -9,7 +9,6 @@ Made for JDK 23
 
 import gameLogic.StoryGame;
 import text.Colors;
-
 import java.util.Scanner;
 
 public class Main {

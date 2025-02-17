@@ -1,6 +1,7 @@
 package rooms;
 
 import combat.Attack;
+import enemys.PercentBasedEnemy;
 import enemys.ZombieTypes;
 import items.Weapon;
 import map.GridMap;
@@ -348,6 +349,7 @@ public class Tutorial {
             System.out.println("--------------------------->press enter to continue\n");
 
             enterScanner.nextLine();
+            PercentBasedEnemy.resetIndex();
             goblinCave();
         }
         /*This is the map of the kiosk

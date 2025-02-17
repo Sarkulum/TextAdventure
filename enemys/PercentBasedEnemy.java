@@ -31,7 +31,7 @@ public class PercentBasedEnemy {
     public static void resetIndex(){index = 0;}
 
     public static void adjustEnemySpawnRates(int waveCount) {
-        resetIndex(); // Clear old enemy chances
+        //resetIndex(); // Clear old enemy chances
 
         if (waveCount < 5) {  // Early waves
             setEnemyArray("Walker", 50);

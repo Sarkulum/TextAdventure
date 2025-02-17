@@ -59,9 +59,11 @@ public class StoryGame {
             }
             Room1.outsideHBF();
             Shop.buyUpgrades();
-
+        }
+        //Attack.initialize(player1);
             // Make random rooms and populate them.
             RandomRooms randomRoom = new RandomRooms();
+            PercentBasedEnemy.resetIndex();
             PercentBasedEnemy.setEnemyArray("Walker", 60);
             PercentBasedEnemy.setEnemyArray("Shambler", 30);
             PercentBasedEnemy.setEnemyArray("Crawler", 10);
@@ -105,7 +107,6 @@ public class StoryGame {
 
             //Start puzzle
             Puzzle.intro();
-        }
 
         // Start End
         End.emptyEnd();
