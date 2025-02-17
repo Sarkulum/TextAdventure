@@ -154,6 +154,8 @@ public class Room2 {
             System.out.println("--------------------------->press enter to continue\n");
 
             scanner.nextLine();
+            //Start puzzle
+            Puzzle.intro();
         }
     }
     

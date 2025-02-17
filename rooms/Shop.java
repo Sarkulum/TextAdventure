@@ -1,5 +1,6 @@
 package rooms;
 
+import gameLogic.StoryGame;
 import items.Weapon;
 import player.Player;
 import player.PlayerDecision;
@@ -118,6 +119,25 @@ public class Shop {
                 System.out.println("You can come back whenever you die and Respawn here.");
                 System.out.println("--------------------------->press enter to continue\n");
                 scanner.nextLine();
+
+                if (player.isDied()) {
+                    if (player.getRandomRoom() == 1) {
+                        player.setDied(false);
+                        StoryGame.randomRoom1();
+                    } else if (player.getRandomRoom() == 2) {
+                        player.setDied(false);
+                        StoryGame.randomRoom2();
+                    } else if (player.getRandomRoom() == 3) {
+                        player.setDied(false);
+                        StoryGame.randomRoom3();
+                    } else if (player.getRandomRoom() == 4) {
+                        player.setDied(false);
+                        StoryGame.randomRoom4();
+                    } else if (player.getRandomRoom() == 5) {
+                        player.setDied(false);
+                        StoryGame.randomRoom5();
+                    }
+                }
             }
         }
     }
@@ -138,6 +158,25 @@ public class Shop {
             System.out.println("You can come back whenever you die and Respawn here.");
             System.out.println("--------------------------->press enter to continue\n");
             scanner.nextLine();
+
+            if (player.isDied()) {
+                if (player.getRandomRoom() == 1) {
+                    player.setDied(false);
+                    StoryGame.randomRoom1();
+                } else if (player.getRandomRoom() == 2) {
+                    player.setDied(false);
+                    StoryGame.randomRoom2();
+                } else if (player.getRandomRoom() == 3) {
+                    player.setDied(false);
+                    StoryGame.randomRoom3();
+                } else if (player.getRandomRoom() == 4) {
+                    player.setDied(false);
+                    StoryGame.randomRoom4();
+                } else if (player.getRandomRoom() == 5) {
+                    player.setDied(false);
+                    StoryGame.randomRoom5();
+                }
+            }
         }
     }
 }

@@ -126,6 +126,8 @@ public class Puzzle {
             System.out.println("--------------------------->press enter to continue\n");
 
             scanner.nextLine();
+            // Start End
+            End.emptyEnd();
         }else if(choice == 2){
             System.out.println("\n------------------------------------------------------------------");
             System.out.println("The system reboots but the error remains.");

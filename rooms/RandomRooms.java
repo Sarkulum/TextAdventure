@@ -14,12 +14,12 @@ import java.util.Scanner;
 public class RandomRooms {
     public int index;
     Scanner enterScanner = new Scanner(System.in);
-    Player player = Player.getPlayer("ID1");
     GridMap gridMap = GridMap.makeMap(10);
     Random random = new Random();
     AStar aStar = new AStar();
 
     public void setRandomRoom(int maxEnemy){
+        Player player = Player.getPlayer("ID1");
         gridMap.placePlayer(9, 4);
         index = maxEnemy;
         for(int i = 0; maxEnemy > i; i++){

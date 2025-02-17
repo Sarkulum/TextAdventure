@@ -23,7 +23,7 @@ public class PercentBasedEnemy {
         enemy = enemyArray[randomEnemy];
         int id = Enemy.getIdIndex();
         ZombieTypes.createZombie(enemy, id);
-        Enemy.setIdIndex(1);
+        Enemy.setIdIndex(Enemy.getIdIndex()+1);
         return id;
     }
 

@@ -116,9 +116,11 @@ public class Attack {
             System.out.println("You have died to "+enemy.getEnemyName()+". You will now respawn at the Shop.");
             System.out.println("--------------------------->press enter to continue\n");
 
+            player.setDied(true);
             enterScanner.nextLine();
             String[][] map = gridMap.getRoomMap();
             gridMap.cleanMap(map.length);
+            Enemy.removeAllEntrys();
             player.setCurrentHP(player.getMaxHP());
             player.setPlayerWeapon("Fist");
             Shop.buyUpgrades();
@@ -127,9 +129,11 @@ public class Attack {
             System.out.println("You have died to a "+enemy.getEnemyName()+". You will now respawn at the beginning.");
             System.out.println("--------------------------->press enter to continue\n");
 
+            player.setDied(true);
             enterScanner.nextLine();
             String[][] map = gridMap.getRoomMap();
             gridMap.cleanMap(map.length);
+            Enemy.removeAllEntrys();
             player.setCurrentHP(player.getMaxHP());
             player.setPlayerWeapon("Fist");
             Tutorial.townGate();

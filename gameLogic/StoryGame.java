@@ -11,6 +11,8 @@ import player.Score;
 import java.util.Random;
 
 public class StoryGame {
+    static Random random = new Random();
+    static RandomRooms randomRoom = new RandomRooms();
     public static void initialSetUp() {
         Score.ensureFileExists("scores.txt");
         Score.ensureFileExists("player.txt");
@@ -37,19 +39,19 @@ public class StoryGame {
 
         if(player1.DEV()){
             player1.setMaxHP(200);
-            player1.setCurrentHP(200);
+            player1.setCurrentHP(1);
             player1.setMinDamage(100);
             player1.setMaxDamage(200);
             player1.setGoldCoins(100);
             player1.setMovementSpeed(100);
             Score.saveDEV();
+            player1.setTutorialPassed(true);
         }
 
         checkPlayer();
     }
 
     public static void StartGame() {
-        Random random = new Random();
         Player player1 = Player.getPlayer("ID1");
 
         if (!player1.DEV()) {
@@ -60,56 +62,12 @@ public class StoryGame {
             Room1.outsideHBF();
             Shop.buyUpgrades();
         }
-        //Attack.initialize(player1);
-            // Make random rooms and populate them.
-            RandomRooms randomRoom = new RandomRooms();
-            PercentBasedEnemy.resetIndex();
-            PercentBasedEnemy.setEnemyArray("Walker", 60);
-            PercentBasedEnemy.setEnemyArray("Shambler", 30);
-            PercentBasedEnemy.setEnemyArray("Crawler", 10);
-            randomRoom.setRandomRoom(random.nextInt(3, 5));
 
-            PercentBasedEnemy.resetIndex();
-            PercentBasedEnemy.setEnemyArray("Walker", 50);
-            PercentBasedEnemy.setEnemyArray("Shambler", 30);
-            PercentBasedEnemy.setEnemyArray("Crawler", 10);
-            PercentBasedEnemy.setEnemyArray("Bloater", 10);
-            randomRoom.setRandomRoom(random.nextInt(4, 6));
-
-            PercentBasedEnemy.resetIndex();
-            PercentBasedEnemy.setEnemyArray("Walker", 40);
-            PercentBasedEnemy.setEnemyArray("Shambler", 30);
-            PercentBasedEnemy.setEnemyArray("Crawler", 10);
-            PercentBasedEnemy.setEnemyArray("Bloater", 10);
-            PercentBasedEnemy.setEnemyArray("Brute", 10);
-            randomRoom.setRandomRoom(random.nextInt(5, 7));
-
-            PercentBasedEnemy.resetIndex();
-            PercentBasedEnemy.setEnemyArray("Walker", 20);
-            PercentBasedEnemy.setEnemyArray("Shambler", 30);
-            PercentBasedEnemy.setEnemyArray("Crawler", 10);
-            PercentBasedEnemy.setEnemyArray("Bloater", 20);
-            PercentBasedEnemy.setEnemyArray("Brute", 15);
-            PercentBasedEnemy.setEnemyArray("Necrofiend", 5);
-            randomRoom.setRandomRoom(random.nextInt(6, 8));
-
-            PercentBasedEnemy.resetIndex();
-            PercentBasedEnemy.setEnemyArray("Walker", 10);
-            PercentBasedEnemy.setEnemyArray("Shambler", 10);
-            PercentBasedEnemy.setEnemyArray("Crawler", 25);
-            PercentBasedEnemy.setEnemyArray("Bloater", 20);
-            PercentBasedEnemy.setEnemyArray("Brute", 20);
-            PercentBasedEnemy.setEnemyArray("Necrofiend", 15);
-            randomRoom.setRandomRoom(random.nextInt(7, 10));
-
-            // Start Room 2
-            Room2.subwaySandwich();
-
-            //Start puzzle
-            Puzzle.intro();
-
-        // Start End
-        End.emptyEnd();
+        if (player1.DEV()) {
+            Attack.initialize(player1);
+        }
+        // Make random rooms and populate them.
+        randomRoom1();
     }
 
     public static void checkPlayer() {
@@ -135,5 +93,75 @@ public class StoryGame {
                 StartGame();
             }
         }
+    }
+
+    public static void randomRoom1() {
+        Player player = Player.getPlayer("ID1");
+        PercentBasedEnemy.resetIndex();
+        PercentBasedEnemy.setEnemyArray("Walker", 60);
+        PercentBasedEnemy.setEnemyArray("Shambler", 30);
+        PercentBasedEnemy.setEnemyArray("Crawler", 10);
+        randomRoom.setRandomRoom(random.nextInt(3, 5));
+
+        player.setRandomRoom(2);
+        randomRoom2();
+    }
+
+    public static void randomRoom2() {
+        Player player = Player.getPlayer("ID1");
+        PercentBasedEnemy.resetIndex();
+        PercentBasedEnemy.setEnemyArray("Walker", 50);
+        PercentBasedEnemy.setEnemyArray("Shambler", 30);
+        PercentBasedEnemy.setEnemyArray("Crawler", 10);
+        PercentBasedEnemy.setEnemyArray("Bloater", 10);
+        randomRoom.setRandomRoom(random.nextInt(4, 6));
+
+        player.setRandomRoom(3);
+        randomRoom3();
+    }
+
+    public static void randomRoom3(){
+        Player player = Player.getPlayer("ID1");
+        PercentBasedEnemy.resetIndex();
+        PercentBasedEnemy.setEnemyArray("Walker", 40);
+        PercentBasedEnemy.setEnemyArray("Shambler", 30);
+        PercentBasedEnemy.setEnemyArray("Crawler", 10);
+        PercentBasedEnemy.setEnemyArray("Bloater", 10);
+        PercentBasedEnemy.setEnemyArray("Brute", 10);
+        randomRoom.setRandomRoom(random.nextInt(5, 7));
+
+        player.setRandomRoom(4);
+        randomRoom4();
+    }
+
+    public static void randomRoom4() {
+        Player player = Player.getPlayer("ID1");
+        PercentBasedEnemy.resetIndex();
+        PercentBasedEnemy.setEnemyArray("Walker", 20);
+        PercentBasedEnemy.setEnemyArray("Shambler", 30);
+        PercentBasedEnemy.setEnemyArray("Crawler", 10);
+        PercentBasedEnemy.setEnemyArray("Bloater", 20);
+        PercentBasedEnemy.setEnemyArray("Brute", 15);
+        PercentBasedEnemy.setEnemyArray("Necrofiend", 5);
+        randomRoom.setRandomRoom(random.nextInt(6, 8));
+
+        player.setRandomRoom(5);
+        randomRoom5();
+    }
+
+    public static void randomRoom5() {
+        Player player = Player.getPlayer("ID1");
+        PercentBasedEnemy.resetIndex();
+        PercentBasedEnemy.setEnemyArray("Walker", 10);
+        PercentBasedEnemy.setEnemyArray("Shambler", 10);
+        PercentBasedEnemy.setEnemyArray("Crawler", 25);
+        PercentBasedEnemy.setEnemyArray("Bloater", 20);
+        PercentBasedEnemy.setEnemyArray("Brute", 20);
+        PercentBasedEnemy.setEnemyArray("Necrofiend", 15);
+        randomRoom.setRandomRoom(random.nextInt(7, 10));
+
+        player.setRandomRoom(6);
+        // Start Room 2
+        Room2.subwaySandwich();
     }
 }

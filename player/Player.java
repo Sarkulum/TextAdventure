@@ -25,6 +25,8 @@ public class Player {
     int goldCoins; // Count for gold coins
     int score = 0;
     int movementSpeed; // How far player can move in 1 turn
+    int randomRoom = 1;
+    boolean died = false;
 
     // pre game var
     boolean endless; // Check for if player is playing endless mode
@@ -245,4 +247,10 @@ public class Player {
     // Getter and setter for movement speed
     public int getMovementSpeed() {return this.movementSpeed;}
     public void setMovementSpeed(int movementSpeed) {this.movementSpeed = movementSpeed;}
+
+    public int getRandomRoom() {return this.randomRoom;}
+    public void setRandomRoom(int randomRoom) {this.randomRoom = randomRoom;}
+
+    public boolean isDied() {return this.died;}
+    public void setDied(boolean died) {this.died = died;}
 }

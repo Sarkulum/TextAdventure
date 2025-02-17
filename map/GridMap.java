@@ -7,7 +7,6 @@ import java.util.*;
 
 public class GridMap {
     String[][] roomMap;
-    Player player = Player.getPlayer("ID1");
     Scanner scanner = new Scanner(System.in);
 
     private GridMap(int size){
@@ -57,6 +56,7 @@ public class GridMap {
 
     //A function to print the 2D Array in the console. Don't have a clue how it works.
     public void printMap(boolean isAttack){
+        Player player = Player.getPlayer("ID1");
         int rows = this.roomMap.length;
         int cols = this.roomMap[0].length;
 

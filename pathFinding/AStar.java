@@ -59,7 +59,7 @@ public class AStar {
     private boolean isValidMove(String[][] grid, int row, int col, boolean[][] closedSet) {
         // First checks if move is in bounds and then checks if there is an obstacle
         return row >= 0 && col >= 0 && row < grid.length && col < grid[0].length
-                && !Objects.equals(grid[row][col], "[#]") && !Objects.equals(grid[row][col], "[P]") && !closedSet[row][col];
+                && !Objects.equals(grid[row][col], "[#]") && !Objects.equals(grid[row][col], "[P]") && !closedSet[row][col] && Objects.equals(grid[row][col], "[ ]");
     }
 
     //private boolean isValidMovePlay
