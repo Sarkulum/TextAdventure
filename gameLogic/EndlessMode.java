@@ -1,5 +1,6 @@
 package gameLogic;
 
+import enemys.Enemy;
 import enemys.PercentBasedEnemy;
 import rooms.RandomRooms;
 import rooms.Shop;
@@ -32,7 +33,7 @@ public class EndlessMode {
             waveIndex++;
         }
 
-        PercentBasedEnemy.resetIndex();
+        Enemy.removeAllEntrys();
         // Ask the player if the want to continue
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("Do you want to continue or do you want to exit?");

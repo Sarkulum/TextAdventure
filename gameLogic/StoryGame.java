@@ -1,6 +1,7 @@
 package gameLogic;
 
 import combat.Attack;
+import enemys.Enemy;
 import enemys.PercentBasedEnemy;
 import items.Weapon;
 import rooms.*;
@@ -97,7 +98,7 @@ public class StoryGame {
 
     public static void randomRoom1() {
         Player player = Player.getPlayer("ID1");
-        PercentBasedEnemy.resetIndex();
+        Enemy.removeAllEntrys();
         PercentBasedEnemy.setEnemyArray("Walker", 60);
         PercentBasedEnemy.setEnemyArray("Shambler", 30);
         PercentBasedEnemy.setEnemyArray("Crawler", 10);
@@ -109,7 +110,7 @@ public class StoryGame {
 
     public static void randomRoom2() {
         Player player = Player.getPlayer("ID1");
-        PercentBasedEnemy.resetIndex();
+        Enemy.removeAllEntrys();
         PercentBasedEnemy.setEnemyArray("Walker", 50);
         PercentBasedEnemy.setEnemyArray("Shambler", 30);
         PercentBasedEnemy.setEnemyArray("Crawler", 10);
@@ -122,7 +123,7 @@ public class StoryGame {
 
     public static void randomRoom3(){
         Player player = Player.getPlayer("ID1");
-        PercentBasedEnemy.resetIndex();
+        Enemy.removeAllEntrys();
         PercentBasedEnemy.setEnemyArray("Walker", 40);
         PercentBasedEnemy.setEnemyArray("Shambler", 30);
         PercentBasedEnemy.setEnemyArray("Crawler", 10);
@@ -136,7 +137,7 @@ public class StoryGame {
 
     public static void randomRoom4() {
         Player player = Player.getPlayer("ID1");
-        PercentBasedEnemy.resetIndex();
+        Enemy.removeAllEntrys();
         PercentBasedEnemy.setEnemyArray("Walker", 20);
         PercentBasedEnemy.setEnemyArray("Shambler", 30);
         PercentBasedEnemy.setEnemyArray("Crawler", 10);
@@ -151,7 +152,7 @@ public class StoryGame {
 
     public static void randomRoom5() {
         Player player = Player.getPlayer("ID1");
-        PercentBasedEnemy.resetIndex();
+        Enemy.removeAllEntrys();
         PercentBasedEnemy.setEnemyArray("Walker", 10);
         PercentBasedEnemy.setEnemyArray("Shambler", 10);
         PercentBasedEnemy.setEnemyArray("Crawler", 25);

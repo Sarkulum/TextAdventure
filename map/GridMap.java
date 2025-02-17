@@ -27,9 +27,10 @@ public class GridMap {
         this.roomMap[row][col] = "[#]";
     }
 
-    public boolean placeEnemy(int row, int col, Enemy enemy) {
-        if (Objects.equals(this.roomMap[row][col], "[ ]")) {
-            this.roomMap[row][col] = "["+enemy.getEnemyID()+"]" ;
+    public boolean placeEnemy(int row, int col, Enemy enemy, GridMap gridMap) {
+        String[][] map = gridMap.getRoomMap();
+        if (Objects.equals(map[row][col], "[ ]")) {
+            map[row][col] = "["+enemy.getEnemyID()+"]" ;
             return true;
         }else{
             return false;

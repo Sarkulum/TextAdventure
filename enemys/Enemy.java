@@ -77,7 +77,7 @@ public class Enemy {
     public int getCurrentHP() { return this.currentHP; }
 
     // Setter and getter for idIndex
-    public static void setIdIndex(int id) {idIndex = idIndex + id;}
+    public static void setIdIndex(int id) {idIndex = id;}
     public static int getIdIndex() {return idIndex;}
 
     // Getter and setter for movement
@@ -124,6 +124,7 @@ public class Enemy {
         // Use an iterator to safely remove elements while iterating
         enemys.clear(); // Clears all enemies in one step because hash maps are fucking stupid
         idIndex = 0;
+        PercentBasedEnemy.resetIndex();
     }
 
     // Boolean to see if the id is still available

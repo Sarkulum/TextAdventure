@@ -349,7 +349,7 @@ public class Tutorial {
             System.out.println("--------------------------->press enter to continue\n");
 
             enterScanner.nextLine();
-            PercentBasedEnemy.resetIndex();
+            Enemy.removeAllEntrys();
             goblinCave();
         }
         /*This is the map of the kiosk
@@ -364,7 +364,7 @@ public class Tutorial {
 
     // Method to make the map for fight and place Obstetrical
     public static void buildMapKiosk() {
-        gridMap.placeEnemy(0, 3, firstEnemy);
+        gridMap.placeEnemy(0, 3, firstEnemy, gridMap);
         gridMap.placeObstical(1,4);
         gridMap.placeObstical(1,3);
         gridMap.placeObstical(1,2);

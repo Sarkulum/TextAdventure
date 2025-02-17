@@ -22,15 +22,17 @@ public class RandomRooms {
         Player player = Player.getPlayer("ID1");
         gridMap.placePlayer(9, 4);
         index = maxEnemy;
+
         for(int i = 0; maxEnemy > i; i++){
             int id = PercentBasedEnemy.spawnEnemy();
             Enemy enemy = Enemy.getEnemy(id);
             boolean placed = false;
 
             while (!placed) {
-                placed = gridMap.placeEnemy(random.nextInt(10), random.nextInt(10), enemy);
+                placed = gridMap.placeEnemy(random.nextInt(10), random.nextInt(10), enemy, gridMap);
             }
         }
+
         // Access the singleton instance of Attack
         Attack combat = Attack.getInstance();
 
