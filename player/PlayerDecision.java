@@ -1,9 +1,9 @@
 package player;
 
 import enemys.Enemy;
-import text.Colors;
 import java.util.Objects;
 import java.util.Scanner;
+import text.Colors;
 
 // Class for all the print statements that are needed to set up a player
 public class PlayerDecision {
