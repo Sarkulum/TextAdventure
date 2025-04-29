@@ -1,5 +1,7 @@
 package OO.player;
 
+import OO.combat.Attackable;
+import OO.combat.Damage;
 import OO.creature.Creature;
 import OO.items.Item;
 import OO.items.Weapon;
@@ -8,7 +10,7 @@ import OO.text.TextColor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player extends Creature {
+public class Player extends Creature implements Attackable {
     private int userAge;
     private TextColor userTextColor;
     private List<Item> inventory = new ArrayList<Item>(); // List to save Item object in.
@@ -70,6 +72,12 @@ public class Player extends Creature {
             }
         }
         return false;
+    }
+
+    @Override
+    public void takeDamage(Damage damage) {
+        currentHP -= damage.getAmount();
+        System.out.println("Player took " + damage.getAmount() + " damage!");
     }
 
     public int getUserAge() {return userAge;}

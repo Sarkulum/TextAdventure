@@ -1,5 +1,7 @@
 package OO.enemy;
 
+import OO.combat.Attackable;
+import OO.combat.Damage;
 import OO.creature.Creature;
 
 import java.util.HashMap;
@@ -7,7 +9,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class Enemy extends Creature {
+public class Enemy extends Creature implements Attackable {
     private static final Random random = new Random();
 
     private static final Map<String, Supplier<Enemy>> enemyCreators = new HashMap<>();
@@ -120,6 +122,12 @@ public class Enemy extends Creature {
                 1,
                 1
         ));
+    }
+
+    @Override
+    public void takeDamage(Damage damage) {
+        currentHP -= damage.getAmount();
+        System.out.println("Enemy took " + damage.getAmount() + " damage!");
     }
 
     public Enemy(String name, int minDamage, int maxDamage, int maxHP, int movement, int range) {
