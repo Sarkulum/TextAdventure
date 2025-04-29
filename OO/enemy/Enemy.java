@@ -12,7 +12,7 @@ public class Enemy extends Creature {
 
     private static final Map<String, Supplier<Enemy>> enemyCreators = new HashMap<>();
 
-    static { // This adds all the enemy's into a Map of Strings so i don't need to use the case switch.
+    static { // This adds all the enemy's into a Map of Strings so I don't need to use the case switch.
         enemyCreators.put("Shambler", () -> new Enemy(
                 "Shambler",
                 1,

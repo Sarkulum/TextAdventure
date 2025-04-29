@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Room {
+    private static final int PAUSE_EVERY_N_LINES = 3;
     private String roomName;
     private List<String> descriptionParts;
     private List<String> options; // List of Strings
@@ -25,10 +26,15 @@ public class Room {
 
         System.out.println("\n--- " + roomName + " ---");
 
+        int lineCount = 0;
         for (String part : descriptionParts) {
             System.out.println(part);
-            System.out.println("---------------------------> press Enter to continue\n");
-            scanner.nextLine(); // wait for player to press Enter
+            lineCount++;
+
+            if (lineCount % PAUSE_EVERY_N_LINES == 0 || part.equals(descriptionParts.get(descriptionParts.size() - 1))) {
+                System.out.println("---------------------------> press Enter to continue\n");
+                scanner.nextLine(); // wait after every 3rd line
+            }
         }
 
         System.out.println("\nOptions:");
@@ -44,6 +50,7 @@ public class Room {
             enter();
         }
     }
+
 
 
     public Room getPreviousRoom() {return previousRoom;}

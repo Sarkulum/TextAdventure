@@ -1,16 +1,22 @@
 package OO.player;
 
 import OO.creature.Creature;
+import OO.items.Item;
+import OO.items.Weapon;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player extends Creature {
     private int userAge;
     private String userTextColor;
     private String playerWeapon;
-    private int inventory;
+    private List<Item> inventory = new ArrayList<Item>(); // List to save Item object in.
     private int score;
     private int randomRoomIndex = 1;
     private boolean died = false;
     private boolean DEV;
+    private Weapon equippedWeapon;
 
     public Player(
             String name,
@@ -20,15 +26,55 @@ public class Player extends Creature {
             int movement,
             int range,
             int userAge,
-            int userTextColor,
-            int playerWeapon,
-            int inventory,
+            String userTextColor,
+            String playerWeapon,
             int score,
             int randomRoomIndex,
-            boolean died,
             boolean DEV
     ) {
         super(name, minDamage, maxDamage, maxHP, movement, range);
+        this.userAge = userAge;
+        this.userTextColor = userTextColor;
+        this.playerWeapon = playerWeapon;
+        this.score = score;
+        this.randomRoomIndex = randomRoomIndex;
+
+        // Automatically set DEV mode if name is "DEV"
+        this.DEV = name.equalsIgnoreCase("DEV");
+    }
+
+    // Adds an entry to the inventory List
+    public void addItem(Item item) {
+        inventory.add(item);
+    }
+
+    // A way to equip a Weapon.
+    public void equipWeapon(String weaponName) {
+        // Iterates over the Inventory List
+        for (Item item : inventory) {
+            // Takes the Weapon object with the name equal to the input String
+            if (item instanceof Weapon && item.getName().equals(weaponName)) {
+                equippedWeapon = (Weapon) item;
+                System.out.println(name + " equipped the " + weaponName + "!");
+                return;
+            }
+        }
+        System.out.println("Weapon not found in inventory.");
+    }
+
+    // A way to get the equip Weapon to calculate damage.
+    public Weapon getEquippedWeapon() {
+        return equippedWeapon;
+    }
+
+    // Way to check if player has a certain Item (story item etc.)
+    public boolean playerHasItem(String itemName) {
+        for (Item item : inventory) {
+            if (item.getName().equals(itemName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public int getUserAge() {return userAge;}
@@ -39,9 +85,6 @@ public class Player extends Creature {
 
     public String getPlayerWeapon() {return playerWeapon;}
     public void setPlayerWeapon(String playerWeapon) {this.playerWeapon = playerWeapon;}
-
-    public int getInventory() {return inventory;}
-    public void setInventory(int inventory) {this.inventory = inventory;}
 
     public int getScore() {return score;}
     public void setScore(int score) {this.score = score;}

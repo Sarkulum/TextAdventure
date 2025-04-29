@@ -1,14 +1,14 @@
 package OO.creature;
 
 public class Creature {
-    private String name;
-    private int maxDamage;
-    private int minDamage;
-    private int maxHP;
-    private int currentHP;
-    private int movement;
-    private int range;
-    private int goldCoins;
+    protected String name;
+    protected int maxDamage;
+    protected int minDamage;
+    protected int maxHP;
+    protected int currentHP;
+    protected int movement;
+    protected int range;
+    protected int goldCoins;
 
     public Creature(String name, int minDamage, int maxDamage, int maxHP, int movement, int range) {
         this.name = name;

@@ -28,6 +28,9 @@ public class World {
                 ),
                 List.of(
                         () -> {
+
+                        },
+                        () -> {
                             Game.moveToRoom(World.getRoom("nextRoomName"));
                         }
                 )
