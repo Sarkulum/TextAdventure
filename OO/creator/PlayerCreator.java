@@ -1,17 +1,22 @@
 package OO.creator;
 
 import OO.player.Player;
+import OO.text.TextColor;
 
 import java.util.Scanner;
 
 public class PlayerCreator {
     private static final Scanner scanner = new Scanner(System.in);
+    private static int minDamage = 5;
+    private static int maxDamage = 10;
+    private static int maxHealth = 20;
+    private static int movement = 3;
+    private static int range = 1;
+    private static int score = 0;
+
 
     public static Player createPlayer() {
-
-
-
-
+        return new Player(name(), minDamage, maxDamage, maxHealth, movement, range, age(), selectTextColor(), score);
     }
 
     private static String name() {
@@ -46,5 +51,27 @@ public class PlayerCreator {
         }
     }
 
-    private static
+    private static TextColor selectTextColor() {
+        System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("Please enter the color the text should be. You can choose between:\n");
+
+        for (TextColor color : TextColor.values()) {
+            System.out.println(color.toString()); // shows colorized name
+        }
+
+        System.out.println("--------------------------->enter a word to decide\n");
+
+        while (true) {
+            scanner.nextLine(); // consume leftover newline
+            String input = scanner.nextLine().trim();
+
+            for (TextColor color : TextColor.values()) {
+                if (color.name().equalsIgnoreCase(input)) {
+                    return color;
+                }
+            }
+
+            System.out.println("Invalid color. Try again.");
+        }
+    }
 }

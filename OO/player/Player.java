@@ -3,14 +3,14 @@ package OO.player;
 import OO.creature.Creature;
 import OO.items.Item;
 import OO.items.Weapon;
+import OO.text.TextColor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends Creature {
     private int userAge;
-    private String userTextColor;
-    private String playerWeapon;
+    private TextColor userTextColor;
     private List<Item> inventory = new ArrayList<Item>(); // List to save Item object in.
     private int score;
     private int randomRoomIndex = 1;
@@ -26,18 +26,13 @@ public class Player extends Creature {
             int movement,
             int range,
             int userAge,
-            String userTextColor,
-            String playerWeapon,
-            int score,
-            int randomRoomIndex,
-            boolean DEV
+            TextColor userTextColor,
+            int score
     ) {
         super(name, minDamage, maxDamage, maxHP, movement, range);
         this.userAge = userAge;
         this.userTextColor = userTextColor;
-        this.playerWeapon = playerWeapon;
         this.score = score;
-        this.randomRoomIndex = randomRoomIndex;
 
         // Automatically set DEV mode if name is "DEV"
         this.DEV = name.equalsIgnoreCase("DEV");
@@ -80,11 +75,7 @@ public class Player extends Creature {
     public int getUserAge() {return userAge;}
     public void setUserAge(int userAge) {this.userAge = userAge;}
 
-    public String getUserTextColor() {return userTextColor;}
-    public void setUserTextColor(String userTextColor) {this.userTextColor = userTextColor;}
-
-    public String getPlayerWeapon() {return playerWeapon;}
-    public void setPlayerWeapon(String playerWeapon) {this.playerWeapon = playerWeapon;}
+    public TextColor getUserTextColor() {return userTextColor;}
 
     public int getScore() {return score;}
     public void setScore(int score) {this.score = score;}
