@@ -1,13 +1,23 @@
 package OO.world;
 
+import OO.items.Weapon;
 import OO.logic.Game;
+import OO.player.Player;
+import OO.player.Player.*;
+import OO.player.PlayerManager;
+import OO.text.TextColor;
+import text.Colors;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+// If you want to "reenter" a room use World.getRoom("outsideHBF").enter();
 public class World {
     // Creat a HashMap with every Room object in it.
     private static final Map<String, Room> rooms = new HashMap<String, Room>();
+    private static PlayerManager playerManager = PlayerManager.getInstance();
 
     public static void initializeWorld() {
         Room outsideHBF = new Room(
@@ -28,7 +38,23 @@ public class World {
                 ),
                 List.of(
                         () -> {
+                            Player player = playerManager.getCurrentPlayer();
 
+                            System.out.println("You approach the statue carefully.");
+                            System.out.println("\nOn its pedestal, someone has carved the words:");
+                            System.out.println("'Follow the fog, trust the light.'\n");
+
+                            if (player.playerHasItem("Crowbar")) {
+                                System.out.println("You also notice " +TextColor.HIGH_RED.getAnsiCode()+ "a crowbar" +player.getUserTextColor().getAnsiCode()+ " leaning against the base of the statue.");
+                                System.out.println("System:");
+                                System.out.println("You have obtained weapon: 'Crowbar'");
+                                System.out.println("It is not noticeably better than the kitchen knife.");
+
+                                Weapon crowbar = new Weapon("Crowbar", 1, 5, 1, 0);
+                                player.addItem(crowbar);
+                                player.equipWeapon("Crowbar");
+                            }
+                            World.getRoom("outsideHBF").enter();
                         },
                         () -> {
                             Game.moveToRoom(World.getRoom("nextRoomName"));

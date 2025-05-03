@@ -1,6 +1,8 @@
 package OO.text;
 
 public enum TextColor {
+    // For static color uses (like damage) use TextColor.RED.getAnsiCode()
+    // For player use player.getTextColor().getAnsiCode()
     RESET("Reset", "\u001B[0m"),
     RED("Red", "\u001B[31m"),
     GREEN("Green", "\u001B[32m"),
