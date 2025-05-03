@@ -54,7 +54,7 @@ public class World {
                                 player.addItem(crowbar);
                                 player.equipWeapon("Crowbar");
                             }
-                            World.getRoom("outsideHBF").enter();
+                            World.getRoom("outsideHBF").reenter();
                         },
                         () -> {
                             Game.moveToRoom(World.getRoom("nextRoomName"));

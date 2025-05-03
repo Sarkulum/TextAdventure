@@ -51,6 +51,25 @@ public class Room {
         }
     }
 
+    public void reenter() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\n--- " + roomName + " ---");
+
+        System.out.println("\nOptions:");
+        for (int i = 0; i < options.size(); i++) {
+            System.out.println((i + 1) + ": " + options.get(i));
+        }
+
+        int choice = scanner.nextInt();
+        if (choice >= 1 && choice <= actions.size()) {
+            actions.get(choice - 1).run();
+        } else {
+            System.out.println("Invalid choice.");
+            enter();
+        }
+    }
+
 
 
     public Room getPreviousRoom() {return previousRoom;}
