@@ -8,15 +8,15 @@ import OO.world.World;
 public class Game {
     private static Room currentRoom;
     private static PlayerCreator playerCreator;
-    private static PlayerManager playerManager;
+    private static PlayerManager playerManager = PlayerManager.getInstance();;
 
 
-    public static void start(Room startingRoom) {
+    public static void start() {
         playerCreator = new PlayerCreator();
         playerManager.add(playerCreator.createPlayer());
 
         World.initializeWorld();
-        currentRoom = startingRoom;
+        currentRoom = World.getRoom("Intro");
         currentRoom.enter();
     }
 

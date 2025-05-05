@@ -11,6 +11,7 @@ import text.Colors;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 
 // If you want to "reenter" a room use World.getRoom("outsideHBF").enter();
@@ -72,10 +73,82 @@ public class World {
                         "As I push myself up, my eyes adjust to the dim surroundings.",
                         "The neon glow of Kröpke's empty streets is visible ahead but something feels off."
                 ),
-                List.of(),
-                List.of()
+                List.of(
+                        "Continue"
+                ),
+                List.of(
+                        () -> {
+                            World.getRoom("Kröpke").enter();
+                        }
+                )
         );
 
+        Room townGate = new Room(
+                "Kröpke",
+                List.of(
+                        "A thick, smoky wall blocks a narrow passage leading further into the city.",
+                        "A lone figure sits in front of it, casually exhaling smoke into the already heavy air."
+                ),
+                List.of(
+                    "Talk to the person",
+                    "Smack them",
+                    "Do nothing",
+                    "Go north to the crossroad"
+                ),
+                List.of(
+                        () -> {
+                            Player player = playerManager.getCurrentPlayer();
+                            Scanner scanner = new Scanner(System.in);
+
+                            if (player.playerHasItem("cigarettes")) {
+                                System.out.println("Person:");
+                                System.out.println("'Thanks a lot, mate. Here, now you can go further.'\n");
+                                System.out.println("The person inhales the smoke as if it is nothing, and the smoky wall dissipates.");
+
+                                scanner.nextLine();
+                            } else {
+                                System.out.println("Person:");
+                                System.out.println("'Welcome, nice to see another survivor.'");
+                                System.out.println("If you bring me a pack of cigarettes, "+player.getName()+", I'll let you through that smoky wall.");
+
+                                scanner.nextLine();
+                                World.getRoom("Kröpke").reenter();
+                            }
+                        },
+                        () -> {
+                            Player player = playerManager.getCurrentPlayer();
+                            Scanner scanner = new Scanner(System.in);
+
+                            System.out.println("Person: 'Hey what's wrong with you?'");
+                            System.out.println("The person bonks you on the head.");
+                            System.out.println("For some reason, you feel like picking a fight isn't the best idea.");
+                            System.out.println("\nSystem:");
+                            System.out.println("You receive " + Colors.RED + "1 damage" + player.getUserTextColor() + ".");
+                            player.setCurrentHP(player.getCurrentHP() - 1);
+                            System.out.println("Your" + Colors.GREEN + " HP: " + player.getCurrentHP() + player.getUserTextColor());
+
+                            scanner.nextLine();
+                            World.getRoom("Kröpke").reenter();
+                        },
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("You decide to leave the smoky wall and the strange person behind, heading toward Kröpke.");
+                            scanner.nextLine();
+                        },
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("You stand there awkwardly, but the person ignores you.");
+                            System.out.println("Nothing happens.");
+
+                            scanner.nextLine();
+                            World.getRoom("Kröpke").reenter();
+                        }
+
+                )
+        );
+
+        rooms.put("Intro", startingRoom);
+        rooms.put("Kröpke", townGate);
         rooms.put("outsideHBF", outsideHBF);
     }
 
