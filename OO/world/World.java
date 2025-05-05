@@ -62,6 +62,20 @@ public class World {
                 )
         );
 
+        Room startingRoom = new Room(
+                "Intro",
+                List.of(
+                        "I woke up in a pitch-black alleyway. My head is pounding, and I can't remember how I got here.",
+                        "I reach for my phone, but it's dead. Great. Just great.",
+                        "The air is damp, filled with the distant hum of flickering streetlights.",
+                        "Trash bins are overturned, and the stench of decay lingers.",
+                        "As I push myself up, my eyes adjust to the dim surroundings.",
+                        "The neon glow of Kröpke's empty streets is visible ahead but something feels off."
+                ),
+                List.of(),
+                List.of()
+        );
+
         rooms.put("outsideHBF", outsideHBF);
     }
 

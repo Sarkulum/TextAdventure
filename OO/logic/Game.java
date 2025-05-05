@@ -1,11 +1,21 @@
 package OO.logic;
 
+import OO.creator.PlayerCreator;
+import OO.player.PlayerManager;
 import OO.world.Room;
+import OO.world.World;
 
 public class Game {
     private static Room currentRoom;
+    private static PlayerCreator playerCreator;
+    private static PlayerManager playerManager;
+
 
     public static void start(Room startingRoom) {
+        playerCreator = new PlayerCreator();
+        playerManager.add(playerCreator.createPlayer());
+
+        World.initializeWorld();
         currentRoom = startingRoom;
         currentRoom.enter();
     }
