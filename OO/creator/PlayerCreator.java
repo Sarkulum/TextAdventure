@@ -72,6 +72,7 @@ public class PlayerCreator {
             }
 
             System.out.println("Invalid color. Try again.");
+            scanner.next();
         }
     }
 }

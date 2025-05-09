@@ -1,5 +1,7 @@
 package OO.world;
 
+import OO.enemy.Enemy;
+
 import java.util.List;
 import java.util.Scanner;
 

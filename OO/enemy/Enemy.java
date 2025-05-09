@@ -11,10 +11,11 @@ import java.util.function.Supplier;
 
 public class Enemy extends Creature implements Attackable {
     private static final Random random = new Random();
+    private static int index;
 
     private static final Map<String, Supplier<Enemy>> enemyCreators = new HashMap<>();
 
-    static { // This adds all the enemy's into a Map of Strings so I don't need to use the case switch.
+    static { // This adds all the enemy's into a Map of Strings, so I don't need to use the case switch.
         enemyCreators.put("Shambler", () -> new Enemy(
                 "Shambler",
                 1,
@@ -142,4 +143,7 @@ public class Enemy extends Creature implements Attackable {
             return null; // or throw new IllegalArgumentException("Unknown enemy type: " + name);
         }
     }
+
+    public void setIndex(int index) { this.index = index;}
+    public int getIndex() { return index; }
 }
