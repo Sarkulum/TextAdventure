@@ -19,6 +19,7 @@ public class Player extends Creature implements Attackable {
     private boolean died = false;
     private boolean DEV;
     private Weapon equippedWeapon;
+    private int playerID;
 
     public Player(
             String name,

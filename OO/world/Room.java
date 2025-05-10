@@ -1,6 +1,7 @@
 package OO.world;
 
 import OO.enemy.Enemy;
+import OO.logic.Game;
 
 import java.util.List;
 import java.util.Scanner;

@@ -15,6 +15,7 @@ public class EnemyManager {
 
     public void add(Enemy enemy) {
         this.enemys.add(enemy);
+        enemy.setIndex(this.enemys.indexOf(enemy));
         if (this.currentEnemy == null) {
             this.currentEnemy = enemy;
         }
