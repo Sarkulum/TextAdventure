@@ -28,6 +28,15 @@ public class EnemyManager {
         }
     }
 
+    public Enemy get(int index) {
+        for (Enemy enemy : this.enemys) {
+            if (enemy.getIndex() == index) {
+                return enemy;
+            }
+        }
+        return null;
+    }
+
     public Enemy getCurrentEnemy() {return this.currentEnemy;}
 
     public void setCurrentEnemy(Enemy currentEnemy) {this.currentEnemy = currentEnemy;}

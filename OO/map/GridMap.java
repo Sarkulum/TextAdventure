@@ -14,9 +14,11 @@ public class GridMap {
     Scanner scanner = new Scanner(System.in);
     Random random = new Random();
     Map<Position, Enemy> enemyPositions = new HashMap<>();
+    EnemyManager enemyManager;
 
     public GridMap(int x, int y, EnemyManager enemyManager, List<Position> obstaclePositions, List<Position> playerPositions) {
         this.room = new String[x][y];
+        this.enemyManager = enemyManager;
 
         // Fills the map with empty squares
         for (int i = 0; i < x; i++) {
@@ -58,11 +60,9 @@ public class GridMap {
         }
     }
 
-    private void placePlayer(int x, int y) {this.room[x][y] = "[P]";}
-
     private void printMap() {
         Player player = PlayerManager.getInstance().getCurrentPlayer();
-        int index;
+        int index = 0;
 
         System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("[ ] = Empty Field, [#] = Obstacle, ['Number'] = Enemy, [P] = Player");
@@ -87,9 +87,19 @@ public class GridMap {
                 }
             }
 
+            try {
+                Enemy enemy = enemyManager.getEnemyByIndex(index);
+
+                if (enemy.getCurrentHP() > 0) {
+                    System.out.println("Enemy: " +enemy.getName()+ " ID: " +enemy.getIndex()+ " HP: " +enemy.getCurrentHP());
+                }
+            } catch (Exception e) {
+
+            }
 
         }
 
     }
 
+    private void placePlayer(int x, int y) {this.room[x][y] = "[P]";}
 }
