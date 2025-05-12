@@ -103,7 +103,10 @@ public class GridMap {
 
     private void placePlayer(int x, int y) {this.room[x][y] = "[P]";}
 
+    // TODO
     private void removeEnemy(int index) {
+        Position position = enemyManager.getEnemyPosition(index);
+
 
     }
 }

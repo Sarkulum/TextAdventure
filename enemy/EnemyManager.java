@@ -8,6 +8,7 @@ public class EnemyManager {
     Map<Enemy, Position> enemys = new HashMap<>();
     private Enemy currentEnemy;
     int Index = 0;
+
     public EnemyManager() {
 
     }
@@ -38,9 +39,26 @@ public class EnemyManager {
         return null;
     }
 
-    public Enemy getCurrentEnemy() {return this.currentEnemy;}
+    public Enemy getCurrentEnemy() {
+        return this.currentEnemy;
+    }
 
-    public void setCurrentEnemy(Enemy currentEnemy) {this.currentEnemy = currentEnemy;}
+    public void setCurrentEnemy(Enemy currentEnemy) {
+        this.currentEnemy = currentEnemy;
+    }
 
-    public Map<Enemy, Position> getEnemies() {return this.enemys;}
+    public Map<Enemy, Position> getEnemies() {
+        return this.enemys;
+    }
+
+    public Position getEnemyPosition(int index) {
+        for (Map.Entry<Enemy, Position> entry : enemys.entrySet()) {
+            Enemy enemy = entry.getKey();
+
+            if (enemy.getIndex() == index) {
+                return entry.getValue();
+            }
+        }
+        return null;
+    }
 }

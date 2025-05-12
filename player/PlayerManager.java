@@ -1,11 +1,16 @@
 package player;
 
+import enemy.Enemy;
+import map.Position;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PlayerManager {
     private static PlayerManager instance;
-    private static final List<Player> players = new ArrayList<>(); // A List to save all player objects and make them easy to access.
+    Map<Player, Position> players = new HashMap<>(); // A List to save all player objects and make them easy to access.
     private Player currentPlayer;
 
     private PlayerManager() {
@@ -21,7 +26,7 @@ public class PlayerManager {
     }
 
     public void add(Player player) {
-        players.add(player);
+        players.put(player, null);
         if (currentPlayer == null) {
             currentPlayer = player;
         }
@@ -43,7 +48,9 @@ public class PlayerManager {
     }
 
     public Player getPlayerByName(String name) {
-        for (Player player : players) { // Iterates over the array
+        for (Map.Entry<Player, Position> entry : players.entrySet()) { // Iterates over the array
+            Player player = entry.getKey();
+
             if (player.getName().equals(name)) {
                 return player;
             }
@@ -51,7 +58,7 @@ public class PlayerManager {
         return null;
     }
 
-    public List<Player> getPlayers() {
+    public Map<Player, Position> getPlayers() {
         return players;
     }
 }
