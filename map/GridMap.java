@@ -5,15 +5,12 @@ import enemy.EnemyManager;
 import player.Player;
 import player.PlayerManager;
 import text.TextColor;
-import text.TextColor;
-
 import java.util.*;
 
 public class GridMap {
     String [][] room;
     Scanner scanner = new Scanner(System.in);
     Random random = new Random();
-    Map<Position, Enemy> enemyPositions = new HashMap<>();
     EnemyManager enemyManager;
 
     public GridMap(int x, int y, EnemyManager enemyManager, List<Position> obstaclePositions, List<Position> playerPositions) {
@@ -44,7 +41,10 @@ public class GridMap {
         }
 
         // Places the enemys
-        for (Enemy enemy : enemyManager.getEnemies()) {
+        for (Map.Entry<Enemy, Position> entry : enemyManager.getEnemies().entrySet()) {
+            Enemy enemy = entry.getKey();
+            Position enemyPosition = entry.getValue();
+
             boolean placed = false;
 
             while (!placed) {
@@ -53,7 +53,7 @@ public class GridMap {
 
                 if (Objects.equals(this.room[xEnemy][yEnemy], "[ ]")) {
                     this.room[xEnemy][yEnemy] = "[" +enemy.getIndex()+"]";
-                    enemyPositions.put(new Position(xEnemy, yEnemy), enemy);
+                    entry.setValue((new Position(xEnemy, yEnemy)));
                     placed = true;
                 }
             }
@@ -102,4 +102,8 @@ public class GridMap {
     }
 
     private void placePlayer(int x, int y) {this.room[x][y] = "[P]";}
+
+    private void removeEnemy(int index) {
+
+    }
 }

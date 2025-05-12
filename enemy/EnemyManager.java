@@ -1,19 +1,20 @@
 package enemy;
 
-import java.util.ArrayList;
-import java.util.List;
+import map.Position;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EnemyManager {
-    private List<Enemy> enemys = new ArrayList<>();
+    Map<Enemy, Position> enemys = new HashMap<>();
     private Enemy currentEnemy;
-
+    int Index = 0;
     public EnemyManager() {
 
     }
 
     public void add(Enemy enemy) {
-        this.enemys.add(enemy);
-        enemy.setIndex(this.enemys.indexOf(enemy));
+        this.enemys.put(enemy, null);
+        enemy.setIndex(Index++);
         if (this.currentEnemy == null) {
             this.currentEnemy = enemy;
         }
@@ -26,8 +27,10 @@ public class EnemyManager {
         }
     }
 
-    public Enemy get(int index) {
-        for (Enemy enemy : this.enemys) {
+    public Enemy getEnemyByIndex(int index) {
+        for (Map.Entry<Enemy, Position> entry : enemys.entrySet()) {
+            Enemy enemy = entry.getKey();
+
             if (enemy.getIndex() == index) {
                 return enemy;
             }
@@ -39,14 +42,5 @@ public class EnemyManager {
 
     public void setCurrentEnemy(Enemy currentEnemy) {this.currentEnemy = currentEnemy;}
 
-    public Enemy getEnemyByIndex(int index) {
-        for (Enemy enemy : this.enemys) {
-            if (enemy.getIndex() == index) {
-                return enemy;
-            }
-        }
-        return null;
-    }
-
-    public List<Enemy> getEnemies() {return this.enemys;}
+    public Map<Enemy, Position> getEnemies() {return this.enemys;}
 }

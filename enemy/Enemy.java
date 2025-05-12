@@ -3,7 +3,6 @@ package enemy;
 import combat.Attackable;
 import combat.Damage;
 import creature.Creature;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
