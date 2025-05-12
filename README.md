@@ -1,12 +1,11 @@
 ## What is this repo?
-This is going to be a school project based on some code we got from our teacher and some requirements.
+This is a branch of a Java based Text Adventure made for school. This branch trys to make the hole project object-oriented. so it's easier to maintain. 
 
 ## What is this code?
-It's a text based game. You play a character in a post apokoliptik setting where you need to do some quests and fight some zombies. You mainly control by giving number input and pressing enter. 
+It's a text based game. You play a character in a post apokaliptik setting where you need to do some quests and fight some zombies. You mainly control by giving number input and pressing enter. 
 
 ## Controls
-In fights, you need to input rows and columns to move. A row is **NOT** a coordinate along the X axis but rather what row you want to use(so basically the Y axis) same with columns.
-
+For decisions you need to input the number corresponding to the option number. For fights, you need to input X and Y values to move and to attack you need to input the number corresponding to an enemy. 
 
 ## How to finish the game.
 <details>
@@ -45,7 +44,7 @@ If you choose 2 you will die and the game ends.
 
 First make sure you have Java JDK 23 installed.
 
-Then you can either use the shell command below, in the same directory as the TextAdventure.jar file you can find under releases.
+Then you can either build from source, you can also download the .jar file (if I provided one) and use the shell command below, in the same directory as the TextAdventure.jar file you can find under releases.
 ```shell
 java -jar TextAdventure.jar
 ```
