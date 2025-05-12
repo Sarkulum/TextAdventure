@@ -5,7 +5,7 @@ import enemy.EnemyManager;
 import player.Player;
 import player.PlayerManager;
 import text.TextColor;
-import text.Colors;
+import text.TextColor;
 
 import java.util.*;
 
@@ -83,7 +83,7 @@ public class GridMap {
                     case "[ ]" -> System.out.print("[ ]");
                     case "[P]" -> System.out.print(TextColor.GREEN + "[P]" + player.getUserTextColor());
                     case "[#]" -> System.out.print(TextColor.GRAY + "[#]" + player.getUserTextColor());
-                    case null, default ->  System.out.print(Colors.RED + cell + player.getUserTextColor());
+                    case null, default ->  System.out.print(TextColor.RED + cell + player.getUserTextColor());
                 }
             }
 

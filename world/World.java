@@ -5,7 +5,6 @@ import logic.Game;
 import player.Player;
 import player.PlayerManager;
 import text.TextColor;
-import text.Colors;
 
 import java.util.HashMap;
 import java.util.List;
@@ -122,9 +121,9 @@ public class World {
                             System.out.println("The person bonks you on the head.");
                             System.out.println("For some reason, you feel like picking a fight isn't the best idea.");
                             System.out.println("\nSystem:");
-                            System.out.println("You receive " + Colors.RED + "1 damage" + player.getUserTextColor() + ".");
+                            System.out.println("You receive " + TextColor.RED.getAnsiCode() + "1 damage" + player.getUserTextColor().getAnsiCode() + ".");
                             player.setCurrentHP(player.getCurrentHP() - 1);
-                            System.out.println("Your" + Colors.GREEN + " HP: " + player.getCurrentHP() + player.getUserTextColor());
+                            System.out.println("Your" + TextColor.GREEN.getAnsiCode() + " HP: " + player.getCurrentHP() + player.getUserTextColor().getAnsiCode());
 
                             scanner.nextLine();
                             World.getRoom("Kröpke").reenter();
