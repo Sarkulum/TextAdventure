@@ -8,19 +8,19 @@ import text.TextColor;
 import java.util.*;
 
 public class GridMap {
-    String [][] room;
+    String [][] map;
     Scanner scanner = new Scanner(System.in);
     Random random = new Random();
     EnemyManager enemyManager;
 
     public GridMap(int x, int y, EnemyManager enemyManager, List<Position> obstaclePositions, List<Position> playerPositions) {
-        this.room = new String[x][y];
+        this.map = new String[x][y];
         this.enemyManager = enemyManager;
 
         // Fills the map with empty squares
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
-                this.room[i][j] = "[ ]";
+                this.map[i][j] = "[ ]";
             }
         }
 
@@ -29,7 +29,7 @@ public class GridMap {
             int obstacleX = position.x();
             int obstacleY = position.y();
 
-            this.room[obstacleX][obstacleY] = "[#]";
+            this.map[obstacleX][obstacleY] = "[#]";
         }
 
         // Places players
@@ -37,7 +37,7 @@ public class GridMap {
             int playerX = position.x();
             int playerY = position.y();
 
-            this.room[playerX][playerY] = "[P]";
+            this.map[playerX][playerY] = "[P]";
         }
 
         // Places the enemys
@@ -51,8 +51,8 @@ public class GridMap {
                 int xEnemy = random.nextInt(x);
                 int yEnemy = random.nextInt(y);
 
-                if (Objects.equals(this.room[xEnemy][yEnemy], "[ ]")) {
-                    this.room[xEnemy][yEnemy] = "[" +enemy.getIndex()+"]";
+                if (Objects.equals(this.map[xEnemy][yEnemy], "[ ]")) {
+                    this.map[xEnemy][yEnemy] = "[" +enemy.getIndex()+"]";
                     entry.setValue((new Position(xEnemy, yEnemy)));
                     placed = true;
                 }
@@ -69,15 +69,15 @@ public class GridMap {
 
         // Print x coordinates
         System.out.print("  "); // Extra space for alignment
-        for (int i = 0; i < this.room.length; i++) {
+        for (int i = 0; i < this.map.length; i++) {
             System.out.print(" " + (i % 10) + " "); // Ensures proper spacing for alignment
         }
 
-        for (int y = 0; y < this.room.length; y++) {
+        for (int y = 0; y < this.map.length; y++) {
             // This prints the numbers at the beginning of each line
             System.out.print(" " + (y % 10) + " ");
-            for (int x = 0; x < this.room.length; x++) {
-                String cell = this.room[x][y];
+            for (int x = 0; x < this.map.length; x++) {
+                String cell = this.map[x][y];
 
                 switch (cell) {
                     case "[ ]" -> System.out.print("[ ]");
@@ -101,12 +101,18 @@ public class GridMap {
 
     }
 
-    private void placePlayer(int x, int y) {this.room[x][y] = "[P]";}
+    private void placePlayer(int x, int y) {this.map[x][y] = "[P]";}
 
-    // TODO
     private void removeEnemy(int index) {
         Position position = enemyManager.getEnemyPosition(index);
 
+        if (position != null) {
+            int x = position.x();
+            int y = position.y();
 
+            map[x][y] = "[ ]";
+        }
     }
+
+    public String[][] getMap() {return this.map;}
 }

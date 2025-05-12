@@ -1,9 +1,8 @@
 package map.pathfinding;
 
 import enemy.Enemy;
-import enemy.EnemyManager;
 import map.GridMap;
-import player.Player;
+import map.Position;
 import player.PlayerManager;
 
 import java.util.*;
@@ -12,6 +11,7 @@ public class AStar {
     Scanner scanner = new Scanner(System.in);
 
     // 1D List of ints that takes a 2D char array the position if the enemy and the player
+    //TODO
     public List<int[]> aStar(String[][] grid, int startRow, int startCol, int targetRow, int targetCol) {
 
         // Linked list that also takes priority and spits out the most important node
@@ -55,10 +55,12 @@ public class AStar {
         return null; // No path found
     }
 
+    //TODO
     private int heuristic(int row1, int col1, int row2, int col2) {
         return Math.abs(row1 - row2) + Math.abs(col1 - col2); // Does not allow vertical moves, math.abs is the absolute different between the 2 numbers, Calculates the distance between 2 point on the array.
     }
 
+    //TODO
     private boolean isValidMove(String[][] grid, int row, int col, boolean[][] closedSet) {
         // First checks if move is in bounds and then checks if there is an obstacle
         return row >= 0 && col >= 0 && row < grid.length && col < grid[0].length
@@ -68,6 +70,7 @@ public class AStar {
     //private boolean isValidMovePlay
 
     // This is the function I actually call when wanting to move the enemy
+    //TODO
     public void moveEnemyAStar(String[][] grid, int movementLimit, Enemy enemy) {
         int id = enemy.getEnemyID();
         int[] enemyPosition = findEnemy(grid, enemy);
@@ -102,6 +105,7 @@ public class AStar {
         }
     }
 
+    //TODO
     public boolean movePlayer(String[][] grid, int currentRow, int currentCol, int targetRow, int targetCol, int movementLimit) {
         // Calculate the distance (Manhattan distance)
         int distance = Math.abs(targetRow - currentRow) + Math.abs(targetCol - currentCol);
@@ -146,6 +150,7 @@ public class AStar {
         }
     }
 
+    //TODO
     private int[] getLimitedStep(int currentRow, int currentCol, int targetRow, int targetCol, int movementLimit) {
         int rowDiff = targetRow - currentRow;
         int colDiff = targetCol - currentCol;
@@ -164,6 +169,7 @@ public class AStar {
         return new int[]{targetRow, targetCol};
     }
 
+    //TODO
     // Basically don't need this, but I could revers the path lol
     private List<int[]> reconstructPath(Node node) {
         List<int[]> path = new ArrayList<>();
@@ -174,6 +180,7 @@ public class AStar {
         return path;
     }
 
+    //TODO
     // Just searches the hole array for 'P' witch means player
     public int[] findPlayer(String[][] grid) {
         for (int row = 0; row < grid.length; row++) {
@@ -186,6 +193,7 @@ public class AStar {
         return null; // Player not found (should not happen if player exists in the grid)
     }
 
+    //TODO
     // Just searches the hole array for 'enemyId' witch means enemy
     public int[] findEnemy(String[][] grid, Enemy enemy) {
         int target = enemy.getEnemyID();
@@ -200,6 +208,7 @@ public class AStar {
     }
 
     // Check if player is within 'units' distance of the enemy in any direction
+    //TODO
     public boolean isPlayerAdjacentToEnemy(GridMap gridMap, Enemy enemy, int units) {
         String[][] map = gridMap.getRoomMap();
         int[] player = findPlayer(map);
@@ -228,12 +237,17 @@ public class AStar {
         return (Math.abs(enemyRow - playerRow) <= units && Math.abs(enemyCol - playerCol) <= units);
     }
 
+    public void movePlayerToValidSpot(GridMap gridMap, int targetX, int targetY) {
+        PlayerManager playerManager = PlayerManager.getInstance();
+        Position position = playerManager.getPositionCurrentPlayer();
+        int currentX = position.x();
+        int currentY = position.y();
+        String[][] map= gridMap.getMap();
 
-    public void movePlayerToValidSpot(String[][] grid, int currentRow, int currentCol, int targetRow, int targetCol) {
         // If the target position is empty, move there
-        if (grid[targetRow][targetCol].equals("[ ]")) {
-            grid[currentRow][currentCol] = "[ ]"; // Clear old position
-            grid[targetRow][targetCol] = "[P]";   // Move player to the new position
+        if (map[targetX][targetY].equals("[ ]")) {
+            map[currentX][currentY] = "[ ]"; // Clear old position
+            map[targetX][targetY] = "[P]";   // Move player to the new position
             return;
         }
 
@@ -244,29 +258,31 @@ public class AStar {
 
         // Find the closest valid adjacent position
         for (int[] dir : directions) {
-            int newRow = targetRow + dir[0];
-            int newCol = targetCol + dir[1];
+            int newX = targetX + dir[0];
+            int newY = targetY + dir[1];
 
             // Check if the new position is within bounds and empty
-            if (isInBounds(grid, newRow, newCol) && grid[newRow][newCol].equals("[ ]")) {
-                int distance = Math.abs(newRow - currentRow) + Math.abs(newCol - currentCol);
+            if (isInBounds(gridMap, newX, newY) && map[newX][newY].equals("[ ]")) {
+                int distance = Math.abs(newX - currentX) + Math.abs(newY - currentY);
                 if (distance < bestDistance) {
                     bestDistance = distance;
-                    bestPosition = new int[]{newRow, newCol};
+                    bestPosition = new int[]{newX, newY};
                 }
             }
         }
 
         // Move the player to the closest valid adjacent position if available
         if (bestPosition != null) {
-            grid[currentRow][currentCol] = "[ ]"; // Clear old position
-            grid[bestPosition[0]][bestPosition[1]] = "[P]"; // Move player
+            map[currentX][currentY] = "[ ]"; // Clear old position
+            map[bestPosition[0]][bestPosition[1]] = "[P]"; // Move player
         }
     }
 
     // Helper function to check if a position is within the grid bounds
-    private boolean isInBounds(GridMap gridMap, int row, int col) {
-        return row >= 0 && col >= 0 && row < gridMap.length && col < grid[0].length;
+    private boolean isInBounds(GridMap gridMap, int x, int y) {
+        String[][] map = gridMap.getMap();
+
+        return x >= 0 && y >= 0 && x < map.length && y < map[0].length;
     }
 
     /*

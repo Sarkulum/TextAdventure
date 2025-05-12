@@ -58,6 +58,15 @@ public class PlayerManager {
         return null;
     }
 
+    public Position getPositionCurrentPlayer() {
+        for (Map.Entry<Player, Position> entry : players.entrySet()) {
+            if (currentPlayer == entry.getKey()) {
+                return entry.getValue();
+            }
+        }
+        return null;
+    }
+
     public Map<Player, Position> getPlayers() {
         return players;
     }
