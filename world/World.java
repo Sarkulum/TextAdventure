@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class World {
     // Creat a HashMap with every Room object in it.
     private static final Map<String, Room> rooms = new HashMap<String, Room>();
-    private static PlayerManager playerManager = PlayerManager.getInstance();
+    private static final PlayerManager playerManager = PlayerManager.getInstance();
 
     public static void initializeWorld() {
         Room outsideHBF = new Room(

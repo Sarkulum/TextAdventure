@@ -12,8 +12,8 @@ import java.util.List;
 
 public class Player extends Creature implements Attackable {
     private int userAge;
-    private TextColor userTextColor;
-    private List<Item> inventory = new ArrayList<Item>(); // List to save Item object in.
+    private final TextColor userTextColor;
+    private final List<Item> inventory = new ArrayList<Item>(); // List to save Item object in.
     private int score;
     private int randomRoomIndex = 1;
     private boolean died = false;

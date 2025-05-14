@@ -14,6 +14,6 @@ public class Main {
         scanner.nextLine();
 
         Game game = new Game();
-        game.start();
+        Game.start();
     }
 }

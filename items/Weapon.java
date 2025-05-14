@@ -1,10 +1,10 @@
 package items;
 
 public class Weapon extends Item {
-    private int minDamage;
-    private int maxDamage;
-    private int range;
-    private int armorPen;
+    private final int minDamage;
+    private final int maxDamage;
+    private final int range;
+    private final int armorPen;
 
     public Weapon(String name, int minDamage, int maxDamage, int range, int armorPen) {
         super(name);

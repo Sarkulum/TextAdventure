@@ -5,7 +5,7 @@ public class Damage {
     private static int amount;
 
     public Damage(int amount) {
-        this.amount = amount;
+        Damage.amount = amount;
     }
 
     public int getAmount() {

@@ -7,12 +7,12 @@ import java.util.Scanner;
 
 public class PlayerCreator {
     private static final Scanner scanner = new Scanner(System.in);
-    private static int minDamage = 5;
-    private static int maxDamage = 10;
-    private static int maxHealth = 20;
-    private static int movement = 3;
-    private static int range = 1;
-    private static int score = 0;
+    private static final int minDamage = 5;
+    private static final int maxDamage = 10;
+    private static final int maxHealth = 20;
+    private static final int movement = 3;
+    private static final int range = 1;
+    private static final int score = 0;
 
 
     public static Player createPlayer() {

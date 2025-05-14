@@ -5,12 +5,12 @@ import java.util.Scanner;
 
 public class Room {
     private static final int PAUSE_EVERY_N_LINES = 3;
-    private String roomName;
-    private List<String> descriptionParts;
-    private List<String> options; // List of Strings
-    private List<Runnable> actions; // List of code
+    private final String roomName;
+    private final List<String> descriptionParts;
+    private final List<String> options; // List of Strings
+    private final List<Runnable> actions; // List of code
     private Room previousRoom;
-    private Room nextRoom;
+    private final Room nextRoom;
 
     public Room(String roomName, List<String> descriptionParts, List<String> options, List<Runnable> actions) {
         this.roomName = roomName;

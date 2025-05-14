@@ -8,12 +8,12 @@ import world.World;
 public class Game {
     private static Room currentRoom;
     private static PlayerCreator playerCreator;
-    private static PlayerManager playerManager = PlayerManager.getInstance();;
+    private static final PlayerManager playerManager = PlayerManager.getInstance();
 
 
     public static void start() {
         playerCreator = new PlayerCreator();
-        playerManager.add(playerCreator.createPlayer());
+        playerManager.add(PlayerCreator.createPlayer());
 
         World.initializeWorld();
         currentRoom = World.getRoom("Intro");
