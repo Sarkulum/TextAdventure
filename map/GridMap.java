@@ -101,7 +101,11 @@ public class GridMap {
 
     }
 
+    public void removePosition(Position position) {this.map[position.x()][position.y()] = "[ ]";}
+
     private void placePlayer(int x, int y) {this.map[x][y] = "[P]";}
+
+    public void placeEnemy(Position position, int index) {this.map[position.x()][position.y()] = "["+index+"]";}
 
     private void removeEnemy(int index) {
         Position position = enemyManager.getEnemyPosition(index);
