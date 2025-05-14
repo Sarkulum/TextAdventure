@@ -1,30 +1,32 @@
 package map.pathfinding;
 
-import creator.EnemyCreator;
 import enemy.Enemy;
 import enemy.EnemyManager;
 import map.GridMap;
 import map.Position;
-import player.Player;
 import player.PlayerManager;
-
 import java.util.*;
 
 public class AStar {
     Scanner scanner = new Scanner(System.in);
 
     // 1D List of ints that takes a 2D char array the position if the enemy and the player
-    //TODO
-    public List<int[]> aStar(String[][] grid, int startRow, int startCol, int targetRow, int targetCol) {
+    public List<int[]> aStar(GridMap gridMap, Position targetPosition, boolean playerMove, EnemyManager enemyManager, int index) {
+        Position currentPosition;
+        if(!playerMove) {
+            currentPosition = enemyManager.getEnemyPosition(index);
+        }else{
+            currentPosition = PlayerManager.getInstance().getPositionCurrentPlayer();
+        }
 
         // Linked list that also takes priority and spits out the most important node
         PriorityQueue<Node> openSet = new PriorityQueue<>();
 
-        // 2D array to marke the visited and not visited fields
-        boolean[][] closedSet = new boolean[grid.length][grid[0].length];
+        // 2D array to mark the visited and not visited fields
+        boolean[][] closedSet = new boolean[gridMap.getMap().length][gridMap.getMap()[0].length];
 
         // Adds a node with enemy start position IDK what the 0 does and then calls a function that estimates how far the enemy is from the player(heuristic)
-        openSet.add(new Node(startRow, startCol, 0, heuristic(startRow, startCol, targetRow, targetCol), null));
+        openSet.add(new Node(currentPosition.x(), currentPosition.y(), 0, heuristic(currentPosition.x(), currentPosition.y(), targetPosition.x(), targetPosition.y()), null));
 
         // 2D array of all possible movements
         int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // Up, Down, Left, Right
@@ -35,7 +37,7 @@ public class AStar {
             Node current = openSet.poll();
 
             // Check if current node is adjacent to the target (Manhattan distance 1)
-            if (heuristic(current.row, current.col, targetRow, targetCol) == 1) {
+            if (heuristic(current.row, current.col, targetPosition.x(), targetPosition.y()) == 1) {
                 return reconstructPath(current);
             }
 
@@ -43,37 +45,33 @@ public class AStar {
 
             // Extracts one inner array of the 2D array in "directions" at a time and then "dir" holds said array.
             for (int[] dir : directions) {
-                int newRow = current.row + dir[0]; // 0 is the first position in the extracted array dir
-                int newCol = current.col + dir[1]; // 1 is the second position in the extracted array dir
+                Position newPosition = new Position(current.row + dir[0], current.col + dir[1]);
 
-                // if to checks if there is a '#' in the spot that the enemy is trying to move to
-                if (isValidMove(grid, newRow, newCol, closedSet)) {
+                // Checks if there is a '#' in the spot that the enemy is trying to move to
+                if (isValidMove(gridMap, newPosition, closedSet)) {
                     // Basically this just adds a new nod if movement is valid
                     int newG = current.gCost + 1; // This adds 1 to gCost as you move 1 space further
-                    int newH = heuristic(newRow, newCol, targetRow, targetCol); // Calculates a new estimit for the distance to target
-                    openSet.add(new Node(newRow, newCol, newG, newH, current)); // Adds a new node
+                    int newH = heuristic(newPosition.x(), newPosition.y(), targetPosition.x(), targetPosition.y()); // Calculates a new est emit for the distance to target
+                    openSet.add(new Node(newPosition.x(), newPosition.y(), newG, newH, current)); // Adds a new node
                 }
             }
         }
         return null; // No path found
     }
 
-    //TODO
     private int heuristic(int row1, int col1, int row2, int col2) {
         return Math.abs(row1 - row2) + Math.abs(col1 - col2); // Does not allow vertical moves, math.abs is the absolute different between the 2 numbers, Calculates the distance between 2 point on the array.
     }
 
-    //TODO
-    private boolean isValidMove(String[][] grid, int row, int col, boolean[][] closedSet) {
+    private boolean isValidMove(GridMap gridMap, Position position, boolean[][] closedSet) {
         // First checks if move is in bounds and then checks if there is an obstacle
-        return row >= 0 && col >= 0 && row < grid.length && col < grid[0].length
-                && !Objects.equals(grid[row][col], "[#]") && !Objects.equals(grid[row][col], "[P]") && !closedSet[row][col] && Objects.equals(grid[row][col], "[ ]");
+        return position.x() >= 0 && position.y() >= 0 && position.x() < gridMap.getMap().length && position.y() < gridMap.getMap()[0].length
+                && !Objects.equals(gridMap.checkPosition(position), "[#]") && !Objects.equals(gridMap.checkPosition(position), "[P]") && !closedSet[position.x()][position.y()] && Objects.equals(gridMap.checkPosition(position), "[ ]");
     }
 
     //private boolean isValidMovePlay
 
     // This is the function I actually call when wanting to move the enemy
-    //TODO
     public void moveEnemyAStar(GridMap gridMap, int index, EnemyManager enemyManager) {
         Position enemyPosition = enemyManager.getEnemyPosition(index);
 
@@ -81,8 +79,7 @@ public class AStar {
         if (playerPosition == null) return;
 
         // Find the path to the player
-        //TODO
-        List<int[]> path = aStar(GridMap, enemyRow, enemyCol, playerPos[0], playerPos[1]);
+        List<int[]> path = aStar(gridMap, playerPosition,false, enemyManager, index);
         if (path != null && path.size() > 1) {
             // Start moving the enemy step by step
             int distanceTraveled = 0; // Track how much movement we've used

@@ -107,6 +107,8 @@ public class GridMap {
 
     public void placeEnemy(Position position, int index) {this.map[position.x()][position.y()] = "["+index+"]";}
 
+    public String checkPosition(Position position) {return this.map[position.x()][position.y()];}
+
     private void removeEnemy(int index) {
         Position position = enemyManager.getEnemyPosition(index);
 
