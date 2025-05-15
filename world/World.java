@@ -37,6 +37,7 @@ public class World {
                 ),
                 List.of(
                         () -> {
+                            Scanner scanner = new Scanner(System.in);
                             Player player = playerManager.getCurrentPlayer();
 
                             System.out.println("You approach the statue carefully.");
@@ -53,6 +54,9 @@ public class World {
                                 player.addItem(crowbar);
                                 player.equipWeapon("Crowbar");
                             }
+                            System.out.println("---------------------------> press Enter to continue\n");
+                            scanner.nextLine();
+
                             World.getRoom("outsideHBF").reenter();
                         },
                         () -> {
@@ -102,13 +106,13 @@ public class World {
                                 System.out.println("Person:");
                                 System.out.println("'Thanks a lot, mate. Here, now you can go further.'\n");
                                 System.out.println("The person inhales the smoke as if it is nothing, and the smoky wall dissipates.");
-
+                                System.out.println("---------------------------> press Enter to continue\n");
                                 scanner.nextLine();
                             } else {
                                 System.out.println("Person:");
                                 System.out.println("'Welcome, nice to see another survivor.'");
                                 System.out.println("If you bring me a pack of cigarettes, "+player.getName()+", I'll let you through that smoky wall.");
-
+                                System.out.println("---------------------------> press Enter to continue\n");
                                 scanner.nextLine();
                                 World.getRoom("Kröpke").reenter();
                             }
@@ -124,20 +128,21 @@ public class World {
                             System.out.println("You receive " + TextColor.RED.getAnsiCode() + "1 damage" + player.getUserTextColor().getAnsiCode() + ".");
                             player.setCurrentHP(player.getCurrentHP() - 1);
                             System.out.println("Your" + TextColor.GREEN.getAnsiCode() + " HP: " + player.getCurrentHP() + player.getUserTextColor().getAnsiCode());
-
+                            System.out.println("---------------------------> press Enter to continue\n");
                             scanner.nextLine();
                             World.getRoom("Kröpke").reenter();
                         },
                         () -> {
                             Scanner scanner = new Scanner(System.in);
                             System.out.println("You decide to leave the smoky wall and the strange person behind, heading toward Kröpke.");
+                            System.out.println("---------------------------> press Enter to continue\n");
                             scanner.nextLine();
                         },
                         () -> {
                             Scanner scanner = new Scanner(System.in);
                             System.out.println("You stand there awkwardly, but the person ignores you.");
                             System.out.println("Nothing happens.");
-
+                            System.out.println("---------------------------> press Enter to continue\n");
                             scanner.nextLine();
                             World.getRoom("Kröpke").reenter();
                         }

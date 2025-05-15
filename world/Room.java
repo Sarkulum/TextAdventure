@@ -41,8 +41,11 @@ public class Room {
         for (int i = 0; i < options.size(); i++) {
             System.out.println((i + 1) + ": " + options.get(i));
         }
+        System.out.println(" ");
 
         int choice = scanner.nextInt();
+
+        System.out.println(" ");
         if (choice >= 1 && choice <= actions.size()) {
             actions.get(choice - 1).run();
         } else {

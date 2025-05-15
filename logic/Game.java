@@ -10,14 +10,11 @@ public class Game {
     private static PlayerCreator playerCreator;
     private static final PlayerManager playerManager = PlayerManager.getInstance();
 
-
     public static void start() {
         playerCreator = new PlayerCreator();
         playerManager.add(PlayerCreator.createPlayer());
 
-        World.initializeWorld();
-        currentRoom = World.getRoom("Intro");
-        currentRoom.enter();
+        GameModeSelector gameModeSelector = new GameModeSelector();
     }
 
     public static void moveToRoom(Room nextRoom) {
