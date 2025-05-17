@@ -1,7 +1,9 @@
 package world;
 
+import items.Item;
 import items.Weapon;
 import logic.Game;
+import logic.GameEvent;
 import player.Player;
 import player.PlayerManager;
 import text.TextColor;
@@ -102,7 +104,7 @@ public class World {
                             Player player = playerManager.getCurrentPlayer();
                             Scanner scanner = new Scanner(System.in);
 
-                            if (player.playerHasItem("cigarettes")) {
+                            if (player.playerHasItem("Cigarettes")) {
                                 System.out.println("Person:");
                                 System.out.println("'Thanks a lot, mate. Here, now you can go further.'\n");
                                 System.out.println("The person inhales the smoke as if it is nothing, and the smoky wall dissipates.");
@@ -149,9 +151,203 @@ public class World {
 
                 )
         );
+        Room crossRoadRoom = new Room(
+                "Kröpke Crossroads",
+                List.of(
+                        "You stand in the heart of the city, but it feels nothing like it used to.",
+                        "Once a bustling square filled with life, Kröpke is now eerily silent.",
+                        "Four paths lie before you:"
+                ),
+                List.of(
+                        "Go north (To the abandoned pharmacy.)",
+                        "Go east (To the old fast-food stand.)",
+                        "Go south (To the smoky wall.)",
+                        "Go west (To the abandoned kiosk.)"
+                ),
+                List.of(
+                        () -> Game.moveToRoom(World.getRoom("pharmacy")),
+                        () -> Game.moveToRoom(World.getRoom("forest")),     // Replace "forest" with your actual room key if needed
+                        () -> Game.moveToRoom(World.getRoom("townGate")),
+                        () -> Game.moveToRoom(World.getRoom("goblinCave"))  // Same here, use the correct key
+                )
+        );
+        Room pharmacyRoom = new Room(
+                "Pharmacy",
+                List.of(
+                        "You step into what used to be a pharmacy.",
+                        "The shelves are mostly empty, some toppled over, and shattered pill bottles crunch under your feet.",
+                        "A faint smell of disinfectant lingers in the air.",
+                        "The place has been ransacked, but maybe there's still something useful left."
+                ),
+                List.of(
+                        "Look around the pharmacy.",
+                        "Leave the pharmacy.",
+                        "Check behind the counter."
+                ),
+                List.of(
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("You take a moment to examine the ruined pharmacy.");
+                            System.out.println("Broken shelves, dried bloodstains on the floor, and a faint buzzing sound from a flickering light overhead.");
+                            System.out.println("You wonder who came here before you and if they made it out alive.");
+                            System.out.println("--------------------------->press enter to continue\n");
+                            scanner.nextLine();
+                            World.getRoom("Pharmacy").reenter();
+                        },
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("You step outside, ready to move on.");
+                            System.out.println("--------------------------->press enter to continue\n");
+                            scanner.nextLine();
+                            Game.moveToRoom(World.getRoom("Kröpke Crossroads")); // Replace with actual next room name
+                        },
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            Player player = playerManager.getCurrentPlayer();
 
+                            if (player.hasDone(GameEvent.TOOK_MEDKIT)) {
+                                System.out.println("You spot an old first-aid kit behind the counter.");
+                                System.out.println("Some of the items inside are still usable.");
+                                System.out.println("You patch yourself up as best as you can.");
+                                System.out.println("Your " + TextColor.GREEN.getAnsiCode() + "HP" + player.getUserTextColor().getAnsiCode() + " have recovered.");
+                                player.setCurrentHP(player.getMaxHP());
+
+                                player.markDone(GameEvent.TOOK_MEDKIT);
+                                System.out.println("Your " + TextColor.GREEN.getAnsiCode() + "HP: " + player.getCurrentHP() + player.getUserTextColor().getAnsiCode());
+                            } else {
+                                System.out.println("You glance behind the counter, but the first-aid kit is empty.");
+                                System.out.println("No more supplies left.");
+                            }
+
+                            System.out.println("--------------------------->press enter to continue\n");
+                            scanner.nextLine();
+                            World.getRoom("Pharmacy").reenter();
+                        }
+                )
+        );
+        Room fastFoodStandRoom = new Room(
+                "Fast-Food Stand",
+                List.of(
+                        "You enter what used to be a small fast-food stand.",
+                        "The air is stale, and the floor is sticky with old grease.",
+                        "Chairs are knocked over, ketchup stains cover the counter, and a rotten burger sits half-eaten on a tray.",
+                        "The smell of decay lingers."
+                ),
+                List.of(
+                        "Look around the stand.",
+                        "Eat the rotten burger.",
+                        "Leave the fast-food stand and return to Kröpke."
+                ),
+                List.of(
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            Player player = playerManager.getCurrentPlayer();
+                            if (player.playerHasItem("Knife")) {
+                                System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+                                System.out.println("You step behind the counter, searching for anything useful.");
+                                System.out.println("As you rummage through a drawer, your fingers touch something cold and metallic ...");
+                                System.out.println("a kitchen knife!!!");
+                                System.out.println("It's not in the best condition, but it's better than nothing.");
+                                System.out.println("--------------------------->press enter to continue\n");
+
+                                scanner.nextLine();
+
+                                System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+                                System.out.println("System:");
+                                System.out.println("You replaced your weapon 'Fist' with 'Knife'(" + TextColor.RED.getAnsiCode() + "+1 min damage" + player.getUserTextColor().getAnsiCode() + " & " + TextColor.RED.getAnsiCode() + "+5 max damage" + player.getUserTextColor().getAnsiCode() + ")");
+                                System.out.println("--------------------------->press enter to continue\n");
+
+                                Weapon knife = new Weapon("Knife", 1, 5, 1, 0);
+                                player.addItem(knife);
+                                player.equipWeapon("Knife");
+                                scanner.nextLine();
+                            } else {
+                                System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+                                System.out.println("You already searched here. Nothing else useful remains.");
+                                System.out.println("--------------------------->press enter to continue\n");
+                                scanner.nextLine();
+                            }
+                            World.getRoom("Fast-Food Stand").reenter();
+                        },
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            Player player = playerManager.getCurrentPlayer();
+                            if (!player.hasDone(GameEvent.BURGER_EATEN) && player.getCurrentHP() > 1) {
+                                System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+                                System.out.println("You pick up the rotten burger, your stomach turning as you take a bite.");
+                                System.out.println("It tastes awful, and something feels wrong.");
+                                System.out.println("You feel your stomach churn, and your head spins.\n");
+                                System.out.println("System:");
+                                System.out.println("You " + TextColor.RED.getAnsiCode() + "lose 1 HP" + player.getUserTextColor().getAnsiCode() + ".");
+                                System.out.println("--------------------------->press enter to continue\n");
+
+                                player.setCurrentHP(player.getCurrentHP() - 1);
+                                player.markDone(GameEvent.BURGER_EATEN);
+                                scanner.nextLine();
+                                World.getRoom("Fast-Food Stand").reenter();
+                            } else if (player.hasDone(GameEvent.BURGER_EATEN)) {
+                                System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+                                System.out.println("Except for the burger you have foolishly eaten there is nothing else here.");
+                                System.out.println("--------------------------->press enter to continue\n");
+                                scanner.nextLine();
+                                World.getRoom("Fast-Food Stand").reenter();
+                            } else {
+                                System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+                                System.out.println("You feel your stomach churn, and your head spins as you fall over and your vision turns black.");
+                                System.out.println("--------------------------->press enter to continue\n");
+
+                                scanner.nextLine();
+                                player.setCurrentHP(player.getMaxHP());
+                                // You may want to send them somewhere (e.g., back to a hub or shop)
+                            }
+                        },
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
+                            System.out.println("You turn away from the abandoned stand and head back to Kröpke.");
+                            System.out.println("--------------------------->press enter to continue\n");
+
+                            scanner.nextLine();
+                            Game.moveToRoom(World.getRoom("Kröpke Crossroads"));
+                        }
+                )
+        );
+        Room deathRoom = new Room(
+                "You Died",
+                List.of(
+                        "You feel your limbs grow cold...",
+                        "Your vision fades to black as the world slips away.",
+                        "Whatever you were trying to do, it's over now."
+                ),
+                List.of(
+                        "Exit the game.",
+                        "Restart from Last checkpoint"
+                ),
+                List.of(
+                        () -> {
+                            System.out.println("\nGame Over.");
+                            System.exit(0); // Terminates the program
+                        },
+                        () -> {
+                            Player player = playerManager.getCurrentPlayer();
+                            if (player.hasDone(GameEvent.TUTORIAL_PASSED)) {
+                                World.getRoom("Shop").enter();
+                            } else if (!player.hasDone(GameEvent.TUTORIAL_PASSED)) {
+                                World.getRoom("Kröpke").enter();
+                            }
+                        }
+                )
+        );
+
+
+
+
+        rooms.put("You Died", deathRoom);
         rooms.put("Intro", startingRoom);
         rooms.put("Kröpke", townGate);
+        rooms.put("Kröpke Crossroads", crossRoadRoom);
+        rooms.put("Fast-Food Stand", fastFoodStandRoom);
+        rooms.put("Pharmacy", pharmacyRoom);
         rooms.put("outsideHBF", outsideHBF);
     }
 

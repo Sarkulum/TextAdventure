@@ -5,10 +5,13 @@ import combat.Damage;
 import creature.Creature;
 import items.Item;
 import items.Weapon;
+import logic.GameEvent;
 import text.TextColor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Player extends Creature implements Attackable {
     private int userAge;
@@ -20,6 +23,7 @@ public class Player extends Creature implements Attackable {
     private boolean DEV;
     private Weapon equippedWeapon;
     private int playerID;
+    private Set<GameEvent> completedEvents = new HashSet<>();
 
     public Player(
             String name,
@@ -97,4 +101,7 @@ public class Player extends Creature implements Attackable {
 
     public boolean isDEV() {return DEV;}
     public void setDEV(boolean DEV) {this.DEV = DEV;}
+
+    public boolean hasDone(GameEvent event) {return completedEvents.contains(event);}
+    public void markDone(GameEvent event) {completedEvents.add(event);}
 }
