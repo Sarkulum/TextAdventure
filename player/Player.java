@@ -7,6 +7,7 @@ import items.Item;
 import items.Weapon;
 import logic.GameEvent;
 import text.TextColor;
+import world.Room;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,6 +25,7 @@ public class Player extends Creature implements Attackable {
     private Weapon equippedWeapon;
     private int playerID;
     private Set<GameEvent> completedEvents = new HashSet<>();
+    private Room lastroom;
 
     public Player(
             String name,
@@ -104,4 +106,7 @@ public class Player extends Creature implements Attackable {
 
     public boolean hasDone(GameEvent event) {return completedEvents.contains(event);}
     public void markDone(GameEvent event) {completedEvents.add(event);}
+
+    public Room getLastroom() {return this.lastroom;}
+    public void setLastroom(Room lastroom) {this.lastroom = lastroom;}
 }

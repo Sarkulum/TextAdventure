@@ -1,5 +1,7 @@
 package world;
 
+import player.PlayerManager;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,6 +24,7 @@ public class Room {
     }
 
     public void enter() {
+        PlayerManager.getInstance().getCurrentPlayer().setLastroom(this);
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\n--- " + roomName + " ---");
@@ -55,6 +58,7 @@ public class Room {
     }
 
     public void reenter() {
+        PlayerManager.getInstance().getCurrentPlayer().setLastroom(this);
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\n--- " + roomName + " ---");

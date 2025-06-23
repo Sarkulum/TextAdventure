@@ -2,7 +2,6 @@ package logic;
 
 import world.Room;
 import world.World;
-
 import java.util.Scanner;
 
 public class GameModeSelector {

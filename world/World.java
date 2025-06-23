@@ -1,17 +1,12 @@
 package world;
 
-import items.Item;
 import items.Weapon;
 import logic.Game;
 import logic.GameEvent;
 import player.Player;
 import player.PlayerManager;
 import text.TextColor;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 
 // If you want to "reenter" a room use World.getRoom("outsideHBF").enter();
@@ -338,8 +333,376 @@ public class World {
                         }
                 )
         );
+        Room end = new Room(
+                "Empty Platform",
+                List.of(
+                        "After solving the riddle you step forward into what looks like an abandoned platform, a forgotten stop on an underground rail line.",
+                        "The air is thick with dust, and the faint sound of dripping water echoes around you.",
+                        "Old posters and signs in faded German lettering cling to the walls, their colors long since eroded by time.",
+                        "Above, a single flickering sign reads: 'Zug Ankunft 2 Minuten' (Train Arrival 2 Minutes).",
+                        "As you look around, you notice that the tracks ahead vanish into a pitch-black tunnel.",
+                        "The faint rumble of something massive begins to vibrate through the ground.",
+                        "A distant light appears, growing brighter with every second.",
+                        "The silence is broken by the unmistakable sound of screeching metal and the low hum of a train approaching.",
+                        "But ... how? The station looked abandoned, the world in ruins.",
+                        "What train could still be running? And who ... or what is on board?",
+                        "The train bursts from the darkness, its headlights cutting through the gloom.",
+                        "It screeches to a halt in front of you, its exterior battered and rusted but still intact.",
+                        "The lights inside flicker eerily, casting strange shadows across the platform.",
+                        "The train's doors slide open with a loud hiss, inviting you aboard.",
+                        "A cold wind rushes out from inside, carrying with it the faint scent of oil and ... something else.",
+                        "A mechanical voice crackles over the intercom:",
+                        "'Endstation. Bitte nicht einsteigen. (Final stop. Please don't board.)'",
+                        "You realize this is the end of the line, literally and figuratively.",
+                        "The train seems to be your only way out of this nightmare, or perhaps the beginning of a new one."
+                ),
+                List.of(
+                        "Board the train.",
+                        "Stay behind."
+                ),
+                List.of(
+                        () -> {
+                            System.out.println("You take a deep breath and step onto the train.");
+                            System.out.println("The doors close behind you with a deafening clang.");
+                            System.out.println("The train jolts forward, plunging into the darkness of the tunnel.");
+                            System.out.println("You grip a nearby pole for balance as the flickering lights illuminate the empty seats around you.");
+                            System.out.println("\nThe intercom crackles again, the voice speaking one last cryptic phrase:");
+                            System.out.println("\n'Zurücksetzen der Welt. Reise abgeschlossen. (Resetting the world. Journey complete.)'");
+                            System.out.println("\nThe train picks up speed, and the world outside the windows becomes a blur of light and shadow.");
+                            System.out.println("--------------------------->press enter to continue");
 
+                            new Scanner(System.in).nextLine();
+                            World.getRoom("Intro").enter();
+                        },
+                        () -> {
+                            System.out.println("You step back from the train, shaking your head.");
+                            System.out.println("Whatever is on that train, it doesn't feel safe.");
+                            System.out.println("The doors close with a loud hiss, and the train pulls away into the tunnel.");
+                            System.out.println("Silence falls over the platform.");
+                            System.out.println("Then you hear it, a low growl and shuffling footsteps.");
+                            new Scanner(System.in).nextLine();
 
+                            System.out.println("You whip around. Dozens of figures emerge from the shadows, eyes gleaming.");
+                            System.out.println("The zombies have found you.");
+                            new Scanner(System.in).nextLine();
+
+                            System.out.println("You grab your " + PlayerManager.getInstance().getCurrentPlayer().getEquippedWeapon().getName() + ", but it’s no use.");
+                            System.out.println("They overwhelm you. Screams echo as darkness closes in.");
+                            new Scanner(System.in).nextLine();
+
+                            System.out.println("\n                          You Died !!!                            ");
+                            System.out.println("                            The End                               \n");
+                            System.out.println("                          Presented by:                           ");
+                            System.out.println("                            Valerie                               ");
+                            System.out.println("                              Anna                                ");
+                            System.out.println("                             Ashley                               ");
+                            System.out.println("------------------------------------------------------------------------------------------------------------------------------------\n");
+                        }
+                )
+        );
+        Room eagGround = new Room(
+                "Ernst-August-Galerie - Ground Floor",
+                List.of(
+                        "The ground floor of Ernst-August-Galerie is a desolate ruin.",
+                        "Broken storefronts, shattered glass, and the faint stench of decay fill the air.",
+                        "Emergency lights flicker above, casting unsettling shadows across the debris-covered floor.",
+                        "Among the chaos, you notice a strange trail,",
+                        "a faint smear of red leading from the Food Court toward what looks like a service door at the far end of the mall."
+                ),
+                List.of(
+                        "Investigate the service door",
+                        "Search the fashion section",
+                        "Explore the Food Court",
+                        "Return to the plaza outside Hauptbahnhof"
+                ),
+                List.of(
+                        // Investigate the service door
+                        () -> {
+                            Player player = PlayerManager.getInstance().getCurrentPlayer();
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("You follow the trail to the service door.");
+                            System.out.println("The door is locked.");
+
+                            if (player.playerHasItem("Crowbar") && !player.hasDone(GameEvent.TOOK_MEDKIT_EAG)) {
+                                System.out.println("But you are able to open it using the crowbar you picked up.");
+                                System.out.println("Inside you find a supply room with a MedKit.");
+                                System.out.println("System:");
+                                System.out.println("You " + TextColor.GREEN.getAnsiCode() + "heal to full health" + PlayerManager.getInstance().getCurrentPlayer().getUserTextColor().getAnsiCode() + ".");
+                                player.setCurrentHP(player.getMaxHP());
+                                player.markDone(GameEvent.TOOK_MEDKIT_EAG);
+                            }
+
+                            System.out.println("--------------------------->press enter to continue\n");
+                            scanner.nextLine();
+                            World.getRoom("Ernst-August-Galerie Ground Floor").reenter();
+                        },
+
+                        // Search the fashion section
+                        () -> {
+                            Player player = PlayerManager.getInstance().getCurrentPlayer();
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("The Fashion section is a mess, with clothes scattered everywhere.");
+
+                            if (player.hasDone(GameEvent.TOOK_BOOTS)) {
+                                System.out.println("Among the wreckage, you find a pair of sturdy boots.");
+                                System.out.println("They're a bit too big, but they'll do.");
+                                System.out.println("System:");
+                                System.out.println("You can now take more damage (" + TextColor.GREEN.getAnsiCode() + "+1 max hp" + player.getUserTextColor().getAnsiCode() + ").");
+
+                                // The if statement is so that you're current hp stay at  full if you where full life before picking up the boots.
+                                if (player.getCurrentHP() == player.getMaxHP()) {
+                                    player.setCurrentHP(player.getCurrentHP() + 1);
+                                }
+                                player.setMaxHP(player.getMaxHP() + 1);
+                                player.markDone(GameEvent.TOOK_BOOTS);
+                            }
+
+                            System.out.println("--------------------------->press enter to continue\n");
+                            scanner.nextLine();
+                            World.getRoom("eagGround").reenter();
+                        },
+
+                        // Explore the Food Court
+                        () -> {
+                            Player player = PlayerManager.getInstance().getCurrentPlayer();
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("The Food Court is eerily silent.");
+
+                            if (player.hasDone(GameEvent.EAT_FOOD)) {
+                                System.out.println("Most of the food has spoiled, but behind an overturned kiosk, you find an unopened bottle of soda.");
+                                System.out.println("System:");
+                                System.out.println("You " + TextColor.GREEN.getAnsiCode() + "heal for +1hp" + player.getUserTextColor().getAnsiCode() + ".");
+
+                                if (player.getCurrentHP() < player.getMaxHP()) {
+                                    player.setCurrentHP(player.getCurrentHP() + 1);
+                                }
+
+                                player.markDone(GameEvent.EAT_FOOD);
+                            }
+
+                            System.out.println("--------------------------->press enter to continue\n");
+                            scanner.nextLine();
+                            World.getRoom("eagGround").reenter();
+                        },
+
+                        // Return to the plaza
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("You decide you've seen enough of the mall for now.");
+                            System.out.println("You head back out into the cold night air.");
+                            System.out.println("--------------------------->press enter to continue\n");
+                            scanner.nextLine();
+                            World.getRoom("outsideHBF").enter();
+                        }
+                )
+        );
+        Room eaStatue = new Room(
+                "Ernst-August Statue",
+                List.of(
+                        "You return to the statue of Ernst-August.",
+                        "The shadows seem darker now, and the once-silent plaza feels... alive, as if something is watching you.",
+                        "You notice a faint glimmer in the base of the statue, something you didn't see before.",
+                        "As you get closer, you realize there's a small hidden compartment built into the pedestal.",
+                        "A carved inscription reads: 'Seek and you shall find.'"
+                ),
+                !PlayerManager.getInstance().getCurrentPlayer().hasDone(GameEvent.TOOK_KEY)
+                        ? List.of(
+                        "Inspect the statue again",
+                        "Enter the HBF"
+                )
+                        : List.of(
+                        "Inspect the statue again",
+                        "Open the hidden compartment",
+                        "Enter the HBF"
+                ),
+                !PlayerManager.getInstance().getCurrentPlayer().hasDone(GameEvent.TOOK_KEY)
+                        ? List.of(
+                        // 1: Inspect the statue again
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("You carefully examine the statue once more.");
+                            System.out.println("Aside from the strange writing and the hidden compartment, nothing else seems unusual.");
+                            System.out.println("Whatever ‘Forgotten Treasures' means, it's not here.");
+                            System.out.println("--------------------------->press enter to continue\n");
+                            scanner.nextLine();
+                            World.getRoom("eaStatue").reenter();
+                        },
+
+                        // 2: Enter HBF
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("You enter the HBF and think:");
+                            System.out.println("'Maybe you can escape using the U-Bahn...'");
+                            System.out.println("Before you can finish your thought you see a Person behind a makeshift counter and go towards them.");
+                            System.out.println("--------------------------->press enter to continue\n");
+                            scanner.nextLine();
+                            // TODO
+                            // Add next room logic here
+                        }
+                )
+                        : List.of(
+                        // 1: Inspect the statue again
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("You carefully examine the statue once more.");
+                            System.out.println("Aside from the strange writing and the hidden compartment, nothing else seems unusual.");
+                            System.out.println("Whatever ‘Forgotten Treasures' means, it's not here.");
+                            System.out.println("--------------------------->press enter to continue\n");
+                            scanner.nextLine();
+                            World.getRoom("eaStatue").reenter();
+                        },
+
+                        // 2: Open hidden compartment
+                        () -> {
+                            Player player = PlayerManager.getInstance().getCurrentPlayer();
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("Inside the compartment, you find " + TextColor.HIGH_RED.getAnsiCode() + "a small key" + player.getUserTextColor().getAnsiCode() + " with a tag attached.");
+                            System.out.println("The tag reads: 'Forgotten Treasures.'");
+                            System.out.println("You feel a chill run down your spine as you realize this must be the key to something nearby.");
+                            System.out.println("--------------------------->press enter to continue\n");
+                            player.markDone(GameEvent.TOOK_KEY);
+                            scanner.nextLine();
+                            World.getRoom("eaStatue").enter(); // Re-enter to refresh options
+                        },
+
+                        // 3: Enter HBF
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("You enter the HBF and think:");
+                            System.out.println("'Maybe you can escape using the U-Bahn...'");
+                            System.out.println("Before you can finish your thought you see a Person behind a makeshift counter and go towards them.");
+                            System.out.println("--------------------------->press enter to continue\n");
+                            scanner.nextLine();
+                            // TODO
+                            // Add next room logic here
+                        }
+                )
+        );
+        Room shop = new Room(
+                "Underground Shop",
+                List.of(
+                        "The shop is dimly lit, with flickering neon signs casting eerie glows on dusty shelves.",
+                        "A strange shopkeeper eyes you from behind a barricaded counter.",
+                        !PlayerManager.getInstance().getCurrentPlayer().hasDone(GameEvent.FIRST_SHOP_VISIT)
+                                ? "You could talk to the stranger behind the counter ... though you're not sure you should."
+                                : "The shopkeeper nods at you, seemingly expecting you."
+                ),
+                List.of(
+                        "Talk to the shopkeeper",
+                        "Leave the shop"
+                ),
+                List.of(
+                        () -> {
+                            Player player = PlayerManager.getInstance().getCurrentPlayer();
+                            Scanner scanner = new Scanner(System.in);
+
+                            if (!player.hasDone(GameEvent.FIRST_SHOP_VISIT)) {
+                                System.out.println("\nShopkeeper: Hello " + player.getName() + ", welcome to my humble shop.");
+                                System.out.println("Here you can buy permanent upgrades for your stats.");
+                                player.markDone(GameEvent.FIRST_SHOP_VISIT);
+                                System.out.println("---------------------------> press Enter to continue\n");
+                                scanner.nextLine();
+                            }
+
+                            int hpDif = player.getMaxHP() - player.getCurrentHP();
+
+                            List<String> shopOptions = new ArrayList<>();
+                            if (player.getMinDamage() < player.getMaxDamage() - 1) {
+                                shopOptions.add("Upgrade minimum damage (+1) [10 gold]");
+                            }
+                            shopOptions.add("Upgrade maximum damage (+1) [10 gold]");
+                            shopOptions.add("Increase max HP (+1) [30 gold]");
+                            shopOptions.add("Heal to full HP (" + hpDif + ") [15 gold]");
+                            shopOptions.add("Buy gun (20 max damage) [50 gold]");
+                            shopOptions.add("Leave shop");
+
+                            while (true) {
+                                System.out.println("\nSystem: Your current stats:");
+                                System.out.println("Min Damage: " + player.getMinDamage());
+                                System.out.println("Max Damage: " + player.getMaxDamage());
+                                System.out.println("HP: " + player.getCurrentHP() + "/" + player.getMaxHP());
+                                System.out.println("Gold: " + player.getGoldCoins());
+                                System.out.println("\nWhat would you like to buy?");
+
+                                for (int i = 0; i < shopOptions.size(); i++) {
+                                    System.out.println((i + 1) + ": " + shopOptions.get(i));
+                                }
+
+                                int choice = scanner.nextInt();
+                                if (choice < shopOptions.size()) {
+
+                                    if (shopOptions.get(choice).equals("Leave shop")) {
+                                        break;
+                                    }
+
+                                    switch (choice) {
+                                        case 1:
+                                            if (player.getMinDamage() < player.getMaxDamage() - 1) {
+                                                if (player.getGoldCoins() >= 10) {
+                                                    player.setMinDamage(player.getMinDamage() + 1);
+                                                    player.setGoldCoins(player.getGoldCoins() - 10);
+                                                } else {
+                                                    System.out.println("Not enough gold.");
+                                                }
+                                                break;
+                                            }
+                                        case 2:
+                                            if (player.getGoldCoins() >= 10) {
+                                                player.setMaxDamage(player.getMaxDamage() + 1);
+                                                player.setGoldCoins(player.getGoldCoins() - 10);
+                                            } else {
+                                                System.out.println("Not enough gold.");
+                                            }
+                                            break;
+                                        case 3:
+                                            if (player.getGoldCoins() >= 30) {
+                                                player.setMaxHP(player.getMaxHP() + 1);
+                                                player.setGoldCoins(player.getGoldCoins() - 30);
+                                            } else {
+                                                System.out.println("Not enough gold.");
+                                            }
+                                            break;
+                                        case 4:
+                                            if (player.getGoldCoins() >= 15) {
+                                                player.setCurrentHP(player.getMaxHP());
+                                                player.setGoldCoins(player.getGoldCoins() - 15);
+                                            } else {
+                                                System.out.println("Not enough gold.");
+                                            }
+                                            break;
+                                        case 5:
+                                            if (player.getGoldCoins() >= 50) {
+                                                Weapon gun = new Weapon("Gun", 0, 5, 20, 5);
+                                                player.addItem(gun);
+                                                player.equipWeapon("Gun");
+                                                player.setGoldCoins(player.getGoldCoins() - 50);
+                                            } else {
+                                                System.out.println("Not enough gold.");
+                                            }
+                                            break;
+                                    }
+                                }
+                            }
+
+                            System.out.println("\nShopkeeper: Safe travels.");
+
+                            if (!player.hasDone(GameEvent.STARTED_RANDOM_ROOM)) {
+                                player.markDone(GameEvent.STARTED_RANDOM_ROOM);
+                                // TODO add first Random room
+                            }else {
+                                World.getRoom(player.getLastroom().toString()).enter();
+                            }
+                        },
+                        () -> {
+                            if (!PlayerManager.getInstance().getCurrentPlayer().hasDone(GameEvent.STARTED_RANDOM_ROOM)) {
+                                PlayerManager.getInstance().getCurrentPlayer().markDone(GameEvent.STARTED_RANDOM_ROOM);
+                                // TODO add first Random room
+                            }else {
+                                World.getRoom(PlayerManager.getInstance().getCurrentPlayer().getLastroom().toString()).enter();
+                            }
+                        }
+                )
+        );
 
 
         rooms.put("You Died", deathRoom);
@@ -349,6 +712,9 @@ public class World {
         rooms.put("Fast-Food Stand", fastFoodStandRoom);
         rooms.put("Pharmacy", pharmacyRoom);
         rooms.put("outsideHBF", outsideHBF);
+        rooms.put("Empty Platform", end);
+        rooms.put("Ernst-August-Galerie - Ground Floor", eagGround);
+        rooms.put("Underground Shop", shop);
     }
 
     public static Room getRoom(String name) {
