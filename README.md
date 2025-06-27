@@ -2,7 +2,7 @@
 This is a branch of a Java based Text Adventure made for school. This branch trys to make the hole project object-oriented. so it's easier to maintain. 
 
 ## What is this code?
-It's a text based game. You play a character in a post apokaliptik setting where you need to do some quests and fight some zombies. You mainly control by giving number input and pressing enter. 
+It's a text based game. You play a character in a post apocalyptic setting where you need to do some quests and fight some zombies. You mainly control by giving number input and pressing enter. 
 
 ## Controls
 For decisions you need to input the number corresponding to the option number. For fights, you need to input X and Y values to move and to attack you need to input the number corresponding to an enemy. 
