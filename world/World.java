@@ -536,8 +536,7 @@ public class World {
                             System.out.println("Before you can finish your thought you see a Person behind a makeshift counter and go towards them.");
                             System.out.println("--------------------------->press enter to continue\n");
                             scanner.nextLine();
-                            // TODO
-                            // Add next room logic here
+                            World.getRoom("shop").enter();
                         }
                 )
                         : List.of(
@@ -573,8 +572,7 @@ public class World {
                             System.out.println("Before you can finish your thought you see a Person behind a makeshift counter and go towards them.");
                             System.out.println("--------------------------->press enter to continue\n");
                             scanner.nextLine();
-                            // TODO
-                            // Add next room logic here
+                            World.getRoom("shop").enter();
                         }
                 )
         );
