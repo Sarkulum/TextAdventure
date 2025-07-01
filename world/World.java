@@ -703,6 +703,121 @@ public class World {
         );
 
 
+        Room puzzle1 = new Room(
+                "Puzzle Door - Riddle 1",
+                List.of(
+                        "You've carefully navigated the dark, eerie subway tunnel and arrived at a large metal door blocking the way forward.",
+                        "At its center is a mechanical panel with glowing letters. A robotic voice speaks from a nearby speaker:",
+                        "'Answer my riddle, and the path will open. Fail, and remain trapped in the shadows.'",
+                        "The screen on the panel lights up, displaying the following:",
+                        "A ticket machine at Hannover Hauptbahnhof isn't printing tickets. Passengers are getting frustrated.",
+                        "The screen displays an error: 'Printer Connection Lost.'"
+                ),
+                List.of(
+                        "Check if the printer cables are securely connected.",
+                        "Reboot the entire ticket machine."
+                ),
+                List.of(
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("Good Call!");
+                            System.out.println("You reconnect the loose printer cable and the machine starts working.");
+                            System.out.println("Passengers are happy!");
+                            System.out.println("--------------------------->press enter to continue");
+                            scanner.nextLine();
+                            Game.moveToRoom(World.getRoom("Puzzle Door - Riddle 2"));
+                        },
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("You restart the machine but the problem persists.");
+                            System.out.println("Looks like the issue wasn't with the system itself.");
+                            System.out.println("--------------------------->press enter to continue");
+                            scanner.nextLine();
+                            World.getRoom("Puzzle Door - Riddle 1").reenter();
+                        }
+                )
+        );
+
+        Room puzzle2 = new Room(
+                "Puzzle Door - Riddle 2",
+                List.of(
+                        "The panel displays the next riddle:",
+                        "A train is experiencing overcrowding and you need to determine whether it's safe to allow more passengers onboard.",
+                        "The train has 8 cars, each with a maximum capacity of 100 passengers.",
+                        "Currently, the train is carrying 650 passengers.",
+                        "How many more passengers can safely board the train?"
+                ),
+                List.of(
+                        "Enter your answer."
+                ),
+                List.of(
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.print("Your answer: ");
+                            int answer = -1;
+                            try {
+                                answer = scanner.nextInt();
+                                scanner.nextLine(); // Consume the rest of the line
+                            } catch (Exception e) {
+                                // Handles cases where the user doesn't enter a number
+                                scanner.nextLine(); // Clear the invalid input
+                            }
+
+                            if (answer == 150) {
+                                System.out.println("Good job! That was the right answer.");
+                                System.out.println("--------------------------->press enter to continue");
+                                scanner.nextLine();
+                                Game.moveToRoom(World.getRoom("Puzzle Door - Riddle 3"));
+                            } else {
+                                System.out.println("I am sorry but that answer is wrong please try again.");
+                                System.out.println("--------------------------->press enter to continue");
+                                scanner.nextLine();
+                                World.getRoom("Puzzle Door - Riddle 2").reenter();
+                            }
+                        }
+                )
+        );
+
+        Room puzzle3 = new Room(
+                "Puzzle Door - Riddle 3",
+                List.of(
+                        "The panel displays the final riddle:",
+                        "The departure board at HBF is showing incorrect train times.",
+                        "The train database seems out of sync with the display system."
+                ),
+                List.of(
+                        "Synchronise the display system with the central database.",
+                        "Restart the display system.",
+                        "Manually update the train times on the display."
+                ),
+                List.of(
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("Success!");
+                            System.out.println("You synced the display system and the departure board now shows accurate train times");
+                            System.out.println("The large metal door grinds open, revealing the path forward.");
+                            System.out.println("--------------------------->press enter to continue");
+                            scanner.nextLine();
+                            Game.moveToRoom(World.getRoom("Empty Platform"));
+                        },
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("The system reboots but the error remains.");
+                            System.out.println("Passengers are still confused. Try again!!!");
+                            System.out.println("--------------------------->press enter to continue");
+                            scanner.nextLine();
+                            World.getRoom("Puzzle Door - Riddle 3").reenter();
+                        },
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("This would work temporarily but it's not a sustainable solution.");
+                            System.out.println("--------------------------->press enter to continue");
+                            scanner.nextLine();
+                            World.getRoom("Puzzle Door - Riddle 3").reenter();
+                        }
+                )
+        );
+
         rooms.put("You Died", deathRoom);
         rooms.put("Intro", startingRoom);
         rooms.put("Kröpke", townGate);
@@ -713,6 +828,9 @@ public class World {
         rooms.put("Empty Platform", end);
         rooms.put("Ernst-August-Galerie - Ground Floor", eagGround);
         rooms.put("Underground Shop", shop);
+        rooms.put("Puzzle Door - Riddle 1", puzzle1);
+        rooms.put("Puzzle Door - Riddle 2", puzzle2);
+        rooms.put("Puzzle Door - Riddle 3", puzzle3);
     }
 
     public static Room getRoom(String name) {
