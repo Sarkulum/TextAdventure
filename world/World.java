@@ -818,6 +818,106 @@ public class World {
                 )
         );
 
+        Room subwayEntrance = new Room(
+                "Subway Entrance",
+                List.of(
+                        "You find yourself standing in front of an old metal door.",
+                        "On the door, you can make out the words: 'Forgotten Treasures.'"
+                ),
+                List.of(
+                        "Try to open the door."
+                ),
+                List.of(
+                        () -> {
+                            Player player = playerManager.getCurrentPlayer();
+                            Scanner scanner = new Scanner(System.in);
+                            if (player.hasDone(GameEvent.TOOK_KEY)) {
+                                System.out.println("You use the key you found to unlock the door.");
+                                System.out.println("--------------------------->press enter to continue");
+                                scanner.nextLine();
+                                Game.moveToRoom(World.getRoom("Subway Tunnel"));
+                            } else {
+                                System.out.println("You try to open the door but it does not move.");
+                                System.out.println("Suddenly you hear a roaring behind you.");
+                                System.out.println("As you turn around you see a dozen zombies walking towards you.");
+                                System.out.println("You get ready to fight... but something falls on your head and your vision fades to black.");
+                                System.out.println("--------------------------->press enter to continue");
+                                scanner.nextLine();
+                                Game.moveToRoom(World.getRoom("You Died"));
+                            }
+                        }
+                )
+        );
+
+        Room subwayTunnel = new Room(
+                "Subway Tunnel",
+                List.of(
+                        "You step into what used to be a bustling subway tunnel.",
+                        "The air here is colder and the faint sound of dripping water echoes all around you.",
+                        "The tracks are covered in debris and the walls are adorned with strange symbols.",
+                        "A broken vending machine flickers faintly in the corner.",
+                        "Among the rubble, a faint, guttural growl catches your attention."
+                ),
+                List.of(
+                        "Inspect the vending machine.",
+                        "Investigate the markings on the wall.",
+                        "Follow the growl.",
+                        "Ignore the noise and move forward."
+                ),
+                List.of(
+                        () -> {
+                            Player player = playerManager.getCurrentPlayer();
+                            Scanner scanner = new Scanner(System.in);
+                            if (!player.hasDone(GameEvent.TOOK_SODA)) {
+                                System.out.println("The vending machine looks barely functional, but you find an unopened can of soda inside.");
+                                System.out.println("System: You " + TextColor.GREEN.getAnsiCode() + "heal 1 HP" + player.getUserTextColor().getAnsiCode() + ".");
+                                if(player.getCurrentHP() < player.getMaxHP()) {
+                                    player.setCurrentHP(player.getCurrentHP() + 1);
+                                }
+                                player.markDone(GameEvent.TOOK_SODA);
+                            } else {
+                                System.out.println("The vending machine sparks and breaks completely. Nothing else can be retrieved.");
+                            }
+                            System.out.println("--------------------------->press enter to continue");
+                            scanner.nextLine();
+                            World.getRoom("Subway Tunnel").reenter();
+                        },
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("The symbols are strange, almost ritualistic. You feel uneasy looking at them for too long.");
+                            System.out.println("One of the phrases reads: 'The fog devours, but the light guides.'");
+                            System.out.println("Maybe this is a clue for what lies ahead.");
+                            System.out.println("--------------------------->press enter to continue");
+                            scanner.nextLine();
+                            World.getRoom("Subway Tunnel").reenter();
+                        },
+                        () -> {
+                            Player player = playerManager.getCurrentPlayer();
+                            Scanner scanner = new Scanner(System.in);
+                            if (!player.hasDone(GameEvent.SUBWAY_ZOMBIE_FOUGHT)) {
+                                System.out.println("You toughen up and follow the sound.");
+                                System.out.println("Suddenly, a zombie lunges at you from behind a pile of rubble!");
+                                // Simplified combat sequence
+                                System.out.println("You ready your weapon and after a brief, intense struggle, you defeat the creature.");
+                                System.out.println("The zombie falls over and dies.");
+                                player.markDone(GameEvent.SUBWAY_ZOMBIE_FOUGHT);
+                            } else {
+                                System.out.println("You see the now lifeless body of the zombie you defeated earlier.");
+                            }
+                            System.out.println("--------------------------->press enter to continue");
+                            scanner.nextLine();
+                            World.getRoom("Subway Tunnel").reenter();
+                        },
+                        () -> {
+                            Scanner scanner = new Scanner(System.in);
+                            System.out.println("You decide not to risk whatever is making that sound and move on down the tunnel.");
+                            System.out.println("--------------------------->press enter to continue");
+                            scanner.nextLine();
+                            Game.moveToRoom(World.getRoom("Puzzle Door - Riddle 1"));
+                        }
+                )
+        );
+
         rooms.put("You Died", deathRoom);
         rooms.put("Intro", startingRoom);
         rooms.put("Kröpke", townGate);
@@ -831,6 +931,8 @@ public class World {
         rooms.put("Puzzle Door - Riddle 1", puzzle1);
         rooms.put("Puzzle Door - Riddle 2", puzzle2);
         rooms.put("Puzzle Door - Riddle 3", puzzle3);
+        rooms.put("Subway Entrance", subwayEntrance);
+        rooms.put("Subway Tunnel", subwayTunnel);
     }
 
     public static Room getRoom(String name) {
