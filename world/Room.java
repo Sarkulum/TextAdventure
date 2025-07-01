@@ -12,7 +12,7 @@ public class Room {
     private final List<String> options; // List of Strings
     private final List<Runnable> actions; // List of code
     private Room previousRoom;
-    private final Room nextRoom;
+    private Room nextRoom;
 
     public Room(String roomName, List<String> descriptionParts, List<String> options, List<Runnable> actions) {
         this.roomName = roomName;
@@ -21,6 +21,14 @@ public class Room {
         this.actions = actions;
         this.previousRoom = null;
         this.nextRoom = null;
+    }
+
+    public Room getNextRoom() {
+        return nextRoom;
+    }
+
+    public void setNextRoom(Room nextRoom) {
+        this.nextRoom = nextRoom;
     }
 
     public void enter() {

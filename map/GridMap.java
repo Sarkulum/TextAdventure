@@ -60,7 +60,7 @@ public class GridMap {
         }
     }
 
-    private void printMap() {
+    public void printMap() {
         Player player = PlayerManager.getInstance().getCurrentPlayer();
         int index = 0;
 

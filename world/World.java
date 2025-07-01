@@ -3,6 +3,7 @@ package world;
 import items.Weapon;
 import logic.Game;
 import logic.GameEvent;
+import map.Position;
 import player.Player;
 import player.PlayerManager;
 import text.TextColor;
@@ -146,6 +147,59 @@ public class World {
 
                 )
         );
+        Room kiosk = new Room(
+                "Abandoned Kiosk",
+                List.of(
+                        "You step into a ransacked kiosk. Shelves are toppled, shattered glass crunches underfoot, and the air reeks of stale beer and decay.",
+                        "Behind the counter, a hunched figure twitches.",
+                        "Once a shopkeeper, now a zombie.",
+                        "Its head jerks toward you, and with a guttural growl it lunges!"
+                ),
+                List.of("Decide what to do."),
+                List.of(() -> {
+                    Player player = playerManager.getCurrentPlayer();
+                    Scanner scanner = new Scanner(System.in);
+                    if (player.hasDone(GameEvent.KIOSK_ZOMBIE_DEFEATED)) {
+                        System.out.println("1. Look around the kiosk.");
+                        System.out.println("2. Leave the kiosk and return to Kröpke.");
+                        int choice = scanner.nextInt();
+                        if (choice == 1) {
+                            System.out.println("Now that the zombie is no longer a threat, you take a moment to search the kiosk.");
+                            System.out.println("But you can't find anything of interest.");
+                            World.getRoom("Abandoned Kiosk").reenter();
+                        } else {
+                            System.out.println("You step over the body and make your way back to Kröpke, the pack of cigarettes tucked safely in your pocket.");
+                            Game.moveToRoom(World.getRoom("Kröpke Crossroads"));
+                        }
+                    } else {
+                        System.out.println("1. Fight the kiosk zombie.");
+                        System.out.println("2. Run away");
+                        int choice = scanner.nextInt();
+                        if (choice == 1) {
+                            Game.moveToRoom(World.getRoom("Kiosk Fight"));
+                        } else {
+                            System.out.println("Panic takes over, and you sprint back to Kröpke.");
+                            System.out.println("The zombie snarls but doesn't chase you.");
+                            System.out.println("The kiosk remains dangerous.");
+                            Game.moveToRoom(World.getRoom("Kröpke Crossroads"));
+                        }
+                    }
+                })
+        );
+
+        Room kioskFight = new CombatRoom(
+                "Kiosk Fight",
+                List.of("The zombie gurgles and lunges!"),
+                5, 5,
+                List.of("Shambler"),
+                List.of(new Position(1, 2), new Position(1, 3), new Position(1, 4)),
+                GameEvent.KIOSK_ZOMBIE_DEFEATED,
+                "The zombie gurgles one last time before collapsing:\n'H-heute ... nur Malboro im Angebot ... '\nAs it twitches on the floor, something falls from its pocket ...\na pack of cigarettes!!!"
+        );
+
+        rooms.put("Abandoned Kiosk", kiosk);
+        rooms.put("Kiosk Fight", kioskFight);
+
         Room crossRoadRoom = new Room(
                 "Kröpke Crossroads",
                 List.of(
@@ -160,10 +214,10 @@ public class World {
                         "Go west (To the abandoned kiosk.)"
                 ),
                 List.of(
-                        () -> Game.moveToRoom(World.getRoom("pharmacy")),
-                        () -> Game.moveToRoom(World.getRoom("forest")),     // Replace "forest" with your actual room key if needed
-                        () -> Game.moveToRoom(World.getRoom("townGate")),
-                        () -> Game.moveToRoom(World.getRoom("goblinCave"))  // Same here, use the correct key
+                        () -> Game.moveToRoom(World.getRoom("Pharmacy")),
+                        () -> Game.moveToRoom(World.getRoom("Fast-Food Stand")),
+                        () -> Game.moveToRoom(World.getRoom("Kröpke")),
+                        () -> Game.moveToRoom(World.getRoom("Abandoned Kiosk"))
                 )
         );
         Room pharmacyRoom = new Room(
