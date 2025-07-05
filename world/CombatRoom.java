@@ -20,7 +20,8 @@ public class CombatRoom extends Room {
     private final String victoryMessage;
 
     public CombatRoom(String roomName, List<String> descriptionParts, int gridWidth, int gridHeight, List<String> enemyTypes, List<Position> obstaclePositions, GameEvent victoryEvent, String victoryMessage) {
-        super(roomName, descriptionParts, List.of("Start Battle"), List.of());
+        super(roomName, descriptionParts, List.of("Start Combat"), List.of());
+        super.setCombatRoom(true);
         this.gridWidth = gridWidth;
         this.gridHeight = gridHeight;
         this.enemyTypes = enemyTypes;
@@ -38,7 +39,7 @@ public class CombatRoom extends Room {
             enemyManager.add(Enemy.createEnemyByName(enemyType));
         }
 
-        GridMap gridMap = new GridMap(gridWidth, gridHeight, enemyManager, obstaclePositions, List.of(new Position(0, 0))); // TODO This is assuming the player starts at (0,0) which they shouldn't in Random Rooms
+        GridMap gridMap = new GridMap(gridWidth, gridHeight, enemyManager, obstaclePositions, List.of(new Position(gridWidth/2, gridHeight - 1))); // TODO This is assuming the player starts at (0,0) which they shouldn't in Random Rooms
 
         CombatManager combatManager = new CombatManager(enemyManager, gridMap);
         boolean playerWon = combatManager.startCombat();

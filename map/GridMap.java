@@ -68,10 +68,12 @@ public class GridMap {
         System.out.println("[ ] = Empty Field, [#] = Obstacle, ['Number'] = Enemy, [P] = Player");
 
         // Print x coordinates
-        System.out.print("  "); // Extra space for alignment
+        System.out.print("   "); // Extra space for alignment
         for (int i = 0; i < this.map.length; i++) {
             System.out.print(" " + (i % 10) + " "); // Ensures proper spacing for alignment
         }
+
+        System.out.println();
 
         for (int y = 0; y < this.map.length; y++) {
             // This prints the numbers at the beginning of each line
@@ -81,22 +83,22 @@ public class GridMap {
 
                 switch (cell) {
                     case "[ ]" -> System.out.print("[ ]");
-                    case "[P]" -> System.out.print(TextColor.GREEN + "[P]" + player.getUserTextColor());
-                    case "[#]" -> System.out.print(TextColor.GRAY + "[#]" + player.getUserTextColor());
-                    case null, default ->  System.out.print(TextColor.RED + cell + player.getUserTextColor());
+                    case "[P]" -> System.out.print(TextColor.GREEN.getAnsiCode() + "[P]" + player.getUserTextColor().getAnsiCode());
+                    case "[#]" -> System.out.print(TextColor.GRAY.getAnsiCode() + "[#]" + player.getUserTextColor().getAnsiCode());
+                    case null, default ->  System.out.print(TextColor.RED.getAnsiCode() + cell + player.getUserTextColor().getAnsiCode());
                 }
             }
 
             try {
                 Enemy enemy = enemyManager.getEnemyByIndex(index);
+                index ++;
 
                 if (enemy.getCurrentHP() > 0) {
-                    System.out.println("Enemy: " +enemy.getName()+ " ID: " +enemy.getIndex()+ " HP: " +enemy.getCurrentHP());
+                    System.out.print("  Enemy: " +enemy.getName()+ " ID: " +enemy.getIndex()+ " HP: " +enemy.getCurrentHP());
                 }
             } catch (Exception e) {
-
             }
-
+            System.out.println();
         }
 
     }

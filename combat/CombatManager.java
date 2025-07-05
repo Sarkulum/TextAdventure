@@ -88,7 +88,7 @@ public class CombatManager {
             System.out.println(enemy.getIndex() + ": " + enemy.getName());
         }
 
-        int enemyIndex = scanner.nextInt();
+        int enemyIndex = scanner.nextInt() + 1;
         Enemy targetEnemy = enemyManager.getEnemyByIndex(enemyIndex);
 
         if (targetEnemy != null) {

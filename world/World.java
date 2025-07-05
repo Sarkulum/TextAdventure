@@ -64,7 +64,7 @@ public class World {
         );
 
         Room startingRoom = new Room(
-                "Intro",
+                playerManager.getCurrentPlayer().getUserTextColor().getAnsiCode() + "Intro",
                 List.of(
                         "I woke up in a pitch-black alleyway. My head is pounding, and I can't remember how I got here.",
                         "I reach for my phone, but it's dead. Great. Just great.",
@@ -193,7 +193,7 @@ public class World {
                 List.of("The zombie gurgles and lunges!"),
                 5, 5,
                 List.of("Shambler"),
-                List.of(new Position(1, 2), new Position(1, 3), new Position(1, 4)),
+                List.of(new Position(4, 1), new Position(3, 1), new Position(2, 1)),
                 GameEvent.KIOSK_ZOMBIE_DEFEATED,
                 "The zombie gurgles one last time before collapsing:\n'H-heute ... nur Malboro im Angebot ... '\nAs it twitches on the floor, something falls from its pocket ...\na pack of cigarettes!!!"
         );

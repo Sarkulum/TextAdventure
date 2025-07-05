@@ -1,5 +1,7 @@
 package combat;
 
+import player.PlayerManager;
+
 import java.util.Random;
 
 public class Attack {
@@ -18,7 +20,10 @@ public class Attack {
     }
 
     public Damage execute() {
-        int weaponDamage = random.nextInt(weaponMinDamage, weaponMaxDamage);
+        int weaponDamage = 0;
+        if (PlayerManager.getInstance().getCurrentPlayer().getEquippedWeapon() != null) {
+            weaponDamage = random.nextInt(weaponMinDamage, weaponMaxDamage);
+        }
         int playerDamage = random.nextInt(minDamage, maxDamage);
 
         int finalDamage = weaponDamage + playerDamage;
