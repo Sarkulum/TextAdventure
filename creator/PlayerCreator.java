@@ -62,8 +62,8 @@ public class PlayerCreator {
         System.out.println("--------------------------->enter a word to decide\n");
 
         while (true) {
-            scanner.nextLine(); // consume leftover newline
-            String input = scanner.nextLine().trim();
+            Scanner colorScanner = new Scanner(System.in);
+            String input = colorScanner.nextLine().trim();
 
             for (TextColor color : TextColor.values()) {
                 if (color.name().equalsIgnoreCase(input)) {
@@ -72,7 +72,6 @@ public class PlayerCreator {
             }
 
             System.out.println("Invalid color. Try again.");
-            scanner.next();
         }
     }
 }

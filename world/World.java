@@ -10,7 +10,7 @@ import text.TextColor;
 import java.util.*;
 
 
-// If you want to "reenter" a room use World.getRoom("outsideHBF").enter();
+// If you want to "reenter" a room, use World.getRoom("outsideHBF").enter();
 public class World {
     // Creat a HashMap with every Room object in it.
     private static final Map<String, Room> rooms = new HashMap<String, Room>();
@@ -92,8 +92,8 @@ public class World {
                 List.of(
                     "Talk to the person",
                     "Smack them",
-                    "Do nothing",
-                    "Go north to the crossroad"
+                    "Go north to the crossroad",
+                    "Do nothing"
                 ),
                 List.of(
                         () -> {
@@ -135,6 +135,7 @@ public class World {
                             System.out.println("You decide to leave the smoky wall and the strange person behind, heading toward Kröpke.");
                             System.out.println("---------------------------> press Enter to continue\n");
                             scanner.nextLine();
+                            World.getRoom("Kröpke Crossroads").enter();
                         },
                         () -> {
                             Scanner scanner = new Scanner(System.in);
@@ -196,9 +197,6 @@ public class World {
                 GameEvent.KIOSK_ZOMBIE_DEFEATED,
                 "The zombie gurgles one last time before collapsing:\n'H-heute ... nur Malboro im Angebot ... '\nAs it twitches on the floor, something falls from its pocket ...\na pack of cigarettes!!!"
         );
-
-        rooms.put("Abandoned Kiosk", kiosk);
-        rooms.put("Kiosk Fight", kioskFight);
 
         Room crossRoadRoom = new Room(
                 "Kröpke Crossroads",
@@ -987,6 +985,8 @@ public class World {
         rooms.put("Puzzle Door - Riddle 3", puzzle3);
         rooms.put("Subway Entrance", subwayEntrance);
         rooms.put("Subway Tunnel", subwayTunnel);
+        rooms.put("Abandoned Kiosk", kiosk);
+        rooms.put("Kiosk Fight", kioskFight);
     }
 
     public static Room getRoom(String name) {

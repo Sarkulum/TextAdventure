@@ -38,7 +38,7 @@ public class CombatRoom extends Room {
             enemyManager.add(Enemy.createEnemyByName(enemyType));
         }
 
-        GridMap gridMap = new GridMap(gridWidth, gridHeight, enemyManager, obstaclePositions, List.of(new Position(0, 0))); // Assuming player starts at (0,0)
+        GridMap gridMap = new GridMap(gridWidth, gridHeight, enemyManager, obstaclePositions, List.of(new Position(0, 0))); // TODO This is assuming the player starts at (0,0) which they shouldn't in Random Rooms
 
         CombatManager combatManager = new CombatManager(enemyManager, gridMap);
         boolean playerWon = combatManager.startCombat();

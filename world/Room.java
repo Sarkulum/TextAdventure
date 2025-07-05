@@ -57,7 +57,7 @@ public class Room {
         int choice = scanner.nextInt();
 
         System.out.println(" ");
-        if (choice >= 1 && choice <= actions.size()) {
+        if (choice >= 1 && choice <= options.size()) {
             actions.get(choice - 1).run();
         } else {
             System.out.println("Invalid choice.");

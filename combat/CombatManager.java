@@ -8,7 +8,6 @@ import map.GridMap;
 import map.Position;
 import player.Player;
 import player.PlayerManager;
-
 import java.util.Scanner;
 
 public class CombatManager {
@@ -51,6 +50,7 @@ public class CombatManager {
         System.out.println("1. Move");
         System.out.println("2. Attack");
 
+        // TODO check if the -1 causes issues
         int choice = -1;
         try {
             choice = scanner.nextInt();
