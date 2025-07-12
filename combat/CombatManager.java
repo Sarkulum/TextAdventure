@@ -88,7 +88,8 @@ public class CombatManager {
             System.out.println(enemy.getIndex() + ": " + enemy.getName());
         }
 
-        int enemyIndex = scanner.nextInt() + 1;
+        // TODO
+        int enemyIndex = scanner.nextInt();
         Enemy targetEnemy = enemyManager.getEnemyByIndex(enemyIndex);
 
         if (targetEnemy != null) {
@@ -107,8 +108,8 @@ public class CombatManager {
             targetEnemy.takeDamage(attack.execute());
 
             if (targetEnemy.getCurrentHP() <= 0) {
-                enemyManager.remove(targetEnemy);
                 gridMap.removePosition(enemyManager.getEnemyPosition(enemyIndex));
+                enemyManager.remove(targetEnemy);
                 System.out.println(targetEnemy.getName() + " has been defeated!");
             }
         } else {

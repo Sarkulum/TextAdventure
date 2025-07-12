@@ -7,6 +7,7 @@ import map.Position;
 import player.PlayerManager;
 import java.util.*;
 
+// TODO for some reason 2 emends appear after the enemy moves ones in the first combat Room
 public class AStar {
     Scanner scanner = new Scanner(System.in);
 

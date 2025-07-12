@@ -195,7 +195,8 @@ public class World {
                 List.of("Shambler"),
                 List.of(new Position(4, 1), new Position(3, 1), new Position(2, 1)),
                 GameEvent.KIOSK_ZOMBIE_DEFEATED,
-                "The zombie gurgles one last time before collapsing:\n'H-heute ... nur Malboro im Angebot ... '\nAs it twitches on the floor, something falls from its pocket ...\na pack of cigarettes!!!"
+                "The zombie gurgles one last time before collapsing:\n'H-heute ... nur Malboro im Angebot ... '\nAs it twitches on the floor, something falls from its pocket ...\na pack of cigarettes!!!",
+                World.getRoom("Abandoned Kiosk")
         );
 
         Room crossRoadRoom = new Room(
