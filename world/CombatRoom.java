@@ -18,8 +18,9 @@ public class CombatRoom extends Room {
     private final List<Position> obstaclePositions;
     private final GameEvent victoryEvent;
     private final String victoryMessage;
+    private final Room nextRoom;
 
-    public CombatRoom(String roomName, List<String> descriptionParts, int gridWidth, int gridHeight, List<String> enemyTypes, List<Position> obstaclePositions, GameEvent victoryEvent, String victoryMessage) {
+    public CombatRoom(String roomName, List<String> descriptionParts, int gridWidth, int gridHeight, List<String> enemyTypes, List<Position> obstaclePositions, GameEvent victoryEvent, String victoryMessage, Room nextRoom) {
         super(roomName, descriptionParts, List.of("Start Combat"), List.of());
         super.setCombatRoom(true);
         this.gridWidth = gridWidth;
@@ -28,6 +29,7 @@ public class CombatRoom extends Room {
         this.obstaclePositions = obstaclePositions;
         this.victoryEvent = victoryEvent;
         this.victoryMessage = victoryMessage;
+        this.nextRoom = nextRoom;
     }
 
     @Override
@@ -40,6 +42,7 @@ public class CombatRoom extends Room {
         }
 
         GridMap gridMap = new GridMap(gridWidth, gridHeight, enemyManager, obstaclePositions, List.of(new Position(gridWidth/2, gridHeight - 1))); // TODO This is assuming the player starts at (0,0) which they shouldn't in Random Rooms
+        PlayerManager.getInstance().setPositionCurrentPlayer(new Position(gridWidth/2, gridHeight - 1));
 
         CombatManager combatManager = new CombatManager(enemyManager, gridMap);
         boolean playerWon = combatManager.startCombat();
@@ -52,6 +55,7 @@ public class CombatRoom extends Room {
                 System.out.println(victoryMessage);
             }
 
+            // TODO my dummass forgot to add the next room var. I currently have one in Room that is NULL by default and one in combatRoom that does fuck all. Apparently the "builder pattern" could help but idk what that is
             // Move to the next room if one is defined
             if (getNextRoom() != null) {
                 getNextRoom().enter();
