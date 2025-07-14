@@ -1,5 +1,6 @@
 package world;
 
+import enums.RoomNames;
 import items.Weapon;
 import logic.Game;
 import logic.GameEvent;
@@ -13,12 +14,12 @@ import java.util.*;
 // If you want to "reenter" a room, use World.getRoom("outsideHBF").enter();
 public class World {
     // Creat a HashMap with every Room object in it.
-    private static final Map<String, Room> rooms = new HashMap<String, Room>();
+    private static final Map<Enum, Room> rooms = new HashMap<Enum, Room>();
     private static final PlayerManager playerManager = PlayerManager.getInstance();
 
     public static void initializeWorld() {
         Room outsideHBF = new Room(
-                "Outside HBF",
+                RoomNames.OUTSIDE_HBF,
                 List.of(
                         "The cold night air hits me as I step outside into the eerie silence.",
                         "The once bastling plaza in front of the station is now lifeless.",
@@ -55,16 +56,16 @@ public class World {
                             System.out.println("---------------------------> press Enter to continue\n");
                             scanner.nextLine();
 
-                            World.getRoom("outsideHBF").reenter();
+                            World.getRoom(RoomNames.OUTSIDE_HBF).reenter();
                         },
                         () -> {
-                            Game.moveToRoom(World.getRoom("nextRoomName"));
+                            Game.moveToRoom(World.getRoom(RoomNames.EAG_GROUND));
                         }
                 )
         );
 
         Room startingRoom = new Room(
-                playerManager.getCurrentPlayer().getUserTextColor().getAnsiCode() + "Intro",
+                 RoomNames.INTRODUCTION,
                 List.of(
                         "I woke up in a pitch-black alleyway. My head is pounding, and I can't remember how I got here.",
                         "I reach for my phone, but it's dead. Great. Just great.",
@@ -78,13 +79,13 @@ public class World {
                 ),
                 List.of(
                         () -> {
-                            World.getRoom("Kröpke").enter();
+                            World.getRoom(RoomNames.KROEPKE).enter();
                         }
                 )
         );
 
         Room townGate = new Room(
-                "Kröpke",
+                RoomNames.KROEPKE,
                 List.of(
                         "A thick, smoky wall blocks a narrow passage leading further into the city.",
                         "A lone figure sits in front of it, casually exhaling smoke into the already heavy air."
@@ -112,7 +113,7 @@ public class World {
                                 System.out.println("If you bring me a pack of cigarettes, "+player.getName()+", I'll let you through that smoky wall.");
                                 System.out.println("---------------------------> press Enter to continue\n");
                                 scanner.nextLine();
-                                World.getRoom("Kröpke").reenter();
+                                World.getRoom(RoomNames.KROEPKE).reenter();
                             }
                         },
                         () -> {
@@ -128,14 +129,14 @@ public class World {
                             System.out.println("Your" + TextColor.GREEN.getAnsiCode() + " HP: " + player.getCurrentHP() + player.getUserTextColor().getAnsiCode());
                             System.out.println("---------------------------> press Enter to continue\n");
                             scanner.nextLine();
-                            World.getRoom("Kröpke").reenter();
+                            World.getRoom(RoomNames.KROEPKE).reenter();
                         },
                         () -> {
                             Scanner scanner = new Scanner(System.in);
                             System.out.println("You decide to leave the smoky wall and the strange person behind, heading toward Kröpke.");
                             System.out.println("---------------------------> press Enter to continue\n");
                             scanner.nextLine();
-                            World.getRoom("Kröpke Crossroads").enter();
+                            World.getRoom(RoomNames.KROEPKE_CROSSROAD).enter();
                         },
                         () -> {
                             Scanner scanner = new Scanner(System.in);
@@ -143,13 +144,13 @@ public class World {
                             System.out.println("Nothing happens.");
                             System.out.println("---------------------------> press Enter to continue\n");
                             scanner.nextLine();
-                            World.getRoom("Kröpke").reenter();
+                            World.getRoom(RoomNames.KROEPKE).reenter();
                         }
 
                 )
         );
         Room kiosk = new Room(
-                "Abandoned Kiosk",
+                RoomNames.KIOSK,
                 List.of(
                         "You step into a ransacked kiosk. Shelves are toppled, shattered glass crunches underfoot, and the air reeks of stale beer and decay.",
                         "Behind the counter, a hunched figure twitches.",
@@ -167,40 +168,40 @@ public class World {
                         if (choice == 1) {
                             System.out.println("Now that the zombie is no longer a threat, you take a moment to search the kiosk.");
                             System.out.println("But you can't find anything of interest.");
-                            World.getRoom("Abandoned Kiosk").reenter();
+                            World.getRoom(RoomNames.KIOSK).reenter();
                         } else {
                             System.out.println("You step over the body and make your way back to Kröpke, the pack of cigarettes tucked safely in your pocket.");
-                            Game.moveToRoom(World.getRoom("Kröpke Crossroads"));
+                            Game.moveToRoom(World.getRoom(RoomNames.KROEPKE_CROSSROAD));
                         }
                     } else {
                         System.out.println("1. Fight the kiosk zombie.");
                         System.out.println("2. Run away");
                         int choice = scanner.nextInt();
                         if (choice == 1) {
-                            Game.moveToRoom(World.getRoom("Kiosk Fight"));
+                            Game.moveToRoom(World.getRoom(RoomNames.KIOSK_FIGHT));
                         } else {
                             System.out.println("Panic takes over, and you sprint back to Kröpke.");
                             System.out.println("The zombie snarls but doesn't chase you.");
                             System.out.println("The kiosk remains dangerous.");
-                            Game.moveToRoom(World.getRoom("Kröpke Crossroads"));
+                            Game.moveToRoom(World.getRoom(RoomNames.KROEPKE_CROSSROAD));
                         }
                     }
                 })
         );
 
         Room kioskFight = new CombatRoom(
-                "Kiosk Fight",
+                RoomNames.KIOSK_FIGHT,
                 List.of("The zombie gurgles and lunges!"),
                 5, 5,
                 List.of("Shambler"),
                 List.of(new Position(4, 1), new Position(3, 1), new Position(2, 1)),
                 GameEvent.KIOSK_ZOMBIE_DEFEATED,
                 "The zombie gurgles one last time before collapsing:\n'H-heute ... nur Malboro im Angebot ... '\nAs it twitches on the floor, something falls from its pocket ...\na pack of cigarettes!!!",
-                World.getRoom("Abandoned Kiosk")
+                World.getRoom(RoomNames.KIOSK)
         );
 
         Room crossRoadRoom = new Room(
-                "Kröpke Crossroads",
+                RoomNames.KROEPKE_CROSSROAD,
                 List.of(
                         "You stand in the heart of the city, but it feels nothing like it used to.",
                         "Once a bustling square filled with life, Kröpke is now eerily silent.",
@@ -213,14 +214,14 @@ public class World {
                         "Go west (To the abandoned kiosk.)"
                 ),
                 List.of(
-                        () -> Game.moveToRoom(World.getRoom("Pharmacy")),
-                        () -> Game.moveToRoom(World.getRoom("Fast-Food Stand")),
-                        () -> Game.moveToRoom(World.getRoom("Kröpke")),
-                        () -> Game.moveToRoom(World.getRoom("Abandoned Kiosk"))
+                        () -> Game.moveToRoom(World.getRoom(RoomNames.PHARMACY)),
+                        () -> Game.moveToRoom(World.getRoom(RoomNames.FAST_FOOD_STAND)),
+                        () -> Game.moveToRoom(World.getRoom(RoomNames.KROEPKE)),
+                        () -> Game.moveToRoom(World.getRoom(RoomNames.KIOSK))
                 )
         );
         Room pharmacyRoom = new Room(
-                "Pharmacy",
+                RoomNames.PHARMACY,
                 List.of(
                         "You step into what used to be a pharmacy.",
                         "The shelves are mostly empty, some toppled over, and shattered pill bottles crunch under your feet.",
@@ -240,14 +241,14 @@ public class World {
                             System.out.println("You wonder who came here before you and if they made it out alive.");
                             System.out.println("--------------------------->press enter to continue\n");
                             scanner.nextLine();
-                            World.getRoom("Pharmacy").reenter();
+                            World.getRoom(RoomNames.PHARMACY).reenter();
                         },
                         () -> {
                             Scanner scanner = new Scanner(System.in);
                             System.out.println("You step outside, ready to move on.");
                             System.out.println("--------------------------->press enter to continue\n");
                             scanner.nextLine();
-                            Game.moveToRoom(World.getRoom("Kröpke Crossroads")); // Replace with actual next room name
+                            Game.moveToRoom(World.getRoom(RoomNames.KROEPKE_CROSSROAD)); // Replace with actual next room name
                         },
                         () -> {
                             Scanner scanner = new Scanner(System.in);
@@ -269,12 +270,12 @@ public class World {
 
                             System.out.println("--------------------------->press enter to continue\n");
                             scanner.nextLine();
-                            World.getRoom("Pharmacy").reenter();
+                            World.getRoom(RoomNames.PHARMACY).reenter();
                         }
                 )
         );
         Room fastFoodStandRoom = new Room(
-                "Fast-Food Stand",
+                RoomNames.FAST_FOOD_STAND,
                 List.of(
                         "You enter what used to be a small fast-food stand.",
                         "The air is stale, and the floor is sticky with old grease.",
@@ -315,7 +316,7 @@ public class World {
                                 System.out.println("--------------------------->press enter to continue\n");
                                 scanner.nextLine();
                             }
-                            World.getRoom("Fast-Food Stand").reenter();
+                            World.getRoom(RoomNames.FAST_FOOD_STAND).reenter();
                         },
                         () -> {
                             Scanner scanner = new Scanner(System.in);
@@ -332,13 +333,13 @@ public class World {
                                 player.setCurrentHP(player.getCurrentHP() - 1);
                                 player.markDone(GameEvent.BURGER_EATEN);
                                 scanner.nextLine();
-                                World.getRoom("Fast-Food Stand").reenter();
+                                World.getRoom(RoomNames.FAST_FOOD_STAND).reenter();
                             } else if (player.hasDone(GameEvent.BURGER_EATEN)) {
                                 System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
                                 System.out.println("Except for the burger you have foolishly eaten there is nothing else here.");
                                 System.out.println("--------------------------->press enter to continue\n");
                                 scanner.nextLine();
-                                World.getRoom("Fast-Food Stand").reenter();
+                                World.getRoom(RoomNames.FAST_FOOD_STAND).reenter();
                             } else {
                                 System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------");
                                 System.out.println("You feel your stomach churn, and your head spins as you fall over and your vision turns black.");
@@ -356,12 +357,12 @@ public class World {
                             System.out.println("--------------------------->press enter to continue\n");
 
                             scanner.nextLine();
-                            Game.moveToRoom(World.getRoom("Kröpke Crossroads"));
+                            Game.moveToRoom(World.getRoom(RoomNames.KROEPKE_CROSSROAD));
                         }
                 )
         );
         Room deathRoom = new Room(
-                "You Died",
+                RoomNames.YOU_DIED,
                 List.of(
                         "You feel your limbs grow cold...",
                         "Your vision fades to black as the world slips away.",
@@ -379,15 +380,15 @@ public class World {
                         () -> {
                             Player player = playerManager.getCurrentPlayer();
                             if (player.hasDone(GameEvent.TUTORIAL_PASSED)) {
-                                World.getRoom("Shop").enter();
+                                World.getRoom(RoomNames.SHOP).enter();
                             } else if (!player.hasDone(GameEvent.TUTORIAL_PASSED)) {
-                                World.getRoom("Kröpke").enter();
+                                World.getRoom(RoomNames.KROEPKE).enter();
                             }
                         }
                 )
         );
         Room end = new Room(
-                "Empty Platform",
+                RoomNames.EMPTY_PLATFORM,
                 List.of(
                         "After solving the riddle you step forward into what looks like an abandoned platform, a forgotten stop on an underground rail line.",
                         "The air is thick with dust, and the faint sound of dripping water echoes around you.",
@@ -425,7 +426,7 @@ public class World {
                             System.out.println("--------------------------->press enter to continue");
 
                             new Scanner(System.in).nextLine();
-                            World.getRoom("Intro").enter();
+                            World.getRoom(RoomNames.INTRODUCTION).enter();
                         },
                         () -> {
                             System.out.println("You step back from the train, shaking your head.");
@@ -454,7 +455,7 @@ public class World {
                 )
         );
         Room eagGround = new Room(
-                "Ernst-August-Galerie - Ground Floor",
+                RoomNames.EAG_GROUND,
                 List.of(
                         "The ground floor of Ernst-August-Galerie is a desolate ruin.",
                         "Broken storefronts, shattered glass, and the faint stench of decay fill the air.",
@@ -487,7 +488,7 @@ public class World {
 
                             System.out.println("--------------------------->press enter to continue\n");
                             scanner.nextLine();
-                            World.getRoom("Ernst-August-Galerie Ground Floor").reenter();
+                            World.getRoom(RoomNames.EAG_GROUND).reenter();
                         },
 
                         // Search the fashion section
@@ -512,7 +513,7 @@ public class World {
 
                             System.out.println("--------------------------->press enter to continue\n");
                             scanner.nextLine();
-                            World.getRoom("eagGround").reenter();
+                            World.getRoom(RoomNames.EAG_GROUND).reenter();
                         },
 
                         // Explore the Food Court
@@ -535,7 +536,7 @@ public class World {
 
                             System.out.println("--------------------------->press enter to continue\n");
                             scanner.nextLine();
-                            World.getRoom("eagGround").reenter();
+                            World.getRoom(RoomNames.EAG_GROUND).reenter();
                         },
 
                         // Return to the plaza
@@ -545,12 +546,12 @@ public class World {
                             System.out.println("You head back out into the cold night air.");
                             System.out.println("--------------------------->press enter to continue\n");
                             scanner.nextLine();
-                            World.getRoom("outsideHBF").enter();
+                            World.getRoom(RoomNames.OUTSIDE_HBF).enter();
                         }
                 )
         );
         Room eaStatue = new Room(
-                "Ernst-August Statue",
+                RoomNames.EAG_STATUE,
                 List.of(
                         "You return to the statue of Ernst-August.",
                         "The shadows seem darker now, and the once-silent plaza feels... alive, as if something is watching you.",
@@ -578,7 +579,7 @@ public class World {
                             System.out.println("Whatever ‘Forgotten Treasures' means, it's not here.");
                             System.out.println("--------------------------->press enter to continue\n");
                             scanner.nextLine();
-                            World.getRoom("eaStatue").reenter();
+                            World.getRoom(RoomNames.EAG_STATUE).reenter();
                         },
 
                         // 2: Enter HBF
@@ -589,7 +590,7 @@ public class World {
                             System.out.println("Before you can finish your thought you see a Person behind a makeshift counter and go towards them.");
                             System.out.println("--------------------------->press enter to continue\n");
                             scanner.nextLine();
-                            World.getRoom("shop").enter();
+                            World.getRoom(RoomNames.SHOP).enter();
                         }
                 )
                         : List.of(
@@ -601,7 +602,7 @@ public class World {
                             System.out.println("Whatever ‘Forgotten Treasures' means, it's not here.");
                             System.out.println("--------------------------->press enter to continue\n");
                             scanner.nextLine();
-                            World.getRoom("eaStatue").reenter();
+                            World.getRoom(RoomNames.EAG_STATUE).reenter();
                         },
 
                         // 2: Open hidden compartment
@@ -614,7 +615,7 @@ public class World {
                             System.out.println("--------------------------->press enter to continue\n");
                             player.markDone(GameEvent.TOOK_KEY);
                             scanner.nextLine();
-                            World.getRoom("eaStatue").enter(); // Re-enter to refresh options
+                            World.getRoom(RoomNames.EAG_STATUE).enter(); // Re-enter to refresh options
                         },
 
                         // 3: Enter HBF
@@ -625,12 +626,12 @@ public class World {
                             System.out.println("Before you can finish your thought you see a Person behind a makeshift counter and go towards them.");
                             System.out.println("--------------------------->press enter to continue\n");
                             scanner.nextLine();
-                            World.getRoom("shop").enter();
+                            World.getRoom(RoomNames.SHOP).enter();
                         }
                 )
         );
         Room shop = new Room(
-                "Underground Shop",
+                RoomNames.SHOP,
                 List.of(
                         "The shop is dimly lit, with flickering neon signs casting eerie glows on dusty shelves.",
                         "A strange shopkeeper eyes you from behind a barricaded counter.",
@@ -741,7 +742,7 @@ public class World {
                                 player.markDone(GameEvent.STARTED_RANDOM_ROOM);
                                 // TODO add first Random room
                             }else {
-                                World.getRoom(player.getLastroom().toString()).enter();
+                                player.getLastroom().enter();
                             }
                         },
                         () -> {
@@ -749,7 +750,7 @@ public class World {
                                 PlayerManager.getInstance().getCurrentPlayer().markDone(GameEvent.STARTED_RANDOM_ROOM);
                                 // TODO add first Random room
                             }else {
-                                World.getRoom(PlayerManager.getInstance().getCurrentPlayer().getLastroom().toString()).enter();
+                                PlayerManager.getInstance().getCurrentPlayer().getLastroom().enter();
                             }
                         }
                 )
@@ -757,7 +758,7 @@ public class World {
 
 
         Room puzzle1 = new Room(
-                "Puzzle Door - Riddle 1",
+                RoomNames.PUZZLE_1,
                 List.of(
                         "You've carefully navigated the dark, eerie subway tunnel and arrived at a large metal door blocking the way forward.",
                         "At its center is a mechanical panel with glowing letters. A robotic voice speaks from a nearby speaker:",
@@ -778,7 +779,7 @@ public class World {
                             System.out.println("Passengers are happy!");
                             System.out.println("--------------------------->press enter to continue");
                             scanner.nextLine();
-                            Game.moveToRoom(World.getRoom("Puzzle Door - Riddle 2"));
+                            Game.moveToRoom(World.getRoom(RoomNames.PUZZLE_2));
                         },
                         () -> {
                             Scanner scanner = new Scanner(System.in);
@@ -786,13 +787,13 @@ public class World {
                             System.out.println("Looks like the issue wasn't with the system itself.");
                             System.out.println("--------------------------->press enter to continue");
                             scanner.nextLine();
-                            World.getRoom("Puzzle Door - Riddle 1").reenter();
+                            World.getRoom(RoomNames.PUZZLE_1).reenter();
                         }
                 )
         );
 
         Room puzzle2 = new Room(
-                "Puzzle Door - Riddle 2",
+                RoomNames.PUZZLE_2,
                 List.of(
                         "The panel displays the next riddle:",
                         "A train is experiencing overcrowding and you need to determine whether it's safe to allow more passengers onboard.",
@@ -820,19 +821,19 @@ public class World {
                                 System.out.println("Good job! That was the right answer.");
                                 System.out.println("--------------------------->press enter to continue");
                                 scanner.nextLine();
-                                Game.moveToRoom(World.getRoom("Puzzle Door - Riddle 3"));
+                                Game.moveToRoom(World.getRoom(RoomNames.PUZZLE_3));
                             } else {
                                 System.out.println("I am sorry but that answer is wrong please try again.");
                                 System.out.println("--------------------------->press enter to continue");
                                 scanner.nextLine();
-                                World.getRoom("Puzzle Door - Riddle 2").reenter();
+                                World.getRoom(RoomNames.PUZZLE_2).reenter();
                             }
                         }
                 )
         );
 
         Room puzzle3 = new Room(
-                "Puzzle Door - Riddle 3",
+                RoomNames.PUZZLE_3,
                 List.of(
                         "The panel displays the final riddle:",
                         "The departure board at HBF is showing incorrect train times.",
@@ -851,7 +852,7 @@ public class World {
                             System.out.println("The large metal door grinds open, revealing the path forward.");
                             System.out.println("--------------------------->press enter to continue");
                             scanner.nextLine();
-                            Game.moveToRoom(World.getRoom("Empty Platform"));
+                            Game.moveToRoom(World.getRoom(RoomNames.EMPTY_PLATFORM));
                         },
                         () -> {
                             Scanner scanner = new Scanner(System.in);
@@ -859,20 +860,20 @@ public class World {
                             System.out.println("Passengers are still confused. Try again!!!");
                             System.out.println("--------------------------->press enter to continue");
                             scanner.nextLine();
-                            World.getRoom("Puzzle Door - Riddle 3").reenter();
+                            World.getRoom(RoomNames.PUZZLE_3).reenter();
                         },
                         () -> {
                             Scanner scanner = new Scanner(System.in);
                             System.out.println("This would work temporarily but it's not a sustainable solution.");
                             System.out.println("--------------------------->press enter to continue");
                             scanner.nextLine();
-                            World.getRoom("Puzzle Door - Riddle 3").reenter();
+                            World.getRoom(RoomNames.PUZZLE_3).reenter();
                         }
                 )
         );
 
         Room subwayEntrance = new Room(
-                "Subway Entrance",
+                RoomNames.SUBWAY_ENTRANCE,
                 List.of(
                         "You find yourself standing in front of an old metal door.",
                         "On the door, you can make out the words: 'Forgotten Treasures.'"
@@ -888,7 +889,7 @@ public class World {
                                 System.out.println("You use the key you found to unlock the door.");
                                 System.out.println("--------------------------->press enter to continue");
                                 scanner.nextLine();
-                                Game.moveToRoom(World.getRoom("Subway Tunnel"));
+                                Game.moveToRoom(World.getRoom(RoomNames.SUBWAY_TUNNEL));
                             } else {
                                 System.out.println("You try to open the door but it does not move.");
                                 System.out.println("Suddenly you hear a roaring behind you.");
@@ -896,14 +897,14 @@ public class World {
                                 System.out.println("You get ready to fight... but something falls on your head and your vision fades to black.");
                                 System.out.println("--------------------------->press enter to continue");
                                 scanner.nextLine();
-                                Game.moveToRoom(World.getRoom("You Died"));
+                                Game.moveToRoom(World.getRoom(RoomNames.YOU_DIED));
                             }
                         }
                 )
         );
 
         Room subwayTunnel = new Room(
-                "Subway Tunnel",
+                RoomNames.SUBWAY_TUNNEL,
                 List.of(
                         "You step into what used to be a bustling subway tunnel.",
                         "The air here is colder and the faint sound of dripping water echoes all around you.",
@@ -933,7 +934,7 @@ public class World {
                             }
                             System.out.println("--------------------------->press enter to continue");
                             scanner.nextLine();
-                            World.getRoom("Subway Tunnel").reenter();
+                            World.getRoom(RoomNames.SUBWAY_TUNNEL).reenter();
                         },
                         () -> {
                             Scanner scanner = new Scanner(System.in);
@@ -942,7 +943,7 @@ public class World {
                             System.out.println("Maybe this is a clue for what lies ahead.");
                             System.out.println("--------------------------->press enter to continue");
                             scanner.nextLine();
-                            World.getRoom("Subway Tunnel").reenter();
+                            World.getRoom(RoomNames.SUBWAY_TUNNEL).reenter();
                         },
                         () -> {
                             Player player = playerManager.getCurrentPlayer();
@@ -959,38 +960,39 @@ public class World {
                             }
                             System.out.println("--------------------------->press enter to continue");
                             scanner.nextLine();
-                            World.getRoom("Subway Tunnel").reenter();
+                            World.getRoom(RoomNames.SUBWAY_TUNNEL).reenter();
                         },
                         () -> {
                             Scanner scanner = new Scanner(System.in);
                             System.out.println("You decide not to risk whatever is making that sound and move on down the tunnel.");
                             System.out.println("--------------------------->press enter to continue");
                             scanner.nextLine();
-                            Game.moveToRoom(World.getRoom("Puzzle Door - Riddle 1"));
+                            Game.moveToRoom(World.getRoom(RoomNames.PUZZLE_1));
                         }
                 )
         );
 
-        rooms.put("You Died", deathRoom);
-        rooms.put("Intro", startingRoom);
-        rooms.put("Kröpke", townGate);
-        rooms.put("Kröpke Crossroads", crossRoadRoom);
-        rooms.put("Fast-Food Stand", fastFoodStandRoom);
-        rooms.put("Pharmacy", pharmacyRoom);
-        rooms.put("outsideHBF", outsideHBF);
-        rooms.put("Empty Platform", end);
-        rooms.put("Ernst-August-Galerie - Ground Floor", eagGround);
-        rooms.put("Underground Shop", shop);
-        rooms.put("Puzzle Door - Riddle 1", puzzle1);
-        rooms.put("Puzzle Door - Riddle 2", puzzle2);
-        rooms.put("Puzzle Door - Riddle 3", puzzle3);
-        rooms.put("Subway Entrance", subwayEntrance);
-        rooms.put("Subway Tunnel", subwayTunnel);
-        rooms.put("Abandoned Kiosk", kiosk);
-        rooms.put("Kiosk Fight", kioskFight);
+        rooms.put(RoomNames.YOU_DIED, deathRoom);
+        rooms.put(RoomNames.INTRODUCTION, startingRoom);
+        rooms.put(RoomNames.KROEPKE, townGate);
+        rooms.put(RoomNames.KROEPKE_CROSSROAD, crossRoadRoom);
+        rooms.put(RoomNames.FAST_FOOD_STAND, fastFoodStandRoom);
+        rooms.put(RoomNames.PHARMACY, pharmacyRoom);
+        rooms.put(RoomNames.OUTSIDE_HBF, outsideHBF);
+        rooms.put(RoomNames.EMPTY_PLATFORM, end);
+        rooms.put(RoomNames.EAG_GROUND, eagGround);
+        rooms.put(RoomNames.SHOP, shop);
+        rooms.put(RoomNames.PUZZLE_1, puzzle1);
+        rooms.put(RoomNames.PUZZLE_2, puzzle2);
+        rooms.put(RoomNames.PUZZLE_3, puzzle3);
+        rooms.put(RoomNames.SUBWAY_ENTRANCE, subwayEntrance);
+        rooms.put(RoomNames.SUBWAY_TUNNEL, subwayTunnel);
+        rooms.put(RoomNames.KIOSK, kiosk);
+        rooms.put(RoomNames.KIOSK_FIGHT, kioskFight);
+        rooms.put(RoomNames.EAG_STATUE, eaStatue);
     }
 
-    public static Room getRoom(String name) {
+    public static Room getRoom(Enum name) {
         return rooms.get(name);
     }
 }

@@ -2,6 +2,7 @@ package logic;
 
 import creator.PlayerCreator;
 import player.PlayerManager;
+import world.CombatRoom;
 import world.Room;
 import world.World;
 

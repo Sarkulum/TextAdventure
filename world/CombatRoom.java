@@ -3,6 +3,8 @@ package world;
 import combat.CombatManager;
 import enemy.Enemy;
 import enemy.EnemyManager;
+import enums.RoomNames;
+import logic.Game;
 import map.GridMap;
 import map.Position;
 import logic.GameEvent;
@@ -20,7 +22,7 @@ public class CombatRoom extends Room {
     private final String victoryMessage;
     private final Room nextRoom;
 
-    public CombatRoom(String roomName, List<String> descriptionParts, int gridWidth, int gridHeight, List<String> enemyTypes, List<Position> obstaclePositions, GameEvent victoryEvent, String victoryMessage, Room nextRoom) {
+    public CombatRoom(Enum roomName, List<String> descriptionParts, int gridWidth, int gridHeight, List<String> enemyTypes, List<Position> obstaclePositions, GameEvent victoryEvent, String victoryMessage, Room nextRoom) {
         super(roomName, descriptionParts, List.of("Start Combat"), List.of());
         super.setCombatRoom(true);
         this.gridWidth = gridWidth;
@@ -55,16 +57,14 @@ public class CombatRoom extends Room {
                 System.out.println(victoryMessage);
             }
 
-            // TODO my dummass forgot to add the next room var. I currently have one in Room that is NULL by default and one in combatRoom that does fuck all. Apparently the "builder pattern" could help but idk what that is
-            // Move to the next room if one is defined
-            //if (getNextRoom() != null) {
+            if (getNextRoom() != null) {
                 getNextRoom().enter();
-            //} else {
+            } else {
                 System.out.println("You have cleared the area.");
-            //}
+            }
         } else {
             // Go to the death room
-            World.getRoom("You Died").enter();
+            World.getRoom(RoomNames.YOU_DIED).enter();
         }
     }
 

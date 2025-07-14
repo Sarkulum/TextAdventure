@@ -7,13 +7,13 @@ import java.util.Scanner;
 
 public class Room {
     private static final int PAUSE_EVERY_N_LINES = 3;
-    private final String roomName;
+    private final Enum roomName;
     private final List<String> descriptionParts;
     private final List<String> options; // List of Strings
     private final List<Runnable> actions; // List of code
     private boolean isCombatRoom;
 
-    public Room(String roomName, List<String> descriptionParts, List<String> options, List<Runnable> actions) {
+    public Room(Enum roomName, List<String> descriptionParts, List<String> options, List<Runnable> actions) {
         this.roomName = roomName;
         this.descriptionParts = descriptionParts;
         this.options = options;
@@ -22,10 +22,11 @@ public class Room {
     }
 
     public void enter() {
+        // TODO find out what the fuck this is even used for
         PlayerManager.getInstance().getCurrentPlayer().setLastroom(this);
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("\n--- " + roomName + " ---");
+        System.out.println("\n--- " + roomName.toString() + " ---");
 
         int lineCount = 0;
         for (String part : descriptionParts) {

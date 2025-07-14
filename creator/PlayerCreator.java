@@ -56,7 +56,11 @@ public class PlayerCreator {
         System.out.println("Please enter the color the text should be. You can choose between:\n");
 
         for (TextColor color : TextColor.values()) {
-            System.out.println(color.toString()); // shows colorized name
+            if (color != TextColor.RESET) {
+                System.out.println(color.toString());
+            }else if (color == TextColor.RESET) {
+                System.out.println("White");
+            }
         }
 
         System.out.println("--------------------------->enter a word to decide\n");
@@ -68,6 +72,8 @@ public class PlayerCreator {
             for (TextColor color : TextColor.values()) {
                 if (color.name().equalsIgnoreCase(input)) {
                     return color;
+                }else if (input.equalsIgnoreCase("White")) {
+                    return TextColor.RESET;
                 }
             }
 

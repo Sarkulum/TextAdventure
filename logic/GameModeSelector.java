@@ -1,5 +1,6 @@
 package logic;
 
+import enums.RoomNames;
 import world.Room;
 import world.World;
 import java.util.Scanner;
@@ -24,7 +25,7 @@ public class GameModeSelector {
                 switch (GameMode.values()[choice]) {
                     case STORY:
                         World.initializeWorld();
-                        room = World.getRoom("Intro");
+                        room = World.getRoom(RoomNames.INTRODUCTION);
                         room.enter();
                         break;
                     case ENDLESS:
