@@ -18,9 +18,6 @@ public class Game {
     }
 
     public static void moveToRoom(Room nextRoom) {
-        if (currentRoom != null && nextRoom != null) {
-            nextRoom.setPreviousRoom(currentRoom); // Optional: Set where you came from
-        }
         currentRoom = nextRoom;
         currentRoom.enter();
     }

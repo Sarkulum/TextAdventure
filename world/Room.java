@@ -11,8 +11,6 @@ public class Room {
     private final List<String> descriptionParts;
     private final List<String> options; // List of Strings
     private final List<Runnable> actions; // List of code
-    private Room previousRoom;
-    private Room nextRoom;
     private boolean isCombatRoom;
 
     public Room(String roomName, List<String> descriptionParts, List<String> options, List<Runnable> actions) {
@@ -20,18 +18,7 @@ public class Room {
         this.descriptionParts = descriptionParts;
         this.options = options;
         this.actions = actions;
-        this.previousRoom = null;
-        this.nextRoom = null;
         this.isCombatRoom = false;
-
-    }
-
-    public Room getNextRoom() {
-        return nextRoom;
-    }
-
-    public void setNextRoom(Room nextRoom) {
-        this.nextRoom = nextRoom;
     }
 
     public void enter() {
@@ -88,10 +75,6 @@ public class Room {
         }
     }
 
-
-
-    public Room getPreviousRoom() {return previousRoom;}
-    public void setPreviousRoom(Room previousRoom) {this.previousRoom = previousRoom;}
-    public boolean isCombatRoom() {return this.isCombatRoom;}
-    public void setCombatRoom(boolean combatRoom) {this.isCombatRoom = combatRoom;}
+    public boolean isCombatRoom() {return isCombatRoom;}
+    public void setCombatRoom(boolean combatRoom) {isCombatRoom = combatRoom;}
 }

@@ -57,14 +57,16 @@ public class CombatRoom extends Room {
 
             // TODO my dummass forgot to add the next room var. I currently have one in Room that is NULL by default and one in combatRoom that does fuck all. Apparently the "builder pattern" could help but idk what that is
             // Move to the next room if one is defined
-            if (getNextRoom() != null) {
+            //if (getNextRoom() != null) {
                 getNextRoom().enter();
-            } else {
+            //} else {
                 System.out.println("You have cleared the area.");
-            }
+            //}
         } else {
             // Go to the death room
             World.getRoom("You Died").enter();
         }
     }
+
+    public Room getNextRoom() {return this.nextRoom;}
 }
